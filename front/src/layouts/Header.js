@@ -1,16 +1,28 @@
-import styeld from 'styled-components'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
-const TheHeader = styeld.div`
-  padding: 1rem 2rem;
+const HeaderBox = styled.div`
   font-size: 1rem;
-  border: 1px solid lightgray;
   color: black;
   background: white;
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+`
+
+const LinkGroup = styled.div`
+  padding: 1rem 2rem;
 `
 
 const Header = () => {
   return (
-    <TheHeader>Must-Eat</TheHeader>
+    <HeaderBox>
+      <LinkGroup>
+        <Link to='/'>Home </Link>
+        <Link to='/map'>Map </Link>
+        <Link to='/login'>Login </Link>
+      </LinkGroup>
+    </HeaderBox>
   )
 }
 
