@@ -1,8 +1,8 @@
+import { HomeContainer } from '../containers'
+
 const Home = () => {
   return (
-    <div>
-      Home
-    </div>
+    <HomeContainer />
   )
 }
 
