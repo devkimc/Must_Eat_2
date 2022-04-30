@@ -1,6 +1,24 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+const Header = () => {
+  return (
+    <HeaderBox>
+      <MenuGroup>
+        <Menu>
+          <Link to='/'>Home </Link>
+        </Menu>
+        <Menu>
+          <Link to='/map'>Map </Link>
+        </Menu>
+        <Menu>
+          <Link to='/login'>Login </Link>
+        </Menu>
+      </MenuGroup>
+    </HeaderBox>
+  )
+}
+
 const HeaderBox = styled.div`
   font-size: 1rem;
   color: black;
@@ -10,20 +28,14 @@ const HeaderBox = styled.div`
   width: 100%;
 `
 
-const LinkGroup = styled.div`
+const MenuGroup = styled.ul`
   padding: 1rem 2rem;
+  display: flex;
+  list-style: none;
 `
 
-const Header = () => {
-  return (
-    <HeaderBox>
-      <LinkGroup>
-        <Link to='/'>Home </Link>
-        <Link to='/map'>Map </Link>
-        <Link to='/login'>Login </Link>
-      </LinkGroup>
-    </HeaderBox>
-  )
-}
+const Menu = styled.li`
+  padding: 0rem 1rem;
+`
 
 export default Header;
