@@ -1,7 +1,10 @@
+import { MapContainer, SearchContainer } from 'containers'
+
 const Map = () => {
   return (
     <div>
-      Map
+      <MapContainer></MapContainer>
+      <SearchContainer></SearchContainer>
     </div>
   )
 }

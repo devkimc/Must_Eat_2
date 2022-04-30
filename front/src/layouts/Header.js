@@ -23,7 +23,6 @@ const HeaderBox = styled.div`
   font-size: 1rem;
   color: black;
   background: white;
-  position: absolute;
   z-index: 10;
   width: 100%;
 `
