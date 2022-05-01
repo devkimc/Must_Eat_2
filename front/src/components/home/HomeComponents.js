@@ -1,7 +1,15 @@
 import styled from 'styled-components'
 import ramenImg from 'assets/img/ramen_3.jpg'
 
-const HomeBox = styled.div`
+const HomeComponent = () => {
+  return (
+    <Container>
+      <BackgroundImg />
+    </Container>
+  )
+}
+
+const Container = styled.div`
   background: #000;
   height: 100vh;
   z-index: 5;
@@ -15,13 +23,5 @@ const BackgroundImg = styled.div`
   height: 100%;
   z-index: -10;
 `
-
-const HomeComponent = () => {
-  return (
-    <HomeBox>
-      <BackgroundImg />
-    </HomeBox>
-  )
-}
 
 export default HomeComponent

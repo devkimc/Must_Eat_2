@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const Header = () => {
   return (
-    <HeaderBox>
+    <Container>
       <MenuGroup>
         <Menu>
           <Link to='/'>Home </Link>
@@ -15,11 +15,11 @@ const Header = () => {
           <Link to='/login'>Login </Link>
         </Menu>
       </MenuGroup>
-    </HeaderBox>
+    </Container>
   )
 }
 
-const HeaderBox = styled.div`
+const Container = styled.div`
   font-size: 1rem;
   color: black;
   background: white;

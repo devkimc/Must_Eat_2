@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const MapBox = styled.div`
+const Container = styled.div`
 height: 100vh;
 `
 
@@ -8,7 +8,7 @@ const MapComponent = () => {
 
   return (
     <>
-      <MapBox id='map' />
+      <Container id='map' />
     </>
   )
 }
