@@ -4,7 +4,7 @@ const SET_MAP = 'map/SET_MAP'
 
 
 /* 액션 생성 함수 */
-export const setMap = option => ({ type: SET_MAP, option })
+export const setMapObj = option => ({ type: SET_MAP, option })
 
 
 
