@@ -28,9 +28,8 @@ const HeaderBox = styled.div`
 `
 
 const MenuGroup = styled.ul`
-  padding: 1rem 2rem;
+  padding: 1.5rem 2rem;
   display: flex;
-  list-style: none;
 `
 
 const Menu = styled.li`

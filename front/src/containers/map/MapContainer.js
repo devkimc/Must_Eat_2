@@ -4,18 +4,6 @@ import apiKey from 'key.json'
 
 const MapContainer = () => {
 
-  /* global kakao */
-  useEffect(() => {
-    if (window.kakao && kakao.maps) {
-      initMap()
-    } else {
-      const script = document.createElement('script')
-      script.onload = () => kakao.maps.load(initMap)
-      script.src = url + key + services
-      document.head.appendChild(script)
-    }
-  })
-
   /* api */
   const api = {
     key: apiKey.API_KEY_KAKAO_MAP_LOCAL,
@@ -30,6 +18,18 @@ const MapContainer = () => {
     lngCdnt: 126.9465531
   }
   const { latCdnt, lngCdnt } = mapPosition
+
+  /* global kakao */
+  useEffect(() => {
+    if (window.kakao && kakao.maps) {
+      initMap()
+    } else {
+      const script = document.createElement('script')
+      script.onload = () => kakao.maps.load(initMap)
+      script.src = url + key + services
+      document.head.appendChild(script)
+    }
+  })
 
   const initMap = () => {
     const mapOptions = {

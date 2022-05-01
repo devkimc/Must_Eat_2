@@ -1,11 +1,15 @@
 import { MapContainer, SearchContainer } from 'containers'
+import styled from 'styled-components'
+
+const MapBox = styled.div`
+`
 
 const Map = () => {
   return (
-    <div>
-      <MapContainer></MapContainer>
+    <MapBox>
       <SearchContainer></SearchContainer>
-    </div>
+      <MapContainer></MapContainer>
+    </MapBox>
   )
 }
 
