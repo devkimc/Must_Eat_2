@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import logo from 'assets/img/logo.PNG'
 
 const Header = () => {
   return (
     <Container>
       <MenuGroup>
         <Menu>
-          <Link to='/'>Home </Link>
+          <Link to='/'>
+            <LogoImg src={logo} alt='logo'></LogoImg>
+          </Link>
         </Menu>
         <Menu>
           <Link to='/map'>Map </Link>
@@ -34,6 +37,10 @@ const MenuGroup = styled.ul`
 
 const Menu = styled.li`
   padding: 0rem 1rem;
+`
+
+const LogoImg = styled.img`
+  height: 25px;
 `
 
 export default Header;

@@ -6,7 +6,7 @@ const SearchInput = () => {
   return (
     <Container>
       <InputBox>
-        <InputField placeholder='MustEat 지도 검색'></InputField>
+        <InputField placeholder='Must Eat 지도 검색'></InputField>
         <SearchButton>
           <AiOutlineSearch size={24} />
         </SearchButton>
@@ -39,7 +39,8 @@ const InputField = styled.input`
 
 const SearchButton = styled.button`
   position: absolute;
-  top: 8px;
+  height: 46px;
+  padding: 10px 0;
   right: 15px;
   border: none;
   background: none;
