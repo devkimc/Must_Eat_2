@@ -10,12 +10,16 @@ import { Provider } from 'react-redux'
 import rootReducer from 'store/modules'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
+import { RecoilRoot } from 'recoil'
+
 const store = createStore(rootReducer, composeWithDevTools())
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <Provider store={store}>
-    <App />
+    <RecoilRoot>
+      <App />
+    </RecoilRoot>
   </Provider>
 );
 

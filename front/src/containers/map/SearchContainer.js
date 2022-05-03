@@ -4,6 +4,8 @@ import styled from 'styled-components'
 
 const SearchContainer = () => {
 
+  const restNm = '라멘'
+
   /* global kakao */
   const keywordSearch = () => {
     const searchOption = {
@@ -13,13 +15,12 @@ const SearchContainer = () => {
     }
 
     const places = new kakao.maps.services.Places()
-    places.keywordSearch('음식명', keywordSearchCallBack, searchOption)
+    places.keywordSearch(restNm, keywordSearchCallBack, searchOption)
   }
 
   const keywordSearchCallBack = (res, status) => {
     const resStatus = kakao.maps.services.Status
     if (status === resStatus.OK) {
-      console.log(res)
       alert(`${res.length} 건의 검색 결과가 있습니다!`)
     } else if (status === resStatus.ZERO_RESULT) {
       alert('검색 결과가 없습니다!')
@@ -30,8 +31,7 @@ const SearchContainer = () => {
 
   return (
     <Container>
-      <SearchInput />
-      <button onClick={keywordSearch}>클릭!</button>
+      <SearchInput onSearch={() => keywordSearch()} />
       <SearchResult />
     </Container>
   )

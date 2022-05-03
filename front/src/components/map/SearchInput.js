@@ -1,19 +1,32 @@
+import { atom, useRecoilState } from 'recoil'
 import styled from 'styled-components'
 import { AiOutlineSearch } from 'react-icons/ai'
 
-const SearchInput = () => {
+const SearchInput = ({ onSearch }) => {
+
+  const inputState = atom({
+    key: 'inputState',
+    default: ''
+  })
+
+  const [text, setText] = useRecoilState(inputState)
+
+  const onChange = event => {
+    setText(event.target.vaule)
+  }
 
   return (
     <Container>
       <InputBox>
-        <InputField placeholder='Must Eat 지도 검색'></InputField>
-        <SearchButton>
+        <InputField type='text' value={text} onChange={onChange} placeholder='Must Eat 지도 검색'></InputField>
+        <SearchButton onClick={onSearch}>
           <AiOutlineSearch size={24} />
         </SearchButton>
       </InputBox>
     </Container>
   )
 }
+
 
 const Container = styled.div`
   width: 340px;
