@@ -6,18 +6,28 @@ import { AiOutlineSearch } from 'react-icons/ai'
 
 const SearchInput = ({ onSearch }) => {
 
-  const [searchIP, setSearchIp] = useRecoilState(searchIpState)
+  const [searchIp, setSearchIp] = useRecoilState(searchIpState)
 
   const onChange = e => {
-    setSearchIp(() => 
-      e.target.value
-    )
+    setSearchIp(() => e.target.value)
+  }
+
+  const onEnterPress = e => {
+    if(e.key === 'Enter')
+      onSearch()
   }
 
   return (
     <Container>
       <InputBox>
-        <InputField type='text' value={searchIP} onChange={onChange} placeholder='Must Eat 지도 검색'></InputField>
+        <InputField
+          type='text'
+          value={searchIp}
+          onChange={onChange}
+          onKeyPress={onEnterPress}
+          placeholder='Must Eat 지도 검색'
+        >
+        </InputField>
         <SearchButton onClick={onSearch}>
           <AiOutlineSearch size={24} />
         </SearchButton>

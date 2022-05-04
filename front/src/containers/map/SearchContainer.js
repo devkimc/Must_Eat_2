@@ -1,15 +1,17 @@
 import { SearchInput, SearchResult } from 'components'
 
 import { useRecoilState } from 'recoil'
-import { searchIpState } from 'recoil/atom/map'
+import { searchIpState, searchResState } from 'recoil/atom/map'
 
 import styled from 'styled-components'
 
 const SearchContainer = () => {
-  const [text] = useRecoilState(searchIpState)
+  const [searchIp] = useRecoilState(searchIpState)
+  const [searchRes, setSearchRes] = useRecoilState(searchResState)
 
   /* global kakao */
   const keywordSearch = () => {
+   
     const searchOption = {
       category_group_code: 'FD6',      
       x: 126.86483931801229,
@@ -17,24 +19,29 @@ const SearchContainer = () => {
     }
 
     const places = new kakao.maps.services.Places()
-    places.keywordSearch(text, keywordSearchCallBack, searchOption)
+    places.keywordSearch(searchIp, keywordSearchCallBack, searchOption)
   }
 
   const keywordSearchCallBack = (res, status) => {
     const resStatus = kakao.maps.services.Status
     if (status === resStatus.OK) {
-      alert(`${res.length} 건의 검색 결과가 있습니다!`)
+      setSearchRes(() => res)
     } else if (status === resStatus.ZERO_RESULT) {
       alert('검색 결과가 없습니다!')
+      console.log(status)
+      setSearchRes(() => [])
     } else {
       alert('서버 응답에 문제가 있습니다!')
+      setSearchRes(() => [])
     }
-  }  
+  }
 
   return (
     <Container>
-      <SearchInput onSearch={() => keywordSearch()} />
-      <SearchResult />
+      <SearchInput
+        onSearch={() => keywordSearch()}
+      />
+      <SearchResult searchRes={searchRes}/>
     </Container>
   )
 }

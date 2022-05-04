@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 
-const SearchResult = () => {
+const SearchResult = ({ searchRes }) => {
   return (
     <Container>
       <ul>
-        <SearchResultList>맛집 검색 결과</SearchResultList>
-        <SearchResultList>맛집 검색 결과</SearchResultList>
-        <SearchResultList>맛집 검색 결과</SearchResultList>
+        {searchRes.map(res => (
+          <SearchResultList id={res.id}>{res.place_name}</SearchResultList>
+        ))}
       </ul>
     </Container>
   )
