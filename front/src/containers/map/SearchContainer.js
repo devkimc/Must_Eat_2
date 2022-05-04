@@ -1,10 +1,12 @@
-import { SearchInput } from 'components'
-import { SearchResult } from 'components'
+import { SearchInput, SearchResult } from 'components'
+
+import { useRecoilState } from 'recoil'
+import { searchIpState } from 'recoil/atom/map'
+
 import styled from 'styled-components'
 
 const SearchContainer = () => {
-
-  const restNm = '라멘'
+  const [text] = useRecoilState(searchIpState)
 
   /* global kakao */
   const keywordSearch = () => {
@@ -15,7 +17,7 @@ const SearchContainer = () => {
     }
 
     const places = new kakao.maps.services.Places()
-    places.keywordSearch(restNm, keywordSearchCallBack, searchOption)
+    places.keywordSearch(text, keywordSearchCallBack, searchOption)
   }
 
   const keywordSearchCallBack = (res, status) => {

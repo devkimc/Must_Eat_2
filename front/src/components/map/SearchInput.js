@@ -1,24 +1,23 @@
-import { atom, useRecoilState } from 'recoil'
+import { useRecoilState } from 'recoil'
+import { searchIpState } from 'recoil/atom/map'
+
 import styled from 'styled-components'
 import { AiOutlineSearch } from 'react-icons/ai'
 
 const SearchInput = ({ onSearch }) => {
 
-  const inputState = atom({
-    key: 'inputState',
-    default: ''
-  })
+  const [searchIP, setSearchIp] = useRecoilState(searchIpState)
 
-  const [text, setText] = useRecoilState(inputState)
-
-  const onChange = event => {
-    setText(event.target.vaule)
+  const onChange = e => {
+    setSearchIp(() => 
+      e.target.value
+    )
   }
 
   return (
     <Container>
       <InputBox>
-        <InputField type='text' value={text} onChange={onChange} placeholder='Must Eat 지도 검색'></InputField>
+        <InputField type='text' value={searchIP} onChange={onChange} placeholder='Must Eat 지도 검색'></InputField>
         <SearchButton onClick={onSearch}>
           <AiOutlineSearch size={24} />
         </SearchButton>
