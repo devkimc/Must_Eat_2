@@ -1,14 +1,12 @@
-import { SearchInput, SearchResult } from 'components'
-
-import { useRecoilState, useResetRecoilState } from 'recoil'
-import { searchIpState, searchResState } from 'recoil/atom/map'
-
+import { useRecoilState } from 'recoil'
 import styled from 'styled-components'
+
+import { SearchInput, SearchResult } from 'components'
+import { searchIpState, searchResState } from 'recoil/atom/map'
 
 const SearchContainer = () => {
   const [searchIp] = useRecoilState(searchIpState)
   const [searchRes, setSearchRes] = useRecoilState(searchResState)
-  const resetRes = useResetRecoilState(searchResState)
   
   /* global kakao */
   const keywordSearch = () => {
@@ -30,11 +28,9 @@ const SearchContainer = () => {
     } else if (status === resStatus.ZERO_RESULT) {
       alert('검색 결과가 없습니다!')
       console.log(status)
-      resetRes()
     } else {
       alert('서버 응답에 문제가 있습니다!')
       console.log(status)
-      resetRes()
     }
   }
 
