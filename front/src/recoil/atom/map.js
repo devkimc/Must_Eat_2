@@ -7,5 +7,5 @@ export const searchIpState = atom({
 
 export const searchResState = atom({
   key: 'searchResState',
-  default: ''
+  default: []
 })
