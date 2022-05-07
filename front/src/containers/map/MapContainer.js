@@ -1,14 +1,9 @@
 import { useEffect } from 'react'
-import { useRecoilState } from 'recoil'
 
 import { MapComponent } from 'components'
-import { searchResState } from 'recoil/atom/map'
 import apiKey from 'key.json'
 
 const MapContainer = () => {
-  let mapObj = {}
-
-  const [searchRes] = useRecoilState(searchResState)
 
   /* api */
   const api = {
@@ -26,8 +21,9 @@ const MapContainer = () => {
   const { latCdnt, lngCdnt } = mapPosition
 
   /* global kakao */
+  // 최초 렌더링 시 스크립트에 api 정보 추가
   useEffect(() => {
-    if (window.kakao && kakao.maps) {
+    if (window.kakao && window.kakao.maps) {
       initMap()
     } else {
       const script = document.createElement('script')
@@ -36,27 +32,14 @@ const MapContainer = () => {
       document.head.appendChild(script)
     }
   })
-
-  useEffect(() => {
-    searchRes.forEach(res => showMarker(res))
-  }, [searchRes])
   
   const initMap = () => {
     const mapOptions = {
       center: new kakao.maps.LatLng(latCdnt, lngCdnt),
-      level: 7
+      level: 8
     }
     const container = document.getElementById('map')
     new kakao.maps.Map(container, mapOptions)
-    mapObj = new kakao.maps.Map(container, mapOptions)
-  }
-
-  const showMarker = place => {
-    const marker = new kakao.maps.Marker({
-      position: new kakao.maps.LatLng(place.y, place.x),
-      clickable: true
-    })
-    marker.setMap(mapObj)
   }
 
   return (

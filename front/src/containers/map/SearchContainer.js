@@ -8,6 +8,14 @@ const SearchContainer = () => {
   const [searchIp] = useRecoilState(searchIpState)
   const [searchRes, setSearchRes] = useRecoilState(searchResState)
   
+  /* map */
+  const mapPosition = {
+    latCdnt: 37.5396264,
+    lngCdnt: 126.9465531
+  }
+  const { latCdnt, lngCdnt } = mapPosition
+  
+
   /* global kakao */
   const keywordSearch = () => {
 
@@ -24,7 +32,21 @@ const SearchContainer = () => {
   const keywordSearchCallBack = (res, status) => {
     const resStatus = kakao.maps.services.Status
     if (status === resStatus.OK) {
+      const mapOptions = {
+        center: new kakao.maps.LatLng(latCdnt, lngCdnt),
+        level: 8
+      }
+      const container = document.getElementById('map')
+      const mapObj = new kakao.maps.Map(container, mapOptions)
+      const showMarker = place => {
+        new kakao.maps.Marker({
+          map: mapObj,
+          position: new kakao.maps.LatLng(place.y, place.x)
+        })
+      }
+
       setSearchRes(res)
+      res.forEach(place => showMarker(place))
     } else if (status === resStatus.ZERO_RESULT) {
       alert('검색 결과가 없습니다!')
       console.log(status)
