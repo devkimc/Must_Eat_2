@@ -2,10 +2,12 @@ import { useRecoilState } from 'recoil'
 import styled from 'styled-components'
 
 import { SearchInput, SearchResult } from 'components'
-import { searchIpState, searchResState } from 'recoil/atom/map'
+import { searchIpState, searchResState, mapObjState } from 'recoil/atom/map'
 
 const SearchContainer = () => {
+
   const [searchIp] = useRecoilState(searchIpState)
+  const [mapObj] = useRecoilState(mapObjState)
   const [searchRes, setSearchRes] = useRecoilState(searchResState)
   
   /* map */
@@ -32,20 +34,24 @@ const SearchContainer = () => {
   const keywordSearchCallBack = (res, status) => {
     const resStatus = kakao.maps.services.Status
     if (status === resStatus.OK) {
-      const mapOptions = {
-        center: new kakao.maps.LatLng(latCdnt, lngCdnt),
-        level: 8
-      }
-      const container = document.getElementById('map')
-      const mapObj = new kakao.maps.Map(container, mapOptions)
+      // const mapOptions = {
+      //   center: new kakao.maps.LatLng(latCdnt, lngCdnt),
+      //   level: 8
+      // }
+      // const container = document.getElementById('map')
+      // const mapObj = new kakao.maps.Map(container, mapOptions)
+
       const showMarker = place => {
-        new kakao.maps.Marker({
-          map: mapObj,
-          position: new kakao.maps.LatLng(place.y, place.x)
+        const markerPosition = new kakao.maps.LatLng(place.y, place.x)
+        let marker = new kakao.maps.Marker({
+          position: markerPosition
         })
+        console.log('mapObj:' + mapObj[0])
+        marker.setMap(mapObj)
       }
 
       setSearchRes(res)
+
       res.forEach(place => showMarker(place))
     } else if (status === resStatus.ZERO_RESULT) {
       alert('검색 결과가 없습니다!')

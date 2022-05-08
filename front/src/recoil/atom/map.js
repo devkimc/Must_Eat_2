@@ -5,6 +5,11 @@ export const searchIpState = atom({
   default: ''
 })
 
+export const mapObjState = atom({
+  key: 'mapObjState',
+  default: {}
+})
+
 export const searchResState = atom({
   key: 'searchResState',
   default: []
