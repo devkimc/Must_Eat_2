@@ -46,6 +46,7 @@ const App = () => {
   const getMoreItem = async () => {
     /* 로딩 on */
     setIsLoaded(true); 
+    console.log(isLoaded)
     /* 검색 */
     await new Promise((resolve) => setTimeout(resolve, 500));
     /* 검색 결과 */
@@ -59,7 +60,7 @@ const App = () => {
   /* 감시자 callback 함수 */
   const onIntersect = async ([entry], observer) => {
     /* 교차 중이고 로딩이 아니라면 */
-    if (entry.isIntersecting && !isLoaded) {
+    if (entry.isIntersecting) {
       /* 감시 off */
       observer.unobserve(entry.target);
       /* 다음 이미지 조회하기 */
@@ -75,6 +76,7 @@ const App = () => {
 
     /* 교차 영역에 도달한다면 */
     if (target) {
+      console.log(target)
       observer = new IntersectionObserver(onIntersect, {
         threshold: 0.4,
       });

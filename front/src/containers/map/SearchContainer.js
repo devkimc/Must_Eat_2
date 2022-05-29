@@ -7,7 +7,7 @@ import { searchIpState, searchResState, mapObjState, loadTargetState, isLoadedSt
 
 const SearchContainer = () => {
 
-  // const [searchPage, setSearchPage] = useState(1)
+  const [searchPage, setSearchPage] = useState(1)
   const searchIp = useRecoilValue(searchIpState)
   const [mapObj] = useRecoilState(mapObjState)
   const [loadTarget, setLoadTarget] = useRecoilState(loadTargetState)
@@ -32,20 +32,20 @@ const SearchContainer = () => {
   /* search */
   const keywordSearch = async (firstSearch) => {
     setIsLoaded(true)
+
     const places = new kakao.maps.services.Places()
     if (firstSearch) {
       /* init */
       searchOption.page = 1
       setSearchRes([])
-      await new Promise((resolve) => setTimeout(resolve, 1000));
       await places.keywordSearch(searchIp, keywordSearchCB, searchOption)
-      setIsLoaded(false)
     } else {
+      searchOption.page += 1
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      searchOption.page++
       await places.keywordSearch(searchIp, keywordSearchAgainCB, searchOption)
-      setIsLoaded(false)
     }
+
+    setIsLoaded(false)
   }
 
   const keywordSearchCB = async (res, status) => {
@@ -61,33 +61,37 @@ const SearchContainer = () => {
       setSearchRes(res)
     } else if (status === resStatus.ZERO_RESULT) {
       alert('검색 결과가 없습니다!')
-      console.log(status)
     } else {
       alert('서버 응답에 문제가 있습니다!')
-      console.log(status)
     }
   }
 
   const keywordSearchAgainCB = async (res, status) => {
-    setSearchRes(searchRes => searchRes.concat(res))
+    const resStatus = kakao.maps.services.Status
+    if (status === resStatus.OK) {
+      setSearchRes(searchRes => searchRes.concat(res))
+    }
   }
 
   /* Infinite scroll */
   useEffect(() => {
-    let observer
-    console.log('page, searchIp, isLoaded: ' + searchOption.page + ' | '+ searchIp + ' | '+ isLoaded)
+    let observer;
+
     if (loadTarget) {
-      observer = new IntersectionObserver(onIntersect, {threshold: 0.4})
+      console.log(loadTarget)
+      observer = new IntersectionObserver(onIntersect, {
+        threshold: 0.4,
+      })
       observer.observe(loadTarget)
     }
-    return () => observer && observer.disconnect()
-  }, [loadTarget, searchIp, isLoaded])
+    return () => observer && observer.disconnect();
+  }, [loadTarget, searchIp])
 
   const onIntersect = async ([entry], observer) => {
-    if (entry.isIntersecting && !isLoaded) {
-      observer.unobserve(entry.target)
-      await keywordSearch(false)
-      observer.observe(entry.target)
+    if (entry.isIntersecting) {
+      observer.unobserve(entry.target);
+      await keywordSearch(false);
+      observer.observe(entry.target);
     }
   }
   

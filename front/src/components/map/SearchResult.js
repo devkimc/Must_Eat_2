@@ -12,18 +12,20 @@ const SearchResult = ({ searchRes }) => {
     <Container>
       <Result>
         {searchRes.length !== 0 ? searchRes.map(res => (
-          <ResultList key={res.id}>{res.place_name}</ResultList>
+          <ResultList key={res.id}>
+            {res.place_name}
+          </ResultList>
         )) : <RequestSearch></RequestSearch>}
+        <div ref={setLoadTarget} className="Target-Element">
+          {isLoaded && <Loader />}
+        </div>
       </Result>
-      <LoadTarget ref={setLoadTarget}>
-        {isLoaded && <Loader />}
-      </LoadTarget>
     </Container>
   )
 }
 
 const Container = styled.div`
-  height: 99vh;
+  height: 100vh;
   overflow: hidden;
   overflow-y: auto;
   flex: 1;
@@ -34,6 +36,10 @@ const Container = styled.div`
 
 const Result = styled.ul`
 
+  .Target-Element {
+    width: 390px;
+    height: 140px;
+  }
 `
 
 const ResultList = styled.li`
@@ -46,8 +52,7 @@ const RequestSearch = styled.div`
 `
 
 const LoadTarget = styled.div`
-  width: 390px;
-  height: 10px;
+  
 `
 
 export default SearchResult
