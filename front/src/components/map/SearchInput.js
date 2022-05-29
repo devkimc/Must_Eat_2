@@ -14,7 +14,7 @@ const SearchInput = ({ onSearch }) => {
 
   const onEnterPress = e => {
     if(e.key === 'Enter')
-      onSearch()
+      onSearch(true)
   }
 
   return (
@@ -28,7 +28,7 @@ const SearchInput = ({ onSearch }) => {
           placeholder='Must Eat 지도 검색'
         >
         </InputField>
-        <SearchButton onClick={onSearch}>
+        <SearchButton onClick={() => onSearch(true)}>
           <AiOutlineSearch size={24} />
         </SearchButton>
       </InputBox>
@@ -38,6 +38,7 @@ const SearchInput = ({ onSearch }) => {
 
 
 const Container = styled.div`
+  position: absolute;
   width: 340px;
   padding: 15px 25px;
 `

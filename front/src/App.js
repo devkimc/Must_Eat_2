@@ -6,7 +6,7 @@ import { Header } from 'layouts'
 const App = () => {
   return (
     <BrowserRouter>
-      <Header />
+      {/* <Header /> */}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/map' element={<Map />} />

@@ -40,10 +40,11 @@ const MapContainer = () => {
     }
     const container = document.getElementById('map')
     const map = await new kakao.maps.Map(container, mapOptions)
-    setMapObj(new kakao.maps.Map(container, mapOptions))
     
-    console.log('map: ' + map)
-    console.log('mapObj: ' + mapObj)
+    // console.log('map: ' + map)
+    // console.log('mapObj: ' + mapObj)
+    
+    setMapObj(new kakao.maps.Map(container, mapOptions))
   }
 
   return (

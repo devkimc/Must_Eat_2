@@ -14,3 +14,13 @@ export const searchResState = atom({
   key: 'searchResState',
   default: []
 })
+
+export const loadTargetState = atom({
+  key: 'loadTargetState',
+  default: null
+})
+
+export const isLoadedState = atom({
+  key: 'isLoadedState',
+  default: false
+})

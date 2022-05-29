@@ -1,58 +1,64 @@
-import { useRecoilState } from 'recoil'
+import { useEffect, useState } from 'react'
+import { useRecoilValue, useRecoilState } from 'recoil'
 import styled from 'styled-components'
 
 import { SearchInput, SearchResult } from 'components'
-import { searchIpState, searchResState, mapObjState } from 'recoil/atom/map'
+import { searchIpState, searchResState, mapObjState, loadTargetState, isLoadedState } from 'recoil/atom/map'
 
 const SearchContainer = () => {
 
-  const [searchIp] = useRecoilState(searchIpState)
+  // const [searchPage, setSearchPage] = useState(1)
+  const searchIp = useRecoilValue(searchIpState)
   const [mapObj] = useRecoilState(mapObjState)
+  const [loadTarget, setLoadTarget] = useRecoilState(loadTargetState)
+  const [isLoaded, setIsLoaded] = useRecoilState(isLoadedState)
   const [searchRes, setSearchRes] = useRecoilState(searchResState)
-  
+
   /* map */
   const mapPosition = {
     latCdnt: 37.5396264,
     lngCdnt: 126.9465531
   }
   const { latCdnt, lngCdnt } = mapPosition
-  
 
-  /* global kakao */
-  const keywordSearch = () => {
-
-    const searchOption = {
-      category_group_code: 'FD6',      
-      x: 126.86483931801229,
-      y: 37.55108043514493      
-    }
-
-    const places = new kakao.maps.services.Places()
-    places.keywordSearch(searchIp, keywordSearchCallBack, searchOption)
+  const searchOption = {
+    page: 1,    
+    x: 126.86483931801229,
+    y: 37.55108043514493,   
+    category_group_code: 'FD6'     
   }
 
-  const keywordSearchCallBack = (res, status) => {
+  /* global kakao */
+  /* search */
+  const keywordSearch = async (firstSearch) => {
+    setIsLoaded(true)
+    const places = new kakao.maps.services.Places()
+    if (firstSearch) {
+      /* init */
+      searchOption.page = 1
+      setSearchRes([])
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await places.keywordSearch(searchIp, keywordSearchCB, searchOption)
+      setIsLoaded(false)
+    } else {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      searchOption.page++
+      await places.keywordSearch(searchIp, keywordSearchAgainCB, searchOption)
+      setIsLoaded(false)
+    }
+  }
+
+  const keywordSearchCB = async (res, status) => {
     const resStatus = kakao.maps.services.Status
     if (status === resStatus.OK) {
-      // const mapOptions = {
-      //   center: new kakao.maps.LatLng(latCdnt, lngCdnt),
-      //   level: 8
-      // }
-      // const container = document.getElementById('map')
-      // const mapObj = new kakao.maps.Map(container, mapOptions)
-
-      const showMarker = place => {
-        const markerPosition = new kakao.maps.LatLng(place.y, place.x)
-        let marker = new kakao.maps.Marker({
-          position: markerPosition
-        })
-        console.log('mapObj:' + mapObj[0])
-        marker.setMap(mapObj)
+      const mapOptions = {
+        center: new kakao.maps.LatLng(latCdnt, lngCdnt),
+        level: 8
       }
+      const container = document.getElementById('map')
+      new kakao.maps.Map(container, mapOptions)
 
       setSearchRes(res)
-
-      res.forEach(place => showMarker(place))
     } else if (status === resStatus.ZERO_RESULT) {
       alert('검색 결과가 없습니다!')
       console.log(status)
@@ -62,10 +68,33 @@ const SearchContainer = () => {
     }
   }
 
+  const keywordSearchAgainCB = async (res, status) => {
+    setSearchRes(searchRes => searchRes.concat(res))
+  }
+
+  /* Infinite scroll */
+  useEffect(() => {
+    let observer
+    console.log('page, searchIp, isLoaded: ' + searchOption.page + ' | '+ searchIp + ' | '+ isLoaded)
+    if (loadTarget) {
+      observer = new IntersectionObserver(onIntersect, {threshold: 0.4})
+      observer.observe(loadTarget)
+    }
+    return () => observer && observer.disconnect()
+  }, [loadTarget, searchIp, isLoaded])
+
+  const onIntersect = async ([entry], observer) => {
+    if (entry.isIntersecting && !isLoaded) {
+      observer.unobserve(entry.target)
+      await keywordSearch(false)
+      observer.observe(entry.target)
+    }
+  }
+  
   return (
     <Container>
       <SearchInput
-        onSearch={() => keywordSearch()}
+        onSearch={() => keywordSearch(true)}
       />
       <SearchResult searchRes={searchRes}/>
     </Container>
