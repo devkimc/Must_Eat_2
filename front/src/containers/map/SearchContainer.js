@@ -40,10 +40,9 @@ const SearchContainer = () => {
       setSearchRes([])
       await places.keywordSearch(searchIp, keywordSearchCB, searchOption)
     } else {
-      searchOption.page += 1
-      await new Promise((resolve) => setTimeout(resolve, 1000));
       await places.keywordSearch(searchIp, keywordSearchAgainCB, searchOption)
     }
+    searchOption.page += 1
 
     setIsLoaded(false)
   }
@@ -78,7 +77,6 @@ const SearchContainer = () => {
     let observer;
 
     if (loadTarget) {
-      console.log(loadTarget)
       observer = new IntersectionObserver(onIntersect, {
         threshold: 0.4,
       })
