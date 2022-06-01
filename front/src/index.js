@@ -1,26 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import 'assets/css/index.css';
-import 'assets/css/reset.css';
-import App from 'App';
-import reportWebVitals from 'reportWebVitals';
-
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import rootReducer from 'store/modules'
-import { composeWithDevTools } from 'redux-devtools-extension'
+import '@assets/css/index.css';
+import '@assets/css/reset.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
 import { RecoilRoot } from 'recoil'
 
-const store = createStore(rootReducer, composeWithDevTools())
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <Provider store={store}>
-    <RecoilRoot>
-      <App />
-    </RecoilRoot>
-  </Provider>
+  <RecoilRoot>
+    <App />
+  </RecoilRoot>
 );
 
 // If you want to start measuring performance in your app, pass a function

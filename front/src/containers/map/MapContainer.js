@@ -2,10 +2,10 @@ import { useEffect } from 'react'
 import { useRecoilValue, useRecoilState } from 'recoil'
 import styled from 'styled-components'
 
-import { SearchInput, SearchResult, MapComponent } from 'components'
-import { searchIpState, searchResState } from 'recoil/atom/map'
-import * as Constants from 'constants/mapContants'
-import apiKey from 'key.json'
+import { SearchInput, SearchResult, MapComponent } from '@components'
+import { searchIpState, searchResState } from '@recoil/atom/map'
+import * as Constants from '@constants/mapContants'
+import apiKey from '@root/key.json'
 
 const MapContainer = () => {
 

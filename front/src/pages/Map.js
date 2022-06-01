@@ -1,4 +1,4 @@
-import { MapContainer, SearchContainer } from 'containers'
+import { MapContainer, SearchContainer } from '@containers'
 import styled from 'styled-components'
 
 const Map = () => {

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { useRecoilValue, useRecoilState } from 'recoil'
 
 import Loader from './Loader'
-import { loadTargetState, isLoadedState } from 'recoil/atom/map'
+import { loadTargetState, isLoadedState } from '@recoil/atom/map'
 
 const SearchResult = ({ searchRes }) => {
   const [loadTarget, setLoadTarget] = useRecoilState(loadTargetState)

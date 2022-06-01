@@ -1,4 +1,4 @@
-import { HomeContainer } from 'containers'
+import { HomeContainer } from '@containers'
 
 const Home = () => {
   return (
