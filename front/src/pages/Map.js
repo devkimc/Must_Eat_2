@@ -4,7 +4,6 @@ import styled from 'styled-components'
 const Map = () => {
   return (
     <Container>
-      <SearchContainer></SearchContainer>
       <MapContainer></MapContainer>
     </Container>
   )

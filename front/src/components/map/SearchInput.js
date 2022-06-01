@@ -38,7 +38,6 @@ const SearchInput = ({ onSearch }) => {
 
 
 const Container = styled.div`
-  position: absolute;
   width: 340px;
   padding: 15px 25px;
 `
