@@ -1,13 +1,15 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useRecoilValue, useRecoilState } from 'recoil'
 import styled from 'styled-components'
 
 import { SearchInput, SearchResult, MapComponent } from '@components'
 import { searchIpState, searchResState } from '@recoil/atom/map'
-import * as Constants from '@constants/mapContants'
+import * as Constants from '@constants/mapConstants'
 import apiKey from '@root/key.json'
 
 const MapContainer = () => {
+
+  const [mapObj, setMapObj] = useState('')
 
   const searchIp = useRecoilValue(searchIpState)
   const [searchRes, setSearchRes] = useRecoilState(searchResState)
@@ -30,27 +32,31 @@ const MapContainer = () => {
     document.head.appendChild(script)
   }, [])
   
-  const initMap = () => {
+  const initMap = async () => {
     const mapOptions = {
       center: new kakao.maps.LatLng(Constants.POSITION_LAT_CDNT, Constants.POSITION_LNG_CDNT),
       level: 8
     }
     const container = document.getElementById('map')
-    new kakao.maps.Map(container, mapOptions)
+    const initMapObj = new kakao.maps.Map(container, mapOptions)
+    setMapObj(initMapObj)
   }
 
-  const keywordSearch = async (firstSearch) => {
+  /* 식당 검색 */
+  const onKeywordSearch = async () => {
     const places = new kakao.maps.services.Places()
-    if (firstSearch) {
-      setSearchRes([])
-      await places.keywordSearch(searchIp, keywordSearchCB, searchOption)
-    }
+    setSearchRes([])
+    await places.keywordSearch(searchIp, keywordSearchCB, searchOption)
   }
 
   const keywordSearchCB = async (res, status) => {
     const resStatus = kakao.maps.services.Status
     if (status === resStatus.OK) {
       setSearchRes(res)
+      searchRes.forEach(item => {
+        showMarker(item)
+      })
+
     } else if (status === resStatus.ZERO_RESULT) {
       alert('검색 결과가 없습니다!')
     } else {
@@ -58,13 +64,21 @@ const MapContainer = () => {
     }
   }
 
+  /* 마커 추가 */
+  const showMarker = (place) => {
+    const marker = new kakao.maps.Marker({
+      position: new kakao.maps.LatLng(place.y, place.x),
+      clickable: true
+    })
+    marker.setMap(mapObj)
+
+  }
+
   return (
     <Wrapper>
       <Container>
-        <SearchInput
-          onSearch={() => keywordSearch(true)}
-        />
-        <SearchResult searchRes={searchRes}/>
+        <SearchInput onSearch={onKeywordSearch} />
+        <SearchResult searchRes={searchRes} />
       </Container>
       <MapComponent />
     </Wrapper>

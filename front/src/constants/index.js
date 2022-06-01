@@ -1,1 +1,1 @@
-export * from './mapContants'
+export * from './mapConstants'
