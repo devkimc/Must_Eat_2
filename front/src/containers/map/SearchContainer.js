@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import { SearchInput, SearchResult } from 'components'
 import { searchIpState, searchResState, mapObjState, loadTargetState, isLoadedState } from 'recoil/atom/map'
+import * as Constants from 'constants/mapContants'
 
 const SearchContainer = () => {
 
@@ -13,19 +14,13 @@ const SearchContainer = () => {
   const [loadTarget, setLoadTarget] = useRecoilState(loadTargetState)
   const [isLoaded, setIsLoaded] = useRecoilState(isLoadedState)
   const [searchRes, setSearchRes] = useRecoilState(searchResState)
-
+  
   /* map */
-  const mapPosition = {
-    latCdnt: 37.5396264,
-    lngCdnt: 126.9465531
-  }
-  const { latCdnt, lngCdnt } = mapPosition
-
   const searchOption = {
     page: 1,    
-    x: 126.86483931801229,
-    y: 37.55108043514493,   
-    category_group_code: 'FD6'     
+    x: Constants.SEARCH_OPT_X,
+    y: Constants.SEARCH_OPT_Y,
+    category_group_code: Constants.SEARCH_OPT_CATEGORY_FOOD   
   }
 
   /* global kakao */
@@ -51,7 +46,7 @@ const SearchContainer = () => {
     const resStatus = kakao.maps.services.Status
     if (status === resStatus.OK) {
       const mapOptions = {
-        center: new kakao.maps.LatLng(latCdnt, lngCdnt),
+        center: new kakao.maps.LatLng(Constants.POSITION_LAT_CDNT, Constants.POSITION_LNG_CDNT),
         level: 8
       }
       const container = document.getElementById('map')

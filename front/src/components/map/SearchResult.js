@@ -16,9 +16,9 @@ const SearchResult = ({ searchRes }) => {
             {res.place_name}
           </ResultList>
         )) : <RequestSearch></RequestSearch>}
-        <div ref={setLoadTarget} className="Target-Element">
-          {isLoaded && <Loader />}
-        </div>
+        <LoadTarget ref={setLoadTarget}>
+          {/* {isLoaded && <Loader />} */}
+        </LoadTarget>
       </Result>
     </Container>
   )
@@ -36,10 +36,6 @@ const Container = styled.div`
 
 const Result = styled.ul`
 
-  .Target-Element {
-    width: 390px;
-    height: 140px;
-  }
 `
 
 const ResultList = styled.li`
@@ -52,7 +48,7 @@ const RequestSearch = styled.div`
 `
 
 const LoadTarget = styled.div`
-  
+  height: 100px;
 `
 
 export default SearchResult
