@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react'
-import { useRecoilValue, useRecoilState } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import styled from 'styled-components'
 
 import { SearchInput, SearchResult, MapComponent } from '@components'
-import { searchIpState, searchResState } from '@recoil/atom/map'
+import { searchIpState } from '@recoil/atom/map'
 import * as Constants from '@constants/mapConstants'
 import apiKey from '@root/key.json'
 
 const MapContainer = () => {
 
   const [mapObj, setMapObj] = useState('')
-
+  const [markers, setMarkers] = useState([])
+  const [searchRes, setSearchRes] = useState([])
   const searchIp = useRecoilValue(searchIpState)
-  const [searchRes, setSearchRes] = useRecoilState(searchResState)
 
   const searchOption = {
     page: 1,    
@@ -43,20 +43,22 @@ const MapContainer = () => {
   }
 
   /* 식당 검색 */
-  const onKeywordSearch = async () => {
+  const onKeywordSearch = () => {
+
+    /* 초기화 */
+    removeMarker()
+    console.log(markers.length)
+    setMarkers([])
+
     const places = new kakao.maps.services.Places()
-    setSearchRes([])
-    await places.keywordSearch(searchIp, keywordSearchCB, searchOption)
+    places.keywordSearch(searchIp, keywordSearchCB, searchOption)
   }
 
-  const keywordSearchCB = async (res, status) => {
+  const keywordSearchCB = (result, status) => {
     const resStatus = kakao.maps.services.Status
     if (status === resStatus.OK) {
-      setSearchRes(res)
-      searchRes.forEach(item => {
-        showMarker(item)
-      })
-
+      setSearchRes(result)
+      result.forEach(res => showMarker(res))
     } else if (status === resStatus.ZERO_RESULT) {
       alert('검색 결과가 없습니다!')
     } else {
@@ -71,7 +73,12 @@ const MapContainer = () => {
       clickable: true
     })
     marker.setMap(mapObj)
+    setMarkers(markers => markers.concat(marker))
+  }
 
+  /* 마커 제거 */
+  const removeMarker = () => {
+    markers.forEach(marker => marker.setMap(null))
   }
 
   return (

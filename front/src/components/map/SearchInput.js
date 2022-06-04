@@ -14,7 +14,7 @@ const SearchInput = ({ onSearch }) => {
 
   const onEnterPress = e => {
     if(e.key === 'Enter')
-      onSearch(true)
+      onSearch()
   }
 
   return (
@@ -28,7 +28,7 @@ const SearchInput = ({ onSearch }) => {
           placeholder='Must Eat 지도 검색'
         >
         </InputField>
-        <SearchButton onClick={() => onSearch(true)}>
+        <SearchButton onClick={() => onSearch()}>
           <AiOutlineSearch size={24} />
         </SearchButton>
       </InputBox>
