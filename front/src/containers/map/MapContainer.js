@@ -47,7 +47,6 @@ const MapContainer = () => {
 
     /* 초기화 */
     removeMarker()
-    console.log(markers.length)
     setMarkers([])
 
     const places = new kakao.maps.services.Places()
@@ -57,7 +56,9 @@ const MapContainer = () => {
   const keywordSearchCB = (result, status) => {
     const resStatus = kakao.maps.services.Status
     if (status === resStatus.OK) {
+
       setSearchRes(result)
+      setCenter(0)
       result.forEach(res => showMarker(res))
     } else if (status === resStatus.ZERO_RESULT) {
       alert('검색 결과가 없습니다!')
@@ -80,6 +81,14 @@ const MapContainer = () => {
   const removeMarker = () => {
     markers.forEach(marker => marker.setMap(null))
   }
+
+  /* 검색 결과에 따른 맵 위치 변경 */
+  const setCenter = (index) => {
+    mapObj.setCenter(
+      new kakao.maps.LatLng(
+        searchRes[index].y,
+        searchRes[index].x
+  ))}
 
   return (
     <Wrapper>
