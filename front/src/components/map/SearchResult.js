@@ -4,14 +4,14 @@ import { useRecoilValue, useRecoilState } from 'recoil'
 import Loader from './Loader'
 import { loadTargetState, isLoadedState } from '@recoil/atom/map'
 
-const SearchResult = ({ searchRes }) => {
+const SearchResult = ({ allSearchRes }) => {
   const [loadTarget, setLoadTarget] = useRecoilState(loadTargetState)
   const isLoaded = useRecoilValue(isLoadedState)
 
   return (
     <Container>
       <Result>
-        {searchRes.length !== 0 ? searchRes.map(res => (
+        {allSearchRes.length !== 0 ? allSearchRes.map(res => (
           <ResultList key={res.id}>
             {res.place_name}
           </ResultList>

@@ -12,6 +12,7 @@ const MapContainer = () => {
   const [mapObj, setMapObj] = useState('')
   const [markers, setMarkers] = useState([])
   const [searchRes, setSearchRes] = useState([])
+  const [allSearchRes, setAllSearchRes] = useState([])
   const searchIp = useRecoilValue(searchIpState)
 
   const searchOption = {
@@ -22,7 +23,6 @@ const MapContainer = () => {
   }
 
   /* global kakao */
-  // 최초 렌더링 시 스크립트에 api 정보 추가
   useEffect(() => {
     const script = document.createElement('script')
     script.onload = () => kakao.maps.load(initMap)
@@ -43,22 +43,26 @@ const MapContainer = () => {
   }
 
   /* 식당 검색 */
-  const onKeywordSearch = () => {
+  useEffect(() => {
+    if(searchRes.length) {
+     removeMarker()
+     setMarkers([])
+     setCenter(0)
+     searchRes.forEach(res => showMarker(res))
+    }
+  }, [searchRes])
 
-    /* 초기화 */
-    removeMarker()
-    setMarkers([])
-
+  const onSearch = () => {
+    setAllSearchRes([])
     const places = new kakao.maps.services.Places()
-    places.keywordSearch(searchIp, keywordSearchCB, searchOption)
+    places.keywordSearch(searchIp, onSearchCB, searchOption)
   }
 
-  const keywordSearchCB = (result, status) => {
+  const onSearchCB = (result, status) => {
     const resStatus = kakao.maps.services.Status
     if (status === resStatus.OK) {
-
       setSearchRes(result)
-      result.forEach(res => showMarker(res))
+      setAllSearchRes(allSearchRes => allSearchRes.concat(result))
     } else if (status === resStatus.ZERO_RESULT) {
       alert('검색 결과가 없습니다!')
     } else {
@@ -66,7 +70,7 @@ const MapContainer = () => {
     }
   }
 
-  /* 마커 추가 */
+  /* 마커 출력 관리 */
   const showMarker = (place) => {
     const marker = new kakao.maps.Marker({
       position: new kakao.maps.LatLng(place.y, place.x),
@@ -76,16 +80,11 @@ const MapContainer = () => {
     setMarkers(markers => markers.concat(marker))
   }
 
-  /* 마커 제거 */
   const removeMarker = () => {
     markers.forEach(marker => marker.setMap(null))
   }
 
-  /* 검색 결과에 따른 맵 위치 변경 */
-  useEffect(() => {
-    setCenter(0)
-  }, [searchRes])
-
+  /* 중심 좌표 설정 */
   const setCenter = (index) => {
     if(searchRes[index] !== undefined) {
       mapObj.setCenter(
@@ -98,8 +97,8 @@ const MapContainer = () => {
   return (
     <Wrapper>
       <Container>
-        <SearchInput onSearch={onKeywordSearch} />
-        <SearchResult searchRes={searchRes} />
+        <SearchInput onSearch={onSearch} />
+        <SearchResult allSearchRes={allSearchRes} />
       </Container>
       <MapComponent />
     </Wrapper>
