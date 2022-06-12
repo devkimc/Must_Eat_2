@@ -28,7 +28,7 @@ const SearchInput = ({ onSearch }) => {
           placeholder='Must Eat 지도 검색'
         >
         </InputField>
-        <SearchButton onClick={() => onSearch()}>
+        <SearchButton onClick={onSearch}>
           <AiOutlineSearch size={24} />
         </SearchButton>
       </InputBox>

@@ -31,7 +31,7 @@ const MapContainer = () => {
                + Constants.KAKAO_MAP_API_SERVICES
     document.head.appendChild(script)
   }, [])
-  
+
   const initMap = async () => {
     const mapOptions = {
       center: new kakao.maps.LatLng(Constants.POSITION_LAT_CDNT, Constants.POSITION_LNG_CDNT),
@@ -58,7 +58,6 @@ const MapContainer = () => {
     if (status === resStatus.OK) {
 
       setSearchRes(result)
-      setCenter(0)
       result.forEach(res => showMarker(res))
     } else if (status === resStatus.ZERO_RESULT) {
       alert('검색 결과가 없습니다!')
@@ -83,12 +82,18 @@ const MapContainer = () => {
   }
 
   /* 검색 결과에 따른 맵 위치 변경 */
+  useEffect(() => {
+    setCenter(0)
+  }, [searchRes])
+
   const setCenter = (index) => {
-    mapObj.setCenter(
-      new kakao.maps.LatLng(
-        searchRes[index].y,
-        searchRes[index].x
-  ))}
+    if(searchRes[index] !== undefined) {
+      mapObj.setCenter(
+        new kakao.maps.LatLng(
+          searchRes[index].y,
+          searchRes[index].x
+      ))
+    }}
 
   return (
     <Wrapper>
