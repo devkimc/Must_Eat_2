@@ -9,22 +9,29 @@ const SearchResult = ({ allSearchRes }) => {
   const isLoaded = useRecoilValue(isLoadedState)
 
   return (
-    <Container>
+    <Wrapper>
       <Result>
         {allSearchRes.length !== 0 ? allSearchRes.map(res => (
           <ResultList key={res.id}>
             {res.place_name}
           </ResultList>
-        )) : <RequestSearch></RequestSearch>}
+        ))
+        :
+        <RequestSearch>
+          <FlexColBox>
+           검색 결과가 없습니다.
+          </FlexColBox>
+        </RequestSearch>}
+
         <LoadTarget ref={setLoadTarget}>
           {/* {isLoaded && <Loader />} */}
         </LoadTarget>
       </Result>
-    </Container>
+    </Wrapper>
   )
 }
 
-const Container = styled.div`
+const Wrapper = styled.div`
   height: 100vh;
   overflow: hidden;
   overflow-y: auto;
@@ -44,11 +51,20 @@ const ResultList = styled.li`
 `
 
 const RequestSearch = styled.div`
-  height: 100vh;
+  display: flex;
+  justify-content: center;
+  height: 90vh;
 `
 
 const LoadTarget = styled.div`
   height: 100px;
+`
+
+/* flex */
+const FlexColBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `
 
 export default SearchResult
