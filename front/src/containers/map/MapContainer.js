@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import styled from 'styled-components'
 
+import apiKey from '@root/key.json'
 import { SearchInput, SearchResult, MapComponent } from '@components'
 import { searchIpState } from '@recoil/atom/map'
 import * as Constants from '@constants/mapConstants'
-import apiKey from '@root/key.json'
+import { warningToast, errorToast } from '@utils/toast'
 
 const MapContainer = () => {
 
@@ -53,6 +54,8 @@ const MapContainer = () => {
   }, [searchRes])
 
   const onSearch = () => {
+    if(!searchIp) return warningToast('top-center', '검색어를 입력해주세요')
+
     setAllSearchRes([])
     const places = new kakao.maps.services.Places()
     places.keywordSearch(searchIp, onSearchCB, searchOption)
@@ -64,9 +67,9 @@ const MapContainer = () => {
       setSearchRes(result)
       setAllSearchRes(allSearchRes => allSearchRes.concat(result))
     } else if (status === resStatus.ZERO_RESULT) {
-      alert('검색 결과가 없습니다!')
+      warningToast('top-center', '검색 결과가 없습니다!')
     } else {
-      alert('서버 응답에 문제가 있습니다!')
+      errorToast('top-center', '서버 응답에 문제가 있습니다!')
     }
   }
 

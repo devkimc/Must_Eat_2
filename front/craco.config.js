@@ -15,7 +15,8 @@ module.exports = {
           '@containers': './containers',
           '@layouts': './layouts',
           '@pages': './pages',
-          '@recoil': './recoil'
+          '@recoil': './recoil',
+          '@utils': './utils'
         }
       }
     }
