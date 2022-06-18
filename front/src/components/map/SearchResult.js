@@ -1,12 +1,9 @@
 import styled from 'styled-components'
-import { useRecoilValue, useRecoilState } from 'recoil'
-
-import Loader from './Loader'
-import { loadTargetState, isLoadedState } from '@recoil/atom/map'
+import { useInView } from 'react-intersection-observer';
+import ReactLoading from "react-loading";
 
 const SearchResult = ({ allSearchRes }) => {
-  const [loadTarget, setLoadTarget] = useRecoilState(loadTargetState)
-  const isLoaded = useRecoilValue(isLoadedState)
+  const [ref, inView] = useInView()
 
   return (
     <Wrapper>
@@ -23,9 +20,11 @@ const SearchResult = ({ allSearchRes }) => {
           </FlexColBox>
         </RequestSearch>}
 
-        <LoadTarget ref={setLoadTarget}>
-          {/* {isLoaded && <Loader />} */}
-        </LoadTarget>
+        <LoaderTarget ref={ref}>
+          <LoaderWrap>
+            <ReactLoading type="spin" color="#A593E0" />
+          </LoaderWrap>
+        </LoaderTarget>
       </Result>
     </Wrapper>
   )
@@ -56,9 +55,19 @@ const RequestSearch = styled.div`
   height: 90vh;
 `
 
-const LoadTarget = styled.div`
+/* Loading */
+const LoaderTarget = styled.div`
   height: 100px;
 `
+
+const LoaderWrap = styled.div`
+  width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+`;
 
 /* flex */
 const FlexColBox = styled.div`
