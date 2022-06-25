@@ -5,8 +5,9 @@ export const infoToast = (position, text) => {
 
   toast.info(text, {
     position: toastPosition,
-    closeOnClick:true,
-    progress:undefined
+    autoClose: 1000,
+    closeOnClick: true,
+    progress: undefined
   })
 }
 
@@ -15,8 +16,9 @@ export const successToast = (position, text) => {
 
   toast.success(text, {
     position: toastPosition,
-    closeOnClick:true,
-    progress:undefined
+    autoClose: 1000,
+    closeOnClick: true,
+    progress: undefined
   })
 }
 
@@ -26,8 +28,9 @@ export const warningToast = (position, text) => {
 
   toast.warning(text, {
     position: toastPosition,
-    closeOnClick:true,
-    progress:undefined
+    autoClose: 1000,
+    closeOnClick: true,
+    progress: undefined
   })
 }
 
@@ -36,8 +39,9 @@ export const errorToast = (position, text) => {
 
   toast.error(text, {
     position: toastPosition,
-    closeOnClick:true,
-    progress:undefined
+    autoClose: 1000,
+    closeOnClick: true,
+    progress: undefined
   })
 }
 
