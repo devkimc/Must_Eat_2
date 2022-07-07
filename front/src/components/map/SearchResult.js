@@ -5,6 +5,8 @@ import { BiMap } from "react-icons/bi"
 import { IoIosCall } from "react-icons/io"
 
 const SearchResult = ({ allSearchRes }) => {
+
+
   const [ref, inView] = useInView()
   const colorArr = [ '#c5d9ed',
                      '#72aee6',
