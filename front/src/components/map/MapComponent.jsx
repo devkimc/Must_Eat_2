@@ -1,16 +1,12 @@
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 const Container = styled.div`
-  height: 100vh;
-`
+    height: 100vh;
+`;
 
 const MapComponent = () => {
+    return <Container id="map" />;
+};
 
-  return (
-    <>
-      <Container id='map' />
-    </>
-  )
-}
-
-export default MapComponent
+export default MapComponent;

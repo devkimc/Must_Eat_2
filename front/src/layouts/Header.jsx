@@ -1,46 +1,47 @@
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import logo from '@assets/img/logo.PNG'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import logo from '@assets/img/logo.PNG';
 
 const Header = () => {
-  return (
-    <Container>
-      <MenuGroup>
-        <Menu>
-          <Link to='/'>
-            <LogoImg src={logo} alt='logo'></LogoImg>
-          </Link>
-        </Menu>
-        <Menu>
-          <Link to='/map'>Map </Link>
-        </Menu>
-        <Menu>
-          <Link to='/login'>Login </Link>
-        </Menu>
-      </MenuGroup>
-    </Container>
-  )
-}
+    return (
+        <Container>
+            <MenuGroup>
+                <Menu>
+                    <Link to="/">
+                        <LogoImg src={logo} alt="logo" />
+                    </Link>
+                </Menu>
+                <Menu>
+                    <Link to="/map">Map </Link>
+                </Menu>
+                <Menu>
+                    <Link to="/login">Login </Link>
+                </Menu>
+            </MenuGroup>
+        </Container>
+    );
+};
 
 const Container = styled.div`
-  font-size: 1rem;
-  color: black;
-  background: white;
-  z-index: 10;
-  width: 100%;
-`
+    font-size: 1rem;
+    color: black;
+    background: white;
+    z-index: 10;
+    width: 100%;
+`;
 
 const MenuGroup = styled.ul`
-  padding: 1.5rem 2rem;
-  display: flex;
-`
+    padding: 1.5rem 2rem;
+    display: flex;
+`;
 
 const Menu = styled.li`
-  padding: 0rem 1rem;
-`
+    padding: 0rem 1rem;
+`;
 
 const LogoImg = styled.img`
-  height: 25px;
-`
+    height: 25px;
+`;
 
 export default Header;

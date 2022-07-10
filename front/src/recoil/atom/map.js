@@ -1,26 +1,26 @@
-import { atom } from 'recoil'
+import { atom } from 'recoil';
 
 export const searchIpState = atom({
-  key: 'searchIpState',
-  default: ''
-})
+    key: 'searchIpState',
+    default: '',
+});
 
 export const mapObjState = atom({
-  key: 'mapObjState',
-  default: {}
-})
+    key: 'mapObjState',
+    default: {},
+});
 
 export const searchResState = atom({
-  key: 'searchResState',
-  default: []
-})
+    key: 'searchResState',
+    default: [],
+});
 
 export const loadTargetState = atom({
-  key: 'loadTargetState',
-  default: null
-})
+    key: 'loadTargetState',
+    default: null,
+});
 
 export const isLoadedState = atom({
-  key: 'isLoadedState',
-  default: false
-})
+    key: 'isLoadedState',
+    default: false,
+});

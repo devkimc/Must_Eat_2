@@ -1,15 +1,15 @@
-import { MapContainer, SearchContainer } from '@containers'
-import styled from 'styled-components'
+import React from 'react';
+import { MapContainer } from '@containers';
+import styled from 'styled-components';
 
 const Map = () => {
-  return (
-    <Container>
-      <MapContainer></MapContainer>
-    </Container>
-  )
-}
+    return (
+        <Container>
+            <MapContainer />
+        </Container>
+    );
+};
 
-const Container = styled.div`
-`
+const Container = styled.div``;
 
-export default Map
+export default Map;
