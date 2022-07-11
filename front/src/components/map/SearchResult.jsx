@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useInView } from 'react-intersection-observer';
 import ReactLoading from 'react-loading';
 import { BiMap } from 'react-icons/bi';
 import { IoIosCall } from 'react-icons/io';
+
+import apiKey from '@root/key.json';
 
 const SearchResult = ({ allSearchRes }) => {
     const [ref] = useInView();
@@ -26,11 +28,37 @@ const SearchResult = ({ allSearchRes }) => {
         return cateNmWord;
     };
 
+    useEffect(() => {
+        if (allSearchRes.length >= 1) {
+            /* global Kakao */
+            /* 카카오톡 공유하기 */
+            Kakao.init(apiKey.API_KEY_KAKAO_MAP_LOCAL);
+            allSearchRes.forEach((el, i) => {
+                Kakao.Share.createDefaultButton({
+                    container: `#create-kakaotalk-sharing-btn${i}`,
+                    objectType: 'location',
+                    address: el.address_name,
+                    addressTitle: el.place_name,
+                    content: {
+                        title: el.place_name,
+                        description: el.category_name,
+                        imageUrl:
+                            'http://k.kakaocdn.net/dn/bSbH9w/btqgegaEDfW/vD9KKV0hEintg6bZT4v4WK/kakaolink40_original.png',
+                        link: {
+                            mobileWebUrl: `https://place.map.kakao.com/${el.id}`,
+                            webUrl: `https://place.map.kakao.com/${el.id}`,
+                        },
+                    },
+                });
+            });
+        }
+    }, [allSearchRes]);
+
     return (
         <Wrapper>
             <Result>
                 {allSearchRes.length ? (
-                    allSearchRes.map(res => (
+                    allSearchRes.map((res, i) => (
                         <ResultList key={res.id}>
                             <FlexRow>
                                 <RadiusBox>
@@ -38,13 +66,23 @@ const SearchResult = ({ allSearchRes }) => {
                                         <PlaceNmTxt>
                                             {res.place_name}
                                         </PlaceNmTxt>
+                                        <KakaoShareBtn
+                                            id={`create-kakaotalk-sharing-btn${i}`}
+                                            type="button"
+                                        >
+                                            <KakaoAppImg
+                                                src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                                                alt="카카오톡 공유 보내기 버튼"
+                                            />
+                                        </KakaoShareBtn>
                                     </Title>
 
                                     <Badges>
                                         {splitCateNm(res.category_name).map(
-                                            (cateNm, i) => (
+                                            (cateNm, z) => (
                                                 <Badge
-                                                    randomColor={colorArr[i]}
+                                                    key={cateNm}
+                                                    randomColor={colorArr[z]}
                                                 >
                                                     <CateNmTxt>
                                                         {cateNm}
@@ -185,11 +223,20 @@ const Badge = styled.div`
     flex-direction: column;
 
     background-color: ${props => props.randomColor};
-    /* width: 40px; */
     padding: 5px 7px;
     border-radius: 5px;
     margin-right: 7px;
-    /* height: 10px; */
+`;
+
+/* 카카오톡 공유하기 */
+const KakaoShareBtn = styled.button`
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+`;
+
+const KakaoAppImg = styled.img`
+    width: 13px;
 `;
 
 /* 검색 결과 없을 시 */

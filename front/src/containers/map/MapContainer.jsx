@@ -58,7 +58,6 @@ const MapContainer = () => {
     };
 
     /* global kakao */
-    /* global Kakao */
     useEffect(() => {
         /* 카카오맵 */
         const script = document.createElement('script');
@@ -68,39 +67,6 @@ const MapContainer = () => {
             apiKey.API_KEY_KAKAO_MAP_LOCAL +
             Constants.KAKAO_MAP_API_SERVICES;
         document.head.appendChild(script);
-
-        /* 카카오톡 공유하기 */
-        Kakao.init(apiKey.API_KEY_KAKAO_MAP_LOCAL);
-        Kakao.Share.createDefaultButton({
-            container: '#create-kakaotalk-sharing-btn',
-            objectType: 'location',
-            address: '경기 성남시 분당구 판교역로 235 에이치스퀘어 N동 8층',
-            addressTitle: '카카오 판교오피스 카페톡',
-            content: {
-                title: '신메뉴 출시♥︎ 체리블라썸라떼',
-                description: '이번 주는 체리블라썸라떼 1+1',
-                imageUrl:
-                    'http://k.kakaocdn.net/dn/bSbH9w/btqgegaEDfW/vD9KKV0hEintg6bZT4v4WK/kakaolink40_original.png',
-                link: {
-                    mobileWebUrl: 'https://developers.kakao.com',
-                    webUrl: 'https://developers.kakao.com',
-                },
-            },
-            social: {
-                likeCount: 286,
-                commentCount: 45,
-                sharedCount: 845,
-            },
-            buttons: [
-                {
-                    title: '웹으로 보기',
-                    link: {
-                        mobileWebUrl: 'https://developers.kakao.com',
-                        webUrl: 'https://developers.kakao.com',
-                    },
-                },
-            ],
-        });
     }, []);
 
     /* 식당 검색 */
@@ -119,15 +85,15 @@ const MapContainer = () => {
             setSearchRes(result);
             setAllSearchRes(el => el.concat(result));
         } else if (status === resStatus.ZERO_RESULT) {
-            warningToast('top-center', '검색 결과가 없습니다!');
+            warningToast('검색 결과가 없습니다!');
         } else {
-            errorToast('top-center', '서버 응답에 문제가 있습니다!');
+            errorToast('서버 응답에 문제가 있습니다!');
         }
     };
 
     const onSearch = () => {
         if (!searchIp) {
-            warningToast('top-center', '검색어를 입력해주세요');
+            warningToast('검색어를 입력해주세요');
         }
 
         setAllSearchRes([]);
@@ -137,12 +103,6 @@ const MapContainer = () => {
 
     return (
         <Wrapper>
-            <button id="create-kakaotalk-sharing-btn" type="button">
-                <img
-                    src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-                    alt="카카오톡 공유 보내기 버튼"
-                />
-            </button>
             <Container>
                 <SearchInput onSearch={onSearch} />
                 <SearchResult allSearchRes={allSearchRes} />
