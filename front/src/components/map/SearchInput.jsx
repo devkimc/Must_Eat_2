@@ -35,32 +35,32 @@ const SearchInput = ({ onSearch }) => {
 };
 
 const Container = styled.div`
-    width: 340px;
-    padding: 15px 25px;
+    width: 20rem;
+    padding: 1rem 1.6rem;
 `;
 
 const InputBox = styled.div`
-    height: 46px;
-    padding: 0px 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgb(0 0 0 / 20%), 0 -1px 0px rgb(0 0 0 / 2%);
+    height: 3rem;
+    padding: 0 0.6rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 20%), 0 0.06rem 0 rgb(0 0 0 / 2%);
     position: relative;
 `;
 
 const InputField = styled.input`
     border: 0 none;
     outline: none;
-    height: 19px;
+    height: 1.2rem;
     line-height: 1.2;
-    padding: 12px 16px 15px;
-    font-size: 16px;
+    padding: 0.75rem 1rem 1rem;
+    font-size: 1rem;
 `;
 
 const SearchButton = styled.button`
     position: absolute;
-    height: 46px;
-    padding: 10px 0;
-    right: 15px;
+    height: 3rem;
+    padding: 0.6rem 0;
+    right: 1rem;
     border: none;
     background: none;
     cursor: pointer;

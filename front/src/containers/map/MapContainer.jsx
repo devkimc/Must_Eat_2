@@ -118,9 +118,9 @@ const Container = styled.div`
     background: white;
     position: absolute;
     z-index: 20;
-    width: 390px;
+    width: 24rem;
     height: 100vh;
-    box-shadow: 0 0 5px 0 rgb(0 0 0 / 20%), 5px 0 15px 0 rgb(0 0 0 / 10%);
+    box-shadow: 0 0 0.3rem 0 rgb(0 0 0 / 20%), 0.3rem 0 1rem 0 rgb(0 0 0 / 10%);
 `;
 
 export default MapContainer;
