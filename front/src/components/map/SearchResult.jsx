@@ -150,17 +150,16 @@ const Wrapper = styled.div`
 const Result = styled.ul``;
 
 const ResultList = styled.li`
-    padding: 18px 25px 20px;
+    padding: 1rem 1.5rem 1.2rem;
     border-top: 1px solid #eee;
 `;
 
 const RadiusBox = styled.div`
-    width: 300px;
-    /* height: 50px; */
-    box-shadow: 0 2px 4px rgb(0 0 0 / 20%), 0 -1px 0px rgb(0 0 0 / 2%);
-    border-radius: 10px;
+    width: 19rem;
+    box-shadow: 0 0.1rem 0.2rem rgb(0 0 0 / 20%), 0 -0.1rem 0 rgb(0 0 0 / 2%);
+    border-radius: 0.6rem;
 
-    padding: 15px 10px 15px 10px;
+    padding: 1rem 0.6rem 1rem 0.6rem;
 `;
 
 const Title = styled.div``;
@@ -168,14 +167,14 @@ const Title = styled.div``;
 const BorderLine = styled.div`
     border-bottom: 1px solid silver;
     border-style: dashed;
-    margin-bottom: 12px;
-    margin-top: 10px;
+    margin-bottom: 0.75rem;
+    margin-top: 0.6rem;
 `;
 
 const Info = styled.div``;
 
 const PlaceNmTxt = styled.span`
-    font-size: 16px;
+    font-size: 1rem;
 `;
 
 const PhoneNum = styled.div`
@@ -183,7 +182,7 @@ const PhoneNum = styled.div`
 `;
 
 const PhoneNumTxt = styled.span`
-    font-size: 12px;
+    font-size: 0.75rem;
 `;
 
 const PhoneNumIcon = styled.div`
@@ -194,7 +193,7 @@ const PhoneNumIcon = styled.div`
 
 const AddrNm = styled.div`
     display: flex;
-    margin-bottom: 6px;
+    margin-bottom: 0.4rem;
 `;
 
 const AddrNmIcon = styled.div`
@@ -204,17 +203,17 @@ const AddrNmIcon = styled.div`
 `;
 
 const AddrNmTxt = styled.span`
-    font-size: 12px;
+    font-size: 0.75rem;
 `;
 
 const CateNmTxt = styled.span`
-    font-size: 11px;
+    font-size: 0.6rem;
     font-weight: 700;
 `;
 
 const Badges = styled.div`
     display: flex;
-    padding-top: 10px;
+    padding-top: 0.6rem;
 `;
 
 const Badge = styled.div`
@@ -223,9 +222,9 @@ const Badge = styled.div`
     flex-direction: column;
 
     background-color: ${props => props.randomColor};
-    padding: 5px 7px;
-    border-radius: 5px;
-    margin-right: 7px;
+    padding: 0.3rem 0.35rem;
+    border-radius: 0.3rem;
+    margin-right: 0.35rem;
 `;
 
 /* 카카오톡 공유하기 */
@@ -236,7 +235,7 @@ const KakaoShareBtn = styled.button`
 `;
 
 const KakaoAppImg = styled.img`
-    width: 13px;
+    width: 0.8rem;
 `;
 
 /* 검색 결과 없을 시 */
@@ -248,7 +247,7 @@ const RequestSearch = styled.div`
 
 /* Loading */
 const LoaderTarget = styled.div`
-    height: 100px;
+    height: 6.25rem;
 `;
 
 const LoaderWrap = styled.div`

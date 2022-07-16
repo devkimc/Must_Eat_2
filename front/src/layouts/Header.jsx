@@ -41,7 +41,7 @@ const Menu = styled.li`
 `;
 
 const LogoImg = styled.img`
-    height: 25px;
+    height: 1.6rem;
 `;
 
 export default Header;
