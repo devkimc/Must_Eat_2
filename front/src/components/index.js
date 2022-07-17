@@ -1,4 +1,5 @@
-export { default as HomeComponent } from './home/HomeComponents';
-export { default as MapComponent } from './map/MapComponent';
-export { default as SearchInput } from './map/SearchInput';
-export { default as SearchResult } from './map/SearchResult';
+export { default as HomeComponent } from './Home/HomeComponents';
+
+export { default as MapComponent } from './Map/MapComponent';
+export { default as SearchInput } from './Map/SearchInput';
+export { default as SearchResult } from './Map/SearchResult';
