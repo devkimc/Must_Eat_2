@@ -5,8 +5,6 @@ import ReactLoading from 'react-loading';
 import { BiMap } from 'react-icons/bi';
 import { IoIosCall } from 'react-icons/io';
 
-import apiKey from '@root/key.json';
-
 const SearchResult = ({ allSearchRes }) => {
     const [ref] = useInView();
     const colorArr = [
@@ -32,7 +30,7 @@ const SearchResult = ({ allSearchRes }) => {
         if (allSearchRes.length >= 1) {
             /* global Kakao */
             /* 카카오톡 공유하기 */
-            Kakao.init(apiKey.API_KEY_KAKAO_MAP_LOCAL);
+            Kakao.init(process.env.REACT_APP_API_KEY_KAKAO_MAP);
             allSearchRes.forEach((el, i) => {
                 Kakao.Share.createDefaultButton({
                     container: `#create-kakaotalk-sharing-btn${i}`,

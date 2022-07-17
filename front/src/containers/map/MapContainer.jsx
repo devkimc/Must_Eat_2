@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import apiKey from '@root/key.json';
 import { SearchInput, SearchResult, MapComponent } from '@components';
 import { searchIpState } from '@recoil/atom/map';
 import * as Constants from '@constants/mapConstants';
@@ -64,7 +63,7 @@ const MapContainer = () => {
         script.onload = () => kakao.maps.load(initMap);
         script.src =
             Constants.KAKAO_MAP_API_URL +
-            apiKey.API_KEY_KAKAO_MAP_LOCAL +
+            process.env.REACT_APP_API_KEY_KAKAO_MAP +
             Constants.KAKAO_MAP_API_SERVICES;
         document.head.appendChild(script);
     }, []);
