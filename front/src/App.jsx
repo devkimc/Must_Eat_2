@@ -5,7 +5,6 @@ import { Home, Map, Login, SignUp } from '@pages';
 const App = () => {
     return (
         <BrowserRouter>
-            {/* <Header /> */}
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/map" element={<Map />} />
