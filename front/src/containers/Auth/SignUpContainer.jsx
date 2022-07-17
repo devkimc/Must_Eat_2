@@ -5,7 +5,7 @@ import { FiUser } from 'react-icons/fi';
 import { AiOutlineLock, AiOutlineUnlock, AiOutlineMail } from 'react-icons/ai';
 import { MdOutlinePhoneIphone } from 'react-icons/md';
 
-const SignUpContainer = () => {
+const SubmitContainer = () => {
     return (
         <FlexRow>
             <Container>
@@ -58,11 +58,11 @@ const SignUpContainer = () => {
                             <InputField />
                         </InputLine>
                     </Input>
-                    <SignUpBtn>
+                    <SubmitBtn>
                         <FlexCol>
-                            <SignUpTxt>Sign up</SignUpTxt>
+                            <SubmitTxt>Sign up</SubmitTxt>
                         </FlexCol>
-                    </SignUpBtn>
+                    </SubmitBtn>
                 </InputBox>
                 <LoginBtn>
                     <Link to="/login">
@@ -74,7 +74,7 @@ const SignUpContainer = () => {
     );
 };
 
-export default SignUpContainer;
+export default SubmitContainer;
 const Container = styled.div`
     width: 20rem;
 `;
@@ -127,7 +127,7 @@ const InputField = styled.input`
         outline: none;
     }
 `;
-const SignUpBtn = styled.div`
+const SubmitBtn = styled.div`
     margin-top: 2rem;
     width: 100%;
     height: 2.2rem;
@@ -137,7 +137,7 @@ const SignUpBtn = styled.div`
     justify-content: center;
     cursor: pointer;
 `;
-const SignUpTxt = styled.span`
+const SubmitTxt = styled.span`
     color: #fff;
     font-weight: 300;
     font-size: 1rem;
