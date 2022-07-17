@@ -1,2 +1,2 @@
-export { default as HomeContainer } from './home/HomeContainer';
-export { default as MapContainer } from './map/MapContainer';
+export { default as HomeContainer } from './Home/HomeContainer';
+export { default as MapContainer } from './Map/MapContainer';
