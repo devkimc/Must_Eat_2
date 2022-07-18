@@ -1,11 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useInView } from 'react-intersection-observer';
 import ReactLoading from 'react-loading';
+
 import { BiMap } from 'react-icons/bi';
 import { IoIosCall } from 'react-icons/io';
+import { FiShare, FiFolderPlus } from 'react-icons/fi';
+
+import RestAddModal from './RestAddModal';
 
 const SearchResult = ({ allSearchRes }) => {
+    const [restAddModal, setRestAddModal] = useState(false);
+
     const [ref] = useInView();
     const colorArr = [
         '#c5d9ed',
@@ -26,11 +32,18 @@ const SearchResult = ({ allSearchRes }) => {
         return cateNmWord;
     };
 
+    const onClickFolderAdd = () => {
+        setRestAddModal(true);
+    };
+
+    const onClickCloseBtn = () => {
+        setRestAddModal(false);
+    };
+
+    /* global Kakao */
     useEffect(() => {
         if (allSearchRes.length >= 1) {
-            /* global Kakao */
             /* 카카오톡 공유하기 */
-            Kakao.init(process.env.REACT_APP_API_KEY_KAKAO_MAP);
             allSearchRes.forEach((el, i) => {
                 Kakao.Share.createDefaultButton({
                     container: `#create-kakaotalk-sharing-btn${i}`,
@@ -64,15 +77,25 @@ const SearchResult = ({ allSearchRes }) => {
                                         <PlaceNmTxt>
                                             {res.place_name}
                                         </PlaceNmTxt>
-                                        <KakaoShareBtn
-                                            id={`create-kakaotalk-sharing-btn${i}`}
-                                            type="button"
-                                        >
-                                            <KakaoAppImg
-                                                src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-                                                alt="카카오톡 공유 보내기 버튼"
-                                            />
-                                        </KakaoShareBtn>
+                                        <PlaceBtn>
+                                            <FolderAddBtn
+                                                onClick={onClickFolderAdd}
+                                            >
+                                                <FiFolderPlus
+                                                    size={14}
+                                                    color="silver"
+                                                />
+                                            </FolderAddBtn>
+                                            <KakaoShareBtn
+                                                id={`create-kakaotalk-sharing-btn${i}`}
+                                                type="button"
+                                            >
+                                                <FiShare
+                                                    size={13}
+                                                    color="silver"
+                                                />
+                                            </KakaoShareBtn>
+                                        </PlaceBtn>
                                     </Title>
 
                                     <Badges>
@@ -131,6 +154,7 @@ const SearchResult = ({ allSearchRes }) => {
                     </LoaderWrap>
                 </LoaderTarget>
             </Result>
+            {restAddModal && <RestAddModal onClickCloseBtn={onClickCloseBtn} />}
         </Wrapper>
     );
 };
@@ -160,7 +184,14 @@ const RadiusBox = styled.div`
     padding: 1rem 0.6rem 1rem 0.6rem;
 `;
 
-const Title = styled.div``;
+const Title = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
+
+const PlaceBtn = styled.div`
+    display: flex;
+`;
 
 const BorderLine = styled.div`
     border-bottom: 1px solid silver;
@@ -232,8 +263,10 @@ const KakaoShareBtn = styled.button`
     cursor: pointer;
 `;
 
-const KakaoAppImg = styled.img`
-    width: 0.8rem;
+const FolderAddBtn = styled.button`
+    border: none;
+    background: none;
+    cursor: pointer;
 `;
 
 /* 검색 결과 없을 시 */

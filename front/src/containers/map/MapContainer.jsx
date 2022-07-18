@@ -56,6 +56,11 @@ const MapContainer = () => {
         setMapObj(initMapObj);
     };
 
+    /* global Kakao */
+    useEffect(() => {
+        Kakao.init(process.env.REACT_APP_API_KEY_KAKAO_MAP);
+    }, []);
+
     /* global kakao */
     useEffect(() => {
         /* 카카오맵 */
