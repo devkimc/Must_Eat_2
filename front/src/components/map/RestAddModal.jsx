@@ -85,7 +85,7 @@ const Visible = styled.div`
 const Modal = styled.div`
     position: absolute;
     width: 21rem;
-    border-radius: 5px;
+    border-radius: 0.28rem;
     box-shadow: 0 4px 20px 0 rgb(0 0 0 / 10%);
     background: #fff;
     z-index: 2000;
