@@ -13,9 +13,14 @@ import 'react-toastify/dist/ReactToastify.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const GlobalStyle = createGlobalStyle`
-a{
+a {
   text-decoration: none;
 }
+
+button {
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;}
 `;
 
 root.render(
