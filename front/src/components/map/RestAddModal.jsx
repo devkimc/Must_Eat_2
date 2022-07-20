@@ -1,9 +1,37 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
+import { errorToast } from '@utils/toast';
 
 import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
 
 const RestAddModal = ({ onClickCloseBtn }) => {
+    const [addClicked, setAddClicked] = useState(false);
+    const [groupNmInput, setGroupNmInput] = useState('');
+    const groupNmTag = useRef();
+
+    const onClickGroupAdd = () => {
+        setAddClicked(true);
+    };
+
+    const onChangeGroupNm = e => {
+        setGroupNmInput(e.target.value);
+    };
+
+    const onClickRemoveBtn = () => {
+        setGroupNmInput('');
+    };
+
+    const onClickCancleBtn = () => {
+        setAddClicked(false);
+        setGroupNmInput('');
+    };
+
+    const onClickConfirmBtn = () => {
+        if (groupNmInput === '') {
+            errorToast('그룹명을 입력해 주세요.');
+        }
+    };
+
     const testArr = ['가족', '여자친구', '친구들'];
     const colorArr = [
         '#f5e6ab',
@@ -23,14 +51,38 @@ const RestAddModal = ({ onClickCloseBtn }) => {
             <Visible>
                 <Modal>
                     <Title>맛집 추가하기</Title>
-                    <GroupAdd>
-                        <GroupAddImg>
-                            <FlexCol>
-                                <AiOutlinePlus size={22} color="#e91e63" />
-                            </FlexCol>
-                        </GroupAddImg>
-                        <GroupAddTxt>새로운 그룹 추가하기</GroupAddTxt>
-                    </GroupAdd>
+                    {!addClicked ? (
+                        <GroupAdd onClick={onClickGroupAdd}>
+                            <GroupAddImg>
+                                <FlexCol>
+                                    <AiOutlinePlus size={22} color="#e91e63" />
+                                </FlexCol>
+                            </GroupAddImg>
+                            <GroupAddTxt>새로운 그룹 추가하기</GroupAddTxt>
+                        </GroupAdd>
+                    ) : (
+                        <GroupAddClicked>
+                            <InputBox>
+                                <GroupAddInput
+                                    placeholder="새로운 그룹명을 정해주세요!"
+                                    value={groupNmInput}
+                                    onChange={onChangeGroupNm}
+                                    ref={groupNmTag}
+                                />
+                                <RemoveBtn onClick={onClickRemoveBtn}>
+                                    <AiOutlineClose color="#1a1616" size={15} />
+                                </RemoveBtn>
+                            </InputBox>
+                            <BottomBtn>
+                                <CancleBtn onClick={onClickCancleBtn}>
+                                    취소
+                                </CancleBtn>
+                                <ConfirmBtn onClick={onClickConfirmBtn}>
+                                    확인
+                                </ConfirmBtn>
+                            </BottomBtn>
+                        </GroupAddClicked>
+                    )}
                     {testArr.map((el, i) => (
                         <Group key={el}>
                             <GroupList>
@@ -103,10 +155,11 @@ const Title = styled.div`
     margin-bottom: 2rem;
 `;
 
-/* 그룹 생성 */
+/* 그룹 생성 - 클릭 전 */
 const GroupAdd = styled.div`
     display: flex;
     padding-bottom: 0.5rem;
+    cursor: pointer;
 `;
 
 const GroupAddImg = styled.div`
@@ -124,6 +177,46 @@ const GroupAddTxt = styled.div`
     padding-left: 0.5rem;
     justify-content: center;
     flex-direction: column;
+`;
+
+/* 그룹 생성 - 클릭 후  */
+const GroupAddClicked = styled.div`
+    margin-bottom: 1.5rem;
+`;
+
+const InputBox = styled.div`
+    display: flex;
+    border-bottom: 1px solid;
+    padding-bottom: 0.5rem;
+`;
+
+const GroupAddInput = styled.input`
+    width: 100%;
+`;
+
+const RemoveBtn = styled.div`
+    cursor: pointer;
+`;
+
+const BottomBtn = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 1.5rem;
+    padding-right: 0.3rem;
+`;
+
+const CancleBtn = styled.div`
+    cursor: pointer;
+    color: #a8a7a8;
+`;
+
+const ConfirmBtn = styled.div`
+    cursor: pointer;
+    margin-left: 0.5rem;
+
+    :hover {
+        color: #e91e63;
+    }
 `;
 
 /* 그룹 리스트 */
@@ -147,7 +240,7 @@ const GroupInfo = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
-    padding-left: 0.4rem;
+    padding-left: 0.7rem;
 `;
 
 const GroupRestCount = styled.div`
