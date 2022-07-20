@@ -28,6 +28,7 @@ const RestAddModal = ({ onClickCloseBtn }) => {
 
     const onClickConfirmBtn = () => {
         if (groupNmInput === '') {
+            groupNmTag.current.focus();
             errorToast('그룹명을 입력해 주세요.');
         }
     };
