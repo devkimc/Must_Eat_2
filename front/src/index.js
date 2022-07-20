@@ -34,6 +34,11 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
   }
+
+  input {
+    border: none;
+    outline: none;
+  }
   
   button {
     outline: none;
