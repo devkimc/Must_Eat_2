@@ -1,5 +1,5 @@
 # 임시 apiKey 보관 경로
-/src/key.json
+/server/config/
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
