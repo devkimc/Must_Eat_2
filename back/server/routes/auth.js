@@ -6,8 +6,6 @@ import jwtObj from '../config/jwt.json'
 const router = Router();
 
 const SECRET_KEY = jwtObj.secret
-
-
 /*
     CEATE USER_INFO: POST /auth/signup
 */
