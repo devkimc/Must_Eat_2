@@ -259,8 +259,8 @@ const GroupNm = styled.div`
 const CloseBtn = styled.button`
     border: none;
     position: absolute;
-    top: -30px;
-    right: 0;
+    top: -2rem;
+    right: -0.5rem;
 `;
 
 /* Flex */
