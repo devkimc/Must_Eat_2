@@ -5,10 +5,17 @@ import { FiUser } from 'react-icons/fi';
 import { AiOutlineUnlock } from 'react-icons/ai';
 
 import { login } from '../../lib/api/auth';
+// import { getFavRest } from '../../lib/api/rest';
 
 const SignUpContainer = () => {
-    const onClickLogin = () => {
-        login('TEST_ID', 'TEST_PW');
+    const onClickLogin = async () => {
+        login('TEST_ID', 'TEST_PW')
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
     };
 
     return (
