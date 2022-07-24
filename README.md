@@ -28,13 +28,12 @@
 >
 # 4. 기술 스택
 
-> + **Frontend**: react
-> + **Design**: styled-components
+> **Client**
+> + React
+> + Recoil
+> + Styled-components
+>
+>
+> **Server**
+> + Node.js
 
-# 커밋 메시지 규칙
-> + **[ADD]**: (Add Code)개발단계에서 코드 추가
-> + **[MOD]**: (Modify Code) 개발단계에서 코드 수정
-> + **[BUG]**: (Bug Fix)버그 수정
-> + **[CLN]**: (Cleanup) 코드 정리 / 리팩토링
-> + **[DOC]**: (Documentation)문서 작업
-> + **[STY]**: (Style) 레이아웃과 스타일 정의
