@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-import { errorToast } from '@utils/toast';
+import { errorToast } from 'utils/toast';
 
 import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
 

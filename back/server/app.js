@@ -7,6 +7,10 @@ import cors from 'cors'
 import { createPool } from 'mysql'
 import config from './config/db-config.json'
 import api from './routes'
+import expressSession from 'express-session'
+import jwtObj from './config/jwt.json'
+
+const SECRET_KEY = jwtObj.secret
 
 //connection SUCCESS CHECK
 const pool = createPool(config);
@@ -26,6 +30,12 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, '../project_www/build')))
 app.use(cors())
+
+app.use(expressSession({
+  secret: SECRET_KEY,
+  resave: true,
+  saveUninitialized: true
+}))
 
 app.use('/', api)
 

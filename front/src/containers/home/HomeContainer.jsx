@@ -1,4 +1,4 @@
-import React, { HomeComponent } from '@components';
+import React, { HomeComponent } from 'components';
 
 const HomeContainer = () => {
     return <HomeComponent />;

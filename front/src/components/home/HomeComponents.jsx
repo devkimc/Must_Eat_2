@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ramenImg from '@assets/img/ramen_3.jpg';
+import ramenImg from 'assets/img/ramen_3.jpg';
 
 const HomeComponent = () => {
     return (

@@ -3,7 +3,7 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { AiOutlineSearch } from 'react-icons/ai';
 
-import { searchIpState } from '@recoil/atom/map';
+import { searchIpState } from 'atom/map';
 
 const SearchInput = ({ onSearch }) => {
     const [searchIp, setSearchIp] = useRecoilState(searchIpState);
