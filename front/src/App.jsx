@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import { Home, Map, Login, SignUp } from '@pages';
+import { Home, Map, Login, SignUp } from 'pages';
 
 const App = () => {
     return (

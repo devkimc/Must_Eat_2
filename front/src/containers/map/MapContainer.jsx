@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { SearchInput, SearchResult, MapComponent } from '@components';
-import { searchIpState } from '@recoil/atom/map';
-import * as Constants from '@constants/mapConstants';
-import { warningToast, errorToast } from '@utils/toast';
+import { SearchInput, SearchResult, MapComponent } from 'components';
+import { searchIpState } from 'atom/map';
+import * as Constants from 'constants/mapConstants';
+import { warningToast, errorToast } from 'utils/toast';
 
 const MapContainer = () => {
     const [mapObj, setMapObj] = useState('');

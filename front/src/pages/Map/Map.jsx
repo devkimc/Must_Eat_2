@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapContainer } from '@containers';
+import { MapContainer } from 'containers';
 import styled from 'styled-components';
 
 const Map = () => {

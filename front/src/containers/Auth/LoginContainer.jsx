@@ -4,7 +4,13 @@ import styled from 'styled-components';
 import { FiUser } from 'react-icons/fi';
 import { AiOutlineUnlock } from 'react-icons/ai';
 
+import { login } from '../../lib/api/auth';
+
 const SignUpContainer = () => {
+    const onClickLogin = () => {
+        login('TEST_ID', 'TEST_PW');
+    };
+
     return (
         <FlexRow>
             <Container>
@@ -30,7 +36,7 @@ const SignUpContainer = () => {
                             <InputField />
                         </InputLine>
                     </Input>
-                    <SubmitBtn>
+                    <SubmitBtn onClick={onClickLogin}>
                         <FlexCol>
                             <SubmitTxt>Login</SubmitTxt>
                         </FlexCol>
