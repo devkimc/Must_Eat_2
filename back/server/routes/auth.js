@@ -3,6 +3,7 @@ import { Router } from 'express';
 import { auth } from '../middlewares/auth'
 import jwt from 'jsonwebtoken'
 import jwtObj from '../config/jwt.json'
+
 const router = Router();
 
 const SECRET_KEY = jwtObj.secret
@@ -74,6 +75,13 @@ router.post('/signup', (req, res) => {
     CHECK USER_INFO: POST /auth/login
 */
 router.post('/login', (req, res) => {
+
+	// if(req.session.user) {
+	// 	console.log('이미 로그인 되어 있음')
+	// } else {
+		
+	// }
+
   getConnection((conn) => {
     conn.query(
       ' SELECT USER_ID     ' +
