@@ -76,12 +76,6 @@ router.post('/signup', (req, res) => {
 */
 router.post('/login', (req, res) => {
 
-	// if(req.session.user) {
-	// 	console.log('이미 로그인 되어 있음')
-	// } else {
-		
-	// }
-
   getConnection((conn) => {
     conn.query(
       ' SELECT USER_ID     ' +
@@ -103,22 +97,26 @@ router.post('/login', (req, res) => {
 
 				else if (result.length === 1)
 				{
-					const token = jwt.sign({
-						type: 'JWT',
-						userid: req.body.USER_ID
-					},
-						SECRET_KEY,
-					{
-						expiresIn: '15m'
-					})
+					req.session.userId = req.body.USER_ID;
+					req.session.logined = true;
+					console.log(req.session)
+
+					// const token = jwt.sign({
+					// 	type: 'JWT',
+					// 	userid: req.body.USER_ID
+					// },
+					// 	SECRET_KEY,
+					// {
+					// 	expiresIn: '15m'
+					// })
 					
-					res.cookie("user", token, {
-						httpOnly: true
-					})
+					// res.cookie("user", token, {
+					// 	httpOnly: true
+					// })
 					return res.status(200).json({
 						code: 20001,
 						msg: "로그인에 성공하셨습니다.",
-						token: token
+						// token: token
 					})
 				}
 
