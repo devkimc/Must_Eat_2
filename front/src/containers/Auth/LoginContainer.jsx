@@ -9,13 +9,12 @@ import { login } from '../../lib/api/auth';
 
 const SignUpContainer = () => {
     const onClickLogin = async () => {
-        login('TEST_ID', 'TEST_PW')
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        try {
+            const response = await login('TEST_ID', 'TEST_PW');
+            console.log(response.data);
+        } catch (error) {
+            console.log(error.response.data);
+        }
     };
 
     return (

@@ -94,7 +94,7 @@ router.post('/login', (req, res) => {
         if (err) throw err
 
 				if (result.length === 0) {
-					return res.status(200).json({
+					return res.status(400).json({
 						code: 20000,
 						msg: "ID와 비밀번호가 일치하지 않습니다.",
 						list: result
