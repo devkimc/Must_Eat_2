@@ -26,18 +26,13 @@ const app = express()
 
 // 세션 설정
 const SECRET_KEY = jwtObj.secret
-const maxAge = 1000 * 60 * 30;
+const maxAge = 1000 * 60 * 5;
 
 app.use(session({
   httpOnly: true,	
   secret: SECRET_KEY,	
   resave: false,
   saveUninitialized: true,
-  cookie: {	
-    httpOnly: true,
-    secure: true,
-    maxAge: maxAge
-  },
   store: new fileStore()
 }));
 

@@ -6,7 +6,18 @@ const router = Router()
     SELECT FAVORITES_RESTATURANT : POST /fav-rest/info
 */
 router.post('/info', (req, res) => {
+
   getConnection((conn) => {
+    console.log(req.session)
+    console.log(req.session.id)
+    console.log(req.session.cookie)
+    if(req.session.user === undefined) {
+      return res.status(401).json({
+        code: 20001,
+        msg: "로그인후 사용가능합니다."
+      })
+    }
+    
     conn.query(
       ' SELECT T02.REST_ID               ' +
       '      , T02.REST_NM               ' +

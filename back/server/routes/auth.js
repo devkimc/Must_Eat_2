@@ -1,12 +1,9 @@
 import { getConnection } from '../app'
 import { Router } from 'express';
 import { auth } from '../middlewares/auth'
-import jwt from 'jsonwebtoken'
-import jwtObj from '../config/jwt.json'
 
 const router = Router();
 
-const SECRET_KEY = jwtObj.secret
 /*
     CEATE USER_INFO: POST /auth/signup
 */
@@ -97,26 +94,11 @@ router.post('/login', (req, res) => {
 
 				else if (result.length === 1)
 				{
-					req.session.userId = req.body.USER_ID;
-					req.session.logined = true;
+					req.session.user = req.body.USER_ID;
 					console.log(req.session)
-
-					// const token = jwt.sign({
-					// 	type: 'JWT',
-					// 	userid: req.body.USER_ID
-					// },
-					// 	SECRET_KEY,
-					// {
-					// 	expiresIn: '15m'
-					// })
-					
-					// res.cookie("user", token, {
-					// 	httpOnly: true
-					// })
 					return res.status(200).json({
 						code: 20001,
-						msg: "로그인에 성공하셨습니다.",
-						// token: token
+						msg: "로그인에 성공하셨습니다."
 					})
 				}
 
