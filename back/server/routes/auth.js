@@ -95,7 +95,7 @@ router.post('/login', (req, res) => {
 				else if (result.length === 1)
 				{
 					req.session.user = req.body.USER_ID;
-					console.log(req.session)
+					console.log(req.sessionID)
 					return res.status(200).json({
 						code: 20001,
 						msg: "로그인에 성공하셨습니다."

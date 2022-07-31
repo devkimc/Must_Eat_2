@@ -11,6 +11,7 @@ router.post('/info', (req, res) => {
     console.log(req.session)
     console.log(req.session.id)
     console.log(req.session.cookie)
+    console.log(req.headers.cookie)
     if(req.session.user === undefined) {
       return res.status(401).json({
         code: 20001,

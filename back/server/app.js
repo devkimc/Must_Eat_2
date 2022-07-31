@@ -41,7 +41,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, '../project_www/build')))
-app.use(cors())
+// app.use(cors({ origin: '*'}))
 app.use('/', api)
 
 // catch 404 and forward to error handler

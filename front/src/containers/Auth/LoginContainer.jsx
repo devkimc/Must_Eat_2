@@ -1,16 +1,36 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+// import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FiUser } from 'react-icons/fi';
 import { AiOutlineUnlock } from 'react-icons/ai';
 
 import { login } from '../../lib/api/auth';
-// import { getFavRest } from '../../lib/api/rest';
+import { getFavRest } from '../../lib/api/rest';
 
 const SignUpContainer = () => {
+    const [inputId, setInputId] = useState('');
+    const [inputPw, setInputPw] = useState('');
+
+    const onChangeId = e => {
+        setInputId(e.target.value);
+    };
+
+    const onChangePw = e => {
+        setInputPw(e.target.value);
+    };
+
     const onClickLogin = async () => {
         try {
-            const response = await login('TEST_ID', 'TEST_PW');
+            const response = await login(inputId, inputPw);
+            console.log(response.data);
+        } catch (error) {
+            console.log(error.response.data);
+        }
+    };
+
+    const onClickSignUp = () => {
+        try {
+            const response = getFavRest(inputId);
             console.log(response.data);
         } catch (error) {
             console.log(error.response.data);
@@ -30,7 +50,7 @@ const SignUpContainer = () => {
                             <Icon>
                                 <FiUser color="#f57c00" />
                             </Icon>
-                            <InputField />
+                            <InputField value={inputId} onChange={onChangeId} />
                         </InputLine>
                     </Input>
                     <Input>
@@ -39,7 +59,7 @@ const SignUpContainer = () => {
                             <Icon>
                                 <AiOutlineUnlock color="#f57c00" />
                             </Icon>
-                            <InputField />
+                            <InputField value={inputPw} onChange={onChangePw} />
                         </InputLine>
                     </Input>
                     <SubmitBtn onClick={onClickLogin}>
@@ -48,10 +68,10 @@ const SignUpContainer = () => {
                         </FlexCol>
                     </SubmitBtn>
                 </InputBox>
-                <SignUpBtn>
-                    <Link to="/signup">
-                        <SignUpTxt>SignUp</SignUpTxt>
-                    </Link>
+                <SignUpBtn onClick={onClickSignUp}>
+                    {/* <Link to="/signup"> */}
+                    <SignUpTxt>SignUp</SignUpTxt>
+                    {/* </Link> */}
                 </SignUpBtn>
             </Container>
         </FlexRow>

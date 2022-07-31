@@ -1,8 +1,8 @@
 import axiosInstance from '../defaultClient';
 
 export const getFavRest = userId => {
-    return axiosInstance.get('/fav-rest/info', {
-        userId,
+    return axiosInstance.post('/fav-rest/info', {
+        USER_ID: userId,
     });
 };
 
