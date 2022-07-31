@@ -95,6 +95,7 @@ router.post('/login', (req, res) => {
 				else if (result.length === 1)
 				{
 					req.session.user = req.body.USER_ID;
+					req.session.resetMaxAge()
 					console.log(req.sessionID)
 					return res.status(200).json({
 						code: 20001,
