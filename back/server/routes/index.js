@@ -5,8 +5,8 @@ import kakao from './kakao'
 
 const router = Router();
 
-router.use("/auth", auth)
-router.use("/fav-rest", favRest)
-router.use("/kakao", kakao)
+router.use("/api/auth", auth)
+router.use("/api/fav-rest", favRest)
+router.use("/api/kakao", kakao)
 
 export default router;

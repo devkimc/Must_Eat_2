@@ -1,7 +1,7 @@
 import axiosInstance from '../defaultClient';
 
 export const login = (userId, userPw) => {
-    return axiosInstance.post('/auth/login', {
+    return axiosInstance.post('/api/auth/login', {
         USER_ID: userId,
         USER_PW: userPw,
     });
