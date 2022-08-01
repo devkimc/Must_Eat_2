@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FiUser } from 'react-icons/fi';
 import { AiOutlineUnlock } from 'react-icons/ai';
 
 import { login } from '../../lib/api/auth';
-import { getFavRest } from '../../lib/api/rest';
+import { successToast } from '../../utils/toast';
 
 const SignUpContainer = () => {
     const [inputId, setInputId] = useState('');
     const [inputPw, setInputPw] = useState('');
+    const navigate = useNavigate();
 
     const onChangeId = e => {
         setInputId(e.target.value);
@@ -21,19 +22,11 @@ const SignUpContainer = () => {
 
     const onClickLogin = async () => {
         try {
-            const response = await login(inputId, inputPw);
-            console.log(response.data);
+            await login(inputId, inputPw);
+            navigate('/map');
+            successToast('로그인에 성공하셨습니다!');
         } catch (error) {
-            console.log(error.response.data);
-        }
-    };
-
-    const onClickSignUp = () => {
-        try {
-            const response = getFavRest(inputId);
-            console.log(response.data);
-        } catch (error) {
-            console.log(error.response.data);
+            setInputPw('');
         }
     };
 
@@ -62,16 +55,21 @@ const SignUpContainer = () => {
                             <InputField value={inputPw} onChange={onChangePw} />
                         </InputLine>
                     </Input>
-                    <SubmitBtn onClick={onClickLogin}>
+
+                    <SubmitBtn
+                        onClick={onClickLogin}
+                        disabled={inputId.length < 1 || inputPw.length < 1}
+                        disable={inputId.length < 1 || inputPw.length < 1}
+                    >
                         <FlexCol>
                             <SubmitTxt>Login</SubmitTxt>
                         </FlexCol>
                     </SubmitBtn>
                 </InputBox>
-                <SignUpBtn onClick={onClickSignUp}>
-                    {/* <Link to="/signup"> */}
-                    <SignUpTxt>SignUp</SignUpTxt>
-                    {/* </Link> */}
+                <SignUpBtn>
+                    <Link to="/signup">
+                        <SignUpTxt>SignUp</SignUpTxt>
+                    </Link>
                 </SignUpBtn>
             </Container>
         </FlexRow>
@@ -132,14 +130,15 @@ const InputField = styled.input`
         outline: none;
     }
 `;
-const SubmitBtn = styled.div`
+const SubmitBtn = styled.button`
     margin-top: 2rem;
     width: 100%;
     height: 2.2rem;
-    background-color: #f57c00;
+    background-color: ${props => (props.disable ? '#b8b8b8' : '#f57c00')};
     border-radius: 1rem;
     display: flex;
     justify-content: center;
+    border: none;
     cursor: pointer;
 `;
 const SubmitTxt = styled.span`
@@ -167,4 +166,5 @@ const FlexCol = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
+    height: 100%;
 `;

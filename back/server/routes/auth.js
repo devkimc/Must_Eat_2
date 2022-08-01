@@ -106,7 +106,7 @@ router.post('/login', (req, res) => {
 				else {
 					return res.status(500).json({
 						code: 99999,
-						msg: "서버 오류입니다.",
+						msg: "Server Error.",
 						list: result
 					})
 				}
