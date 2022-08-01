@@ -1,15 +1,11 @@
 # 임시 apiKey 보관 경로
 /server/config/
 
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# 세션 정보 파일
+/sessions
 
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
-
-# testing
-/coverage
 
 # production
 /build

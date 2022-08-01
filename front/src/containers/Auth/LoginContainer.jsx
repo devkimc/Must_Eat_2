@@ -1,21 +1,33 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FiUser } from 'react-icons/fi';
 import { AiOutlineUnlock } from 'react-icons/ai';
 
 import { login } from '../../lib/api/auth';
-// import { getFavRest } from '../../lib/api/rest';
+import { successToast } from '../../utils/toast';
 
 const SignUpContainer = () => {
+    const [inputId, setInputId] = useState('');
+    const [inputPw, setInputPw] = useState('');
+    const navigate = useNavigate();
+
+    const onChangeId = e => {
+        setInputId(e.target.value);
+    };
+
+    const onChangePw = e => {
+        setInputPw(e.target.value);
+    };
+
     const onClickLogin = async () => {
-        login('TEST_ID', 'TEST_PW')
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        try {
+            await login(inputId, inputPw);
+            navigate('/map');
+            successToast('로그인에 성공하셨습니다!');
+        } catch (error) {
+            setInputPw('');
+        }
     };
 
     return (
@@ -31,7 +43,7 @@ const SignUpContainer = () => {
                             <Icon>
                                 <FiUser color="#f57c00" />
                             </Icon>
-                            <InputField />
+                            <InputField value={inputId} onChange={onChangeId} />
                         </InputLine>
                     </Input>
                     <Input>
@@ -40,10 +52,15 @@ const SignUpContainer = () => {
                             <Icon>
                                 <AiOutlineUnlock color="#f57c00" />
                             </Icon>
-                            <InputField />
+                            <InputField value={inputPw} onChange={onChangePw} />
                         </InputLine>
                     </Input>
-                    <SubmitBtn onClick={onClickLogin}>
+
+                    <SubmitBtn
+                        onClick={onClickLogin}
+                        disabled={inputId.length < 1 || inputPw.length < 1}
+                        disable={inputId.length < 1 || inputPw.length < 1}
+                    >
                         <FlexCol>
                             <SubmitTxt>Login</SubmitTxt>
                         </FlexCol>
@@ -113,14 +130,15 @@ const InputField = styled.input`
         outline: none;
     }
 `;
-const SubmitBtn = styled.div`
+const SubmitBtn = styled.button`
     margin-top: 2rem;
     width: 100%;
     height: 2.2rem;
-    background-color: #f57c00;
+    background-color: ${props => (props.disable ? '#b8b8b8' : '#f57c00')};
     border-radius: 1rem;
     display: flex;
     justify-content: center;
+    border: none;
     cursor: pointer;
 `;
 const SubmitTxt = styled.span`
@@ -148,4 +166,5 @@ const FlexCol = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
+    height: 100%;
 `;

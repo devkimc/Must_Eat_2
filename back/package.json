@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "pm2 start ecosystem.config.js --only proj-dev",
     "prod": "pm2 start ecosystem.config.js --only proj-prod",
-    "start": "nodemon ./server/bin/www.js --exec babel-node",
+    "start": "rm -rf sessions && nodemon ./server/bin/www.js --exec babel-node",
     "test": "nodemon ./server/app.js --exec babel-node",
     "transpile": "babel ./server --out-dir dist-server",
     "clean": "rimraf dist-server"
@@ -21,7 +21,8 @@
     "jade": "~1.11.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "~1.9.1",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "session-file-store": "^1.5.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.0",
