@@ -1,11 +1,51 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { FiUser } from 'react-icons/fi';
 import { AiOutlineLock, AiOutlineUnlock, AiOutlineMail } from 'react-icons/ai';
 import { MdOutlinePhoneIphone } from 'react-icons/md';
 
+import { signup } from '../../lib/api/auth';
+import { successToast } from '../../utils/toast';
+
 const SubmitContainer = () => {
+    const [inputId, setInputId] = useState('');
+    const [inputPw, setInputPw] = useState('');
+    const [inputPwConf, setInputPwConf] = useState('');
+    const [inputEmail, setInputEmail] = useState('');
+    const [inputMobNo, setInputMobNo] = useState('');
+    const navigate = useNavigate();
+
+    const onClickSignup = async () => {
+        try {
+            await signup(inputId, inputPw, inputEmail, inputMobNo);
+            navigate('/login');
+            successToast('회원가입을 축하해요!');
+        } catch (error) {
+            setInputPwConf('');
+        }
+    };
+
+    const onChangeId = e => {
+        setInputId(e.target.value);
+    };
+
+    const onChangePw = e => {
+        setInputPw(e.target.value);
+    };
+
+    const onChangePwConf = e => {
+        setInputPwConf(e.target.value);
+    };
+
+    const onChangeEmail = e => {
+        setInputEmail(e.target.value);
+    };
+
+    const onChangeMobNo = e => {
+        setInputMobNo(e.target.value);
+    };
+
     return (
         <FlexRow>
             <Container>
@@ -19,7 +59,7 @@ const SubmitContainer = () => {
                             <Icon>
                                 <FiUser color="#f57c00" />
                             </Icon>
-                            <InputField />
+                            <InputField onChange={onChangeId} value={inputId} />
                         </InputLine>
                     </Input>
                     <Input>
@@ -28,7 +68,12 @@ const SubmitContainer = () => {
                             <Icon>
                                 <AiOutlineUnlock color="#f57c00" />
                             </Icon>
-                            <InputField />
+                            <InputField
+                                autoComplete="new-password"
+                                type="password"
+                                onChange={onChangePw}
+                                value={inputPw}
+                            />
                         </InputLine>
                     </Input>
                     <Input>
@@ -37,7 +82,12 @@ const SubmitContainer = () => {
                             <Icon>
                                 <AiOutlineLock color="#f57c00" />
                             </Icon>
-                            <InputField />
+                            <InputField
+                                autoComplete="new-password"
+                                type="password"
+                                onChange={onChangePwConf}
+                                value={inputPwConf}
+                            />
                         </InputLine>
                     </Input>
                     <Input>
@@ -46,7 +96,10 @@ const SubmitContainer = () => {
                             <Icon>
                                 <AiOutlineMail color="#f57c00" />
                             </Icon>
-                            <InputField />
+                            <InputField
+                                onChange={onChangeEmail}
+                                value={inputEmail}
+                            />
                         </InputLine>
                     </Input>
                     <Input>
@@ -55,10 +108,13 @@ const SubmitContainer = () => {
                             <Icon>
                                 <MdOutlinePhoneIphone color="#f57c00" />
                             </Icon>
-                            <InputField />
+                            <InputField
+                                onChange={onChangeMobNo}
+                                value={inputMobNo}
+                            />
                         </InputLine>
                     </Input>
-                    <SubmitBtn>
+                    <SubmitBtn onClick={onClickSignup}>
                         <FlexCol>
                             <SubmitTxt>Sign up</SubmitTxt>
                         </FlexCol>
