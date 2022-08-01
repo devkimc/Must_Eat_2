@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { errorToast } from '../utils/toast';
+// import { errorToast } from '../utils/toast';
+import errProc from './error/configErr';
 
 axios.defaults.withCredentials = true;
 axios.defaults.timeout = 1000;
@@ -12,9 +13,14 @@ const axiosInstance = axios.create({
     withCredentials: true,
 });
 
-axiosInstance.interceptors.response.use(error => {
-    errorToast(error.response.data.msg);
-    return Promise.reject(error);
-});
-
+// 응답 인터셉터 추가하기
+axiosInstance.interceptors.response.use(
+    response => {
+        return response;
+    },
+    error => {
+        errProc(error.response.data);
+        return Promise.reject(error);
+    },
+);
 export default axiosInstance;
