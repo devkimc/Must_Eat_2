@@ -43,7 +43,11 @@ const SignUpContainer = () => {
                             <Icon>
                                 <FiUser color="#f57c00" />
                             </Icon>
-                            <InputField value={inputId} onChange={onChangeId} />
+                            <InputField
+                                value={inputId}
+                                onChange={onChangeId}
+                                maxLength={16}
+                            />
                         </InputLine>
                     </Input>
                     <Input>
@@ -52,7 +56,12 @@ const SignUpContainer = () => {
                             <Icon>
                                 <AiOutlineUnlock color="#f57c00" />
                             </Icon>
-                            <InputField value={inputPw} onChange={onChangePw} />
+                            <InputField
+                                type="password"
+                                value={inputPw}
+                                onChange={onChangePw}
+                                maxLength={12}
+                            />
                         </InputLine>
                     </Input>
 
