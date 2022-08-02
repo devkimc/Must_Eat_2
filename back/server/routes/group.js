@@ -3,7 +3,7 @@ import { Router } from 'express';
 const router = Router()
 
 /*
-    INSERT/DELETE FAVORITES_RESTATURANT: POST /fav-rest/proc
+    INSERT USER_GROUP: POST /group/create
 */
 router.post('/create', (req, res) => {
   getConnection((conn) => {
@@ -53,6 +53,40 @@ router.post('/create', (req, res) => {
     )
     conn.release()
   })
+})
+
+/*
+    SELECT USER_GROUP: GET /group/list
+*/
+router.get('/list', (req, res) => {
+
+    getConnection((conn) => {
+        if(req.session.user === undefined) {
+            return res.status(401).json({
+              code: 20001,
+              msg: "로그인후 사용가능합니다."
+            })
+        }
+
+        conn.query(
+            ' SELECT T02.GROUP_ID                 ' +
+            '      , T02.GROUP_NM                 ' +
+            '   FROM GROUP_MEMBER T01             ' +
+            '      ,   USER_GROUP T02             ' +
+            '  WHERE T01.USER_ID = ?              ' +
+            '    AND T01.GROUP_ID = T02.GROUP_ID  ' ,
+            [ req.session.user ],
+            (err, result) => {
+                if (err) throw err
+
+                return res.status(200).json({
+                    code: 10001,
+                    msg: "정상 조회되었습니다.",
+                    list: result
+                })
+            }
+        )
+    })
 })
 
 export default router

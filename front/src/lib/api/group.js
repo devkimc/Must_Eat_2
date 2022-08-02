@@ -6,4 +6,8 @@ export const createGroup = groupNm => {
     });
 };
 
+export const getGroupList = () => {
+    return axiosInstance.get('/api/group/list', {});
+};
+
 export default createGroup;

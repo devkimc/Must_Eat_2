@@ -1,14 +1,25 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { errorToast } from 'utils/toast';
 
 import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
-import { createGroup } from '../../lib/api/group';
+import { createGroup, getGroupList } from '../../lib/api/group';
 
 const RestAddModal = ({ onClickCloseBtn }) => {
     const [addClicked, setAddClicked] = useState(false);
     const [groupNmInput, setGroupNmInput] = useState('');
+    const [groupList, setGroupList] = useState([]);
     const groupNmTag = useRef();
+
+    useEffect(() => {
+        getGroupList()
+            .then(res => {
+                setGroupList(res.data.list);
+            })
+            .catch(err => {
+                alert(err);
+            });
+    }, []);
 
     const onClickGroupAdd = () => {
         setAddClicked(true);
@@ -42,7 +53,7 @@ const RestAddModal = ({ onClickCloseBtn }) => {
             });
     };
 
-    const testArr = ['가족', '여자친구', '친구들'];
+    // const testArr = ['가족', '여자친구', '친구들'];
     const colorArr = [
         '#f5e6ab',
         '#f0c33c',
@@ -93,12 +104,12 @@ const RestAddModal = ({ onClickCloseBtn }) => {
                             </BottomBtn>
                         </GroupAddClicked>
                     )}
-                    {testArr.map((el, i) => (
-                        <Group key={el}>
+                    {groupList.map((el, i) => (
+                        <Group key={el.GROUP_ID}>
                             <GroupList>
                                 <GroupImg imgColor={colorArr[i]} />
                                 <GroupInfo>
-                                    <GroupNm>{el}</GroupNm>
+                                    <GroupNm>{el.GROUP_NM}</GroupNm>
                                     <GroupRestCount>{i + 2}개</GroupRestCount>
                                 </GroupInfo>
                             </GroupList>
