@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { errorToast } from 'utils/toast';
 
 import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
+import { createGroup } from '../../lib/api/group';
 
 const RestAddModal = ({ onClickCloseBtn }) => {
     const [addClicked, setAddClicked] = useState(false);
@@ -31,6 +32,14 @@ const RestAddModal = ({ onClickCloseBtn }) => {
             groupNmTag.current.focus();
             errorToast('그룹명을 입력해 주세요.');
         }
+
+        createGroup(groupNmInput)
+            .then(() => {
+                alert('성공');
+            })
+            .catch(err => {
+                console.log(err);
+            });
     };
 
     const testArr = ['가족', '여자친구', '친구들'];
