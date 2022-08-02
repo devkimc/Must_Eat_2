@@ -11,7 +11,7 @@ const RestAddModal = ({ onClickCloseBtn }) => {
     const [groupList, setGroupList] = useState([]);
     const groupNmTag = useRef();
 
-    useEffect(() => {
+    const getGroup = () => {
         getGroupList()
             .then(res => {
                 setGroupList(res.data.list);
@@ -19,6 +19,10 @@ const RestAddModal = ({ onClickCloseBtn }) => {
             .catch(err => {
                 alert(err);
             });
+    };
+
+    useEffect(() => {
+        getGroup();
     }, []);
 
     const onClickGroupAdd = () => {
@@ -38,7 +42,7 @@ const RestAddModal = ({ onClickCloseBtn }) => {
         setGroupNmInput('');
     };
 
-    const onClickConfirmBtn = () => {
+    const onClickConfirmBtn = async () => {
         if (groupNmInput === '') {
             groupNmTag.current.focus();
             errorToast('그룹명을 입력해 주세요.');
@@ -46,7 +50,8 @@ const RestAddModal = ({ onClickCloseBtn }) => {
 
         createGroup(groupNmInput)
             .then(() => {
-                alert('성공');
+                onClickCancleBtn();
+                getGroup();
             })
             .catch(err => {
                 console.log(err);
