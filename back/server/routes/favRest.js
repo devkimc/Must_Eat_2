@@ -167,4 +167,85 @@ router.post('/proc', (req, res) => {
   })
 })
 
+router.post('/add', (req, res) => {
+
+  getConnection((conn) => {
+    if(req.session.user === undefined) {
+      return res.status(401).json({
+        code: 20001,
+        msg: "로그인후 사용가능합니다."
+      })
+    }
+    
+    conn.query(
+      ' SELECT GROUP_ID     ' +
+      '   FROM GROUP_REST   ' +
+      '  WHERE GROUP_ID = ? ' +
+      '    AND REST_ID  = ? ' ,
+      [ req.body.GROUP_ID
+      , req.body.REST_ID ],
+      (err, result) => {
+        if (err) throw err
+
+        if (result.length >= 1) {
+          return res.status(400).json({
+            code: 40002,
+            msg: "이미 즐겨찾기 목록에 추가된 식당입니다.",
+            list: result
+          })
+        }
+
+        conn.query(
+          '  INSERT INTO GROUP_REST ' +                    
+          ' (GROUP_ID, REST_ID, CRT_DTM) ' +
+          '  VALUES (?, ?, SYSDATE()) ' ,
+          [ req.body.GROUP_ID
+          , req.body.REST_ID ],
+          (err, result) => {
+            if (err) throw err
+    
+            conn.query(
+              ' SELECT REST_ID     ' +
+              '   FROM REST        ' +
+              '  WHERE REST_ID = ? ' ,
+              [ req.body.REST_ID ],
+              (err, result) => {
+                if (err) throw err
+                
+                if (result.length >= 1) {
+                  return res.status(200).json({
+                    code: 10000,
+                    msg: "정상 처리되었습니다.",
+                    list:""
+                  })
+                }
+
+                conn.query(
+                  '  INSERT INTO REST ' +                    
+                  ' (REST_ID, REST_NM, FOOD_CATE, LAT_CDNT, LNG_CDNT, CRT_DTM) ' +
+                  '  VALUES (?, ?, ?, ?, ?, SYSDATE()) ' ,
+                  [ req.body.REST_ID
+                  , req.body.REST_NM
+                  , req.body.FOOD_CATE
+                  , req.body.LAT_CDNT
+                  , req.body.LNG_CDNT ],
+                  (err, result) => {
+                    if (err) throw err
+                    return res.status(200).json({
+                      code: 10000,
+                      msg: "정상 처리되었습니다.",
+                      list:""
+                    })
+                  }
+                )
+              }
+            )
+          }
+        )
+      }
+    )
+    conn.release()
+  })
+})
+
 export default router

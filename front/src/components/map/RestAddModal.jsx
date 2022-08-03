@@ -1,14 +1,27 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { errorToast } from 'utils/toast';
 
 import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
-import { createGroup } from '../../lib/api/group';
+import { createGroup, getGroupList } from '../../lib/api/group';
+import { addFavRest } from '../../lib/api/rest';
+import { successToast } from '../../utils/toast';
 
-const RestAddModal = ({ onClickCloseBtn }) => {
+const RestAddModal = ({ onClickCloseBtn, targetRestInfo }) => {
     const [addClicked, setAddClicked] = useState(false);
     const [groupNmInput, setGroupNmInput] = useState('');
+    const [groupList, setGroupList] = useState([]);
     const groupNmTag = useRef();
+
+    const getGroup = () => {
+        getGroupList().then(res => {
+            setGroupList(res.data.list);
+        });
+    };
+
+    useEffect(() => {
+        getGroup();
+    }, []);
 
     const onClickGroupAdd = () => {
         setAddClicked(true);
@@ -27,22 +40,37 @@ const RestAddModal = ({ onClickCloseBtn }) => {
         setGroupNmInput('');
     };
 
-    const onClickConfirmBtn = () => {
+    const onClickConfirmBtn = async () => {
         if (groupNmInput === '') {
             groupNmTag.current.focus();
             errorToast('그룹명을 입력해 주세요.');
+            return;
         }
 
         createGroup(groupNmInput)
             .then(() => {
-                alert('성공');
+                onClickCancleBtn();
+                getGroup();
             })
             .catch(err => {
                 console.log(err);
             });
     };
 
-    const testArr = ['가족', '여자친구', '친구들'];
+    const onClickRestAdd = groupId => {
+        const rest = targetRestInfo;
+        addFavRest(
+            groupId,
+            rest.restId,
+            rest.placeNm,
+            rest.cateNm,
+            rest.latCdnt,
+            rest.lngCdnt,
+        ).then(() => {
+            successToast(`${rest.placeNm} 식당이 내 그룹에 담겼습니다.`);
+        });
+    };
+
     const colorArr = [
         '#f5e6ab',
         '#f0c33c',
@@ -93,12 +121,15 @@ const RestAddModal = ({ onClickCloseBtn }) => {
                             </BottomBtn>
                         </GroupAddClicked>
                     )}
-                    {testArr.map((el, i) => (
-                        <Group key={el}>
+                    {groupList.map((el, i) => (
+                        <Group
+                            key={el.GROUP_ID}
+                            onClick={() => onClickRestAdd(el.GROUP_ID)}
+                        >
                             <GroupList>
                                 <GroupImg imgColor={colorArr[i]} />
                                 <GroupInfo>
-                                    <GroupNm>{el}</GroupNm>
+                                    <GroupNm>{el.GROUP_NM}</GroupNm>
                                     <GroupRestCount>{i + 2}개</GroupRestCount>
                                 </GroupInfo>
                             </GroupList>
@@ -233,6 +264,7 @@ const ConfirmBtn = styled.div`
 const Group = styled.div`
     border-top: 1px solid silver;
     padding: 0.5rem 0;
+    cursor: pointer;
 `;
 
 const GroupList = styled.li`
