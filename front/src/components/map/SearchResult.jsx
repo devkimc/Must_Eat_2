@@ -11,6 +11,7 @@ import RestAddModal from './RestAddModal';
 
 const SearchResult = ({ allSearchRes }) => {
     const [restAddModal, setRestAddModal] = useState(false);
+    const [targetRestInfo, setTargetRestInfo] = useState({});
 
     const [ref] = useInView();
     const colorArr = [
@@ -32,8 +33,15 @@ const SearchResult = ({ allSearchRes }) => {
         return cateNmWord;
     };
 
-    const onClickFolderAdd = () => {
+    const onClickFolderAdd = (restId, placeNm, cateNm, latCdnt, lngCdnt) => {
         setRestAddModal(true);
+        setTargetRestInfo({
+            restId,
+            placeNm,
+            cateNm,
+            latCdnt,
+            lngCdnt,
+        });
     };
 
     const onClickCloseBtn = () => {
@@ -79,7 +87,17 @@ const SearchResult = ({ allSearchRes }) => {
                                         </PlaceNmTxt>
                                         <PlaceBtn>
                                             <FolderAddBtn
-                                                onClick={onClickFolderAdd}
+                                                onClick={() =>
+                                                    onClickFolderAdd(
+                                                        res.id,
+                                                        res.place_name,
+                                                        splitCateNm(
+                                                            res.category_name,
+                                                        )[0],
+                                                        res.y,
+                                                        res.x,
+                                                    )
+                                                }
                                             >
                                                 <FiFolderPlus
                                                     size={14}
@@ -154,7 +172,12 @@ const SearchResult = ({ allSearchRes }) => {
                     </LoaderWrap>
                 </LoaderTarget>
             </Result>
-            {restAddModal && <RestAddModal onClickCloseBtn={onClickCloseBtn} />}
+            {restAddModal && (
+                <RestAddModal
+                    onClickCloseBtn={onClickCloseBtn}
+                    targetRestInfo={targetRestInfo}
+                />
+            )}
         </Wrapper>
     );
 };
