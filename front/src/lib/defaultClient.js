@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import { errorToast } from '../utils/toast';
+import { errorToast } from '../utils/toast';
 import errProc from './error/configErr';
 
 axios.defaults.withCredentials = true;
@@ -19,7 +19,11 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     error => {
-        errProc(error.response.data);
+        if (error.code === 'ECONNABORTED') {
+            errorToast('timeout exception');
+        } else {
+            errProc(error.response.data);
+        }
         return Promise.reject(error);
     },
 );
