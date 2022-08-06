@@ -86,7 +86,79 @@ router.get('/list', (req, res) => {
                 })
             }
         )
+        conn.release()
     })
 })
+
+/*
+    INSERT GROUP_INVITE: POST /group/invite
+*/
+router.post('/invite', (req, res) => {
+  getConnection((conn) => {
+    if(req.session.user === undefined) {
+      return res.status(401).json({
+        code: 20001,
+        msg: "로그인후 사용가능합니다."
+      })
+    }
+
+    conn.query(
+      ' SELECT USER_ID     ' +
+      '   FROM USER        ' +
+      '  WHERE USER_ID = ? ' ,
+      [ req.body.RECV_USER_ID ] ,
+      (err, result) => {
+        if (err) throw err
+
+        if (result.length === 0) {
+          return res.status(400).json({
+            code: 40001,
+            msg: "존재하지 않는 회원입니다.",
+            list: req.body.RECV_USER_ID
+          })
+        }
+
+        conn.query(
+          ' SELECT GROUP_ID     ' +
+          '   FROM GROUP_MEMBER ' +
+          '  WHERE GROUP_ID = ? ' +
+          '    AND USER_ID  = ? ' ,
+          [ req.body.GROUP_ID
+          , req.session.user ] ,
+          (err, result) => {
+            if (err) throw err
+    
+            if (result.length === 0) {
+              return res.status(401).json({
+                code: 40000,
+                msg: "해당 기능의 권한이 없습니다."
+              })
+            }
+    
+            conn.query(
+              ' INSERT INTO GROUP_INVITE ' +                    
+              ' (GROUP_ID, SEND_USER_ID, RECV_USER_ID, RES_STATUS, CRT_DTM) ' +
+              '  VALUES (?, ?, ?, "REQ", SYSDATE()) ' ,
+              [ req.body.GROUP_ID
+              , req.session.user
+              , req.body.RECV_USER_ID ] ,
+              (err2, result2) => {
+                if (err2) throw err2
+        
+                return res.status(200).json({
+                  code: 10000,
+                  msg: "정상 처리되었습니다.",
+                })
+              }
+            )
+          }
+        )
+      }
+    )
+
+    conn.release()
+  })
+})
+
 
 export default router

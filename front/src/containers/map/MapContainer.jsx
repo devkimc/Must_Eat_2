@@ -2,7 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import { SearchInput, SearchResult, MapComponent } from 'components';
+import {
+    SearchInput,
+    SearchResult,
+    MapComponent,
+    InviteMembBtn,
+    InviteMembModal,
+} from 'components';
 import { searchIpState } from 'atom/map';
 import * as Constants from 'constants/mapConstants';
 import { warningToast, errorToast } from 'utils/toast';
@@ -12,7 +18,17 @@ const MapContainer = () => {
     const [markers, setMarkers] = useState([]);
     const [searchRes, setSearchRes] = useState([]);
     const [allSearchRes, setAllSearchRes] = useState([]);
+    const [InviteMemb, setInviteMemb] = useState(false);
     const searchIp = useRecoilValue(searchIpState);
+
+    /* 멤버 초대 */
+    const onClickInviteMembBtn = () => {
+        setInviteMemb(true);
+    };
+
+    const closeInviteMemb = () => {
+        setInviteMemb(false);
+    };
 
     /* 마커 출력 관리 */
     const showMarker = place => {
@@ -111,6 +127,10 @@ const MapContainer = () => {
                 <SearchInput onSearch={onSearch} />
                 <SearchResult allSearchRes={allSearchRes} />
             </Container>
+            <InviteMembBtn onClickInviteMembBtn={onClickInviteMembBtn} />
+            {InviteMemb && (
+                <InviteMembModal closeInviteMemb={closeInviteMemb} />
+            )}
             <MapComponent />
         </Wrapper>
     );
