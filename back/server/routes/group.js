@@ -124,31 +124,49 @@ router.post('/invite', (req, res) => {
           '  WHERE GROUP_ID = ? ' +
           '    AND USER_ID  = ? ' ,
           [ req.body.GROUP_ID
-          , req.session.user ] ,
+          , req.body.RECV_USER_ID ] ,
           (err, result) => {
-            if (err) throw err
     
-            if (result.length === 0) {
-              return res.status(401).json({
-                code: 40000,
-                msg: "해당 기능의 권한이 없습니다."
+            if (result.length >= 1) {
+              return res.status(400).json({
+                code: 40002,
+                msg: "그룹 내 이미 사용자가 존재합니다."
               })
             }
-    
+
             conn.query(
-              ' INSERT INTO GROUP_INVITE ' +                    
-              ' (GROUP_ID, SEND_USER_ID, RECV_USER_ID, RES_STATUS, CRT_DTM) ' +
-              '  VALUES (?, ?, ?, "REQ", SYSDATE()) ' ,
+              ' SELECT GROUP_ID     ' +
+              '   FROM GROUP_MEMBER ' +
+              '  WHERE GROUP_ID = ? ' +
+              '    AND USER_ID  = ? ' ,
               [ req.body.GROUP_ID
-              , req.session.user
-              , req.body.RECV_USER_ID ] ,
-              (err2, result2) => {
-                if (err2) throw err2
+              , req.session.user ] ,
+              (err, result) => {
+                if (err) throw err
         
-                return res.status(200).json({
-                  code: 10000,
-                  msg: "정상 처리되었습니다.",
-                })
+                if (result.length === 0) {
+                  return res.status(401).json({
+                    code: 40000,
+                    msg: "해당 기능의 권한이 없습니다."
+                  })
+                }
+        
+                conn.query(
+                  ' INSERT INTO GROUP_INVITE ' +                    
+                  ' (GROUP_ID, SEND_USER_ID, RECV_USER_ID, RES_STATUS, CRT_DTM) ' +
+                  '  VALUES (?, ?, ?, "REQ", SYSDATE()) ' ,
+                  [ req.body.GROUP_ID
+                  , req.session.user
+                  , req.body.RECV_USER_ID ] ,
+                  (err2, result2) => {
+                    if (err2) throw err2
+            
+                    return res.status(200).json({
+                      code: 10000,
+                      msg: "정상 처리되었습니다.",
+                    })
+                  }
+                )
               }
             )
           }
@@ -157,7 +175,7 @@ router.post('/invite', (req, res) => {
     )
 
     conn.release()
-  })
+  }) 
 })
 
 

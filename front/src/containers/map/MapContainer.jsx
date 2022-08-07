@@ -8,6 +8,7 @@ import {
     MapComponent,
     InviteMembBtn,
     InviteMembModal,
+    InviteChkBtn,
 } from 'components';
 import { searchIpState } from 'atom/map';
 import * as Constants from 'constants/mapConstants';
@@ -127,6 +128,7 @@ const MapContainer = () => {
                 <SearchInput onSearch={onSearch} />
                 <SearchResult allSearchRes={allSearchRes} />
             </Container>
+            <InviteChkBtn />
             <InviteMembBtn onClickInviteMembBtn={onClickInviteMembBtn} />
             {InviteMemb && (
                 <InviteMembModal closeInviteMemb={closeInviteMemb} />
