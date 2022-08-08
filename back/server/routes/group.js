@@ -3,7 +3,7 @@ import { Router } from 'express';
 const router = Router()
 
 /*
-    INSERT USER_GROUP: POST /group/create
+    그룹 생성하기 : POST /group/create
 */
 router.post('/create', (req, res) => {
   getConnection((conn) => {
@@ -56,7 +56,7 @@ router.post('/create', (req, res) => {
 })
 
 /*
-    SELECT USER_GROUP: GET /group/list
+    그룹 리스트 조회: GET /group/list
 */
 router.get('/list', (req, res) => {
 
@@ -91,7 +91,7 @@ router.get('/list', (req, res) => {
 })
 
 /*
-    INSERT GROUP_INVITE: POST /group/invite
+    그룹에 초대하기 : POST /group/invite
 */
 router.post('/invite', (req, res) => {
   getConnection((conn) => {
@@ -178,5 +178,74 @@ router.post('/invite', (req, res) => {
   }) 
 })
 
+/*
+    초대를 처리하지 않은 수 조회 : GET /group/invite/not-proc
+*/
+router.get('/invite/not-proc', (req, res) => {
+
+  getConnection((conn) => {
+    if(req.session.user === undefined) {
+        return res.status(401).json({
+          code: 20001,
+          msg: "로그인후 사용가능합니다."
+        })
+    }
+
+    conn.query(
+        ' SELECT COUNT(*) AS count       ' +
+        '   FROM GROUP_INVITE T01        ' +
+        '  WHERE T01.RECV_USER_ID = ?    ' +
+        '    AND T01.RES_STATUS = "REQ"  ' ,
+        [ req.session.user ],
+        (err, result) => {
+            if (err) throw err
+
+            return res.status(200).json({
+              success: true,
+              result: result
+            })
+        }
+    )
+    conn.release()
+  })
+})
+
+/*
+    그룹 초대 리스트 조회 : GET /group/invite/list
+*/
+router.get('/invite/list', (req, res) => {
+
+  getConnection((conn) => {
+    if(req.session.user === undefined) {
+        return res.status(401).json({
+          code: 20001,
+          msg: "로그인후 사용가능합니다."
+        })
+    }
+
+    conn.query(
+        ' SELECT T01.INVITE_ID                ' +
+        '      , T01.GROUP_ID                 ' +
+        '      , T02.GROUP_NM                 ' +
+        '      , T01.SEND_USER_ID             ' +
+        '      , T01.RECV_USER_ID             ' +
+        '      , T01.RES_STATUS               ' +
+        '   FROM GROUP_INVITE T01             ' +
+        '      , USER_GROUP T02               ' +
+        '  WHERE T01.RECV_USER_ID = ?         ' +
+        '    AND T01.GROUP_ID = T02.GROUP_ID  ' ,
+        [ req.session.user ],
+        (err, result) => {
+            if (err) throw err
+
+            return res.status(200).json({
+                success: true,
+                result: result
+            })
+        }
+    )
+    conn.release()
+  })
+})
 
 export default router
