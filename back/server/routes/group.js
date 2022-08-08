@@ -260,23 +260,52 @@ router.post('/invite/accept', (req, res) => {
           msg: "로그인후 사용가능합니다."
         })
     }
-    console.log(req.body.INVITE_ID +'|' + req.session.user)
-    conn.query(
-        ' UPDATE GROUP_INVITE T01             ' +
-        '    SET T01.RES_STATUS   = "ACP"     ' +
-        '      , T01.RES_DTM      = SYSDATE() ' +
-        '  WHERE T01.INVITE_ID    = ?         ' +
-        '    AND T01.RECV_USER_ID = ?         ' +
-        '    AND T01.RES_STATUS   = "REQ"     ' ,
-        [ req.body.INVITE_ID
-        , req.session.user ],
-        (err, result) => {
-            if (err) throw err
 
-            return res.status(200).json({
-                success: true
-            })
-        }
+    /* 유효한 초대내역인지 체크 */
+    conn.query(
+      ' SELECT GROUP_ID                 ' +
+      '   FROM GROUP_INVITE T01         ' +
+      '  WHERE T01.INVITE_ID    = ?     ' +
+      '    AND T01.RECV_USER_ID = ?     ' +
+      '    AND T01.RES_STATUS   = "REQ" ' ,
+      [ req.body.INVITE_ID
+      , req.session.user ] ,
+      (err, result) => {
+          if (err) throw err
+
+          const groupId = result[0].GROUP_ID
+
+          /* 그룹 멤버 테이블에 등록 */
+          conn.query(
+            ' INSERT INTO GROUP_MEMBER ' +                    
+            ' (GROUP_ID, USER_ID)      ' +
+            '  VALUES (?, ?) ' ,
+            [ groupId
+            , req.session.user ] ,
+            (err, result) => {
+              if (err) throw err
+
+              /* 초대 내역 상태 변경 */
+              conn.query(
+                  ' UPDATE GROUP_INVITE T01             ' +
+                  '    SET T01.RES_STATUS   = "ACP"     ' +
+                  '      , T01.RES_DTM      = SYSDATE() ' +
+                  '  WHERE T01.INVITE_ID    = ?         ' +
+                  '    AND T01.RECV_USER_ID = ?         ' +
+                  '    AND T01.RES_STATUS   = "REQ"     ' ,
+                  [ req.body.INVITE_ID
+                  , req.session.user ],
+                  (err, result) => {
+                      if (err) throw err
+          
+                      return res.status(200).json({
+                          success: true
+                      })
+                  }
+              )
+            }
+          )
+      }
     )
     conn.release()
   })
