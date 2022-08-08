@@ -6,3 +6,4 @@ export { default as SearchResult } from './map/SearchResult';
 export { default as InviteMembBtn } from './map/InviteMembBtn';
 export { default as InviteMembModal } from './map/InviteMembModal';
 export { default as InviteChkBtn } from './map/InviteChkBtn';
+export { default as InviteChkModal } from './map/InviteChkModal';

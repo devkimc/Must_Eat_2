@@ -13,6 +13,7 @@ import {
 import { searchIpState } from 'atom/map';
 import * as Constants from 'constants/mapConstants';
 import { warningToast, errorToast } from 'utils/toast';
+import { getNotProcInvite } from '../../lib/api/group';
 
 const MapContainer = () => {
     const [mapObj, setMapObj] = useState('');
@@ -20,7 +21,15 @@ const MapContainer = () => {
     const [searchRes, setSearchRes] = useState([]);
     const [allSearchRes, setAllSearchRes] = useState([]);
     const [InviteMemb, setInviteMemb] = useState(false);
+    const [notProcInvite, setNotProcInvite] = useState(0);
     const searchIp = useRecoilValue(searchIpState);
+
+    /* 처리하지 않은 초대있는 지 확인 */
+    useEffect(() => {
+        getNotProcInvite().then(res => {
+            setNotProcInvite(res.data.result[0].count);
+        });
+    }, []);
 
     /* 멤버 초대 */
     const onClickInviteMembBtn = () => {
@@ -128,7 +137,7 @@ const MapContainer = () => {
                 <SearchInput onSearch={onSearch} />
                 <SearchResult allSearchRes={allSearchRes} />
             </Container>
-            <InviteChkBtn />
+            <InviteChkBtn notProcInvite={notProcInvite} />
             <InviteMembBtn onClickInviteMembBtn={onClickInviteMembBtn} />
             {InviteMemb && (
                 <InviteMembModal closeInviteMemb={closeInviteMemb} />
