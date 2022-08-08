@@ -56,20 +56,6 @@ const InviteMembModal = ({ closeInviteMemb }) => {
         // });
     };
 
-    // const onClickRestAdd = groupId => {
-    //     const rest = targetRestInfo;
-    //     addFavRest(
-    //         groupId,
-    //         rest.restId,
-    //         rest.placeNm,
-    //         rest.cateNm,
-    //         rest.latCdnt,
-    //         rest.lngCdnt,
-    //     ).then(() => {
-    //         successToast(`${rest.placeNm} 식당이 내 그룹에 담겼습니다.`);
-    //     });
-    // };
-
     const colorArr = [
         '#f5e6ab',
         '#f0c33c',

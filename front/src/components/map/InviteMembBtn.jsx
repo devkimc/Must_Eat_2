@@ -7,7 +7,7 @@ const InviteMembBtn = ({ onClickInviteMembBtn }) => {
         <Wrapper>
             <WhiteCircle onClick={onClickInviteMembBtn}>
                 <FlexRow>
-                    <FaUserPlus color="#e91e63" size={16} />
+                    <FaUserPlus color="#4e61ff" size={16} />
                 </FlexRow>
             </WhiteCircle>
         </Wrapper>
@@ -18,7 +18,7 @@ const Wrapper = styled.div`
     position: absolute;
     right: 2rem;
     top: 2rem;
-    z-index: 1000;
+    z-index: 100;
 `;
 
 const WhiteCircle = styled.div`
