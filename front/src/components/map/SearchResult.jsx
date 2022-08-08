@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useInView } from 'react-intersection-observer';
-import ReactLoading from 'react-loading';
 
 import { BiMap } from 'react-icons/bi';
 import { IoIosCall } from 'react-icons/io';
@@ -13,7 +11,6 @@ const SearchResult = ({ allSearchRes }) => {
     const [restAddModal, setRestAddModal] = useState(false);
     const [targetRestInfo, setTargetRestInfo] = useState({});
 
-    const [ref] = useInView();
     const colorArr = [
         '#c5d9ed',
         '#72aee6',
@@ -165,12 +162,6 @@ const SearchResult = ({ allSearchRes }) => {
                         <FlexCol>검색 결과가 없습니다.</FlexCol>
                     </RequestSearch>
                 )}
-
-                <LoaderTarget ref={ref}>
-                    <LoaderWrap>
-                        <ReactLoading type="spin" color="#A593E0" />
-                    </LoaderWrap>
-                </LoaderTarget>
             </Result>
             {restAddModal && (
                 <RestAddModal
@@ -297,20 +288,6 @@ const RequestSearch = styled.div`
     display: flex;
     justify-content: center;
     height: 90vh;
-`;
-
-/* Loading */
-const LoaderTarget = styled.div`
-    height: 6.25rem;
-`;
-
-const LoaderWrap = styled.div`
-    width: 100%;
-    height: 80%;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
 `;
 
 /* flex */

@@ -57,7 +57,7 @@ const SubmitContainer = () => {
                         <InputNm>Your ID</InputNm>
                         <InputLine>
                             <Icon>
-                                <FiUser color="#f57c00" />
+                                <FiUser color="#12B886" />
                             </Icon>
                             <InputField onChange={onChangeId} value={inputId} />
                         </InputLine>
@@ -66,7 +66,7 @@ const SubmitContainer = () => {
                         <InputNm>Password</InputNm>
                         <InputLine>
                             <Icon>
-                                <AiOutlineUnlock color="#f57c00" />
+                                <AiOutlineUnlock color="#12B886" />
                             </Icon>
                             <InputField
                                 autoComplete="new-password"
@@ -80,7 +80,7 @@ const SubmitContainer = () => {
                         <InputNm>Password Confirm</InputNm>
                         <InputLine>
                             <Icon>
-                                <AiOutlineLock color="#f57c00" />
+                                <AiOutlineLock color="#12B886" />
                             </Icon>
                             <InputField
                                 autoComplete="new-password"
@@ -94,7 +94,7 @@ const SubmitContainer = () => {
                         <InputNm>Email</InputNm>
                         <InputLine>
                             <Icon>
-                                <AiOutlineMail color="#f57c00" />
+                                <AiOutlineMail color="#12B886" />
                             </Icon>
                             <InputField
                                 onChange={onChangeEmail}
@@ -106,7 +106,7 @@ const SubmitContainer = () => {
                         <InputNm>Cell phone number</InputNm>
                         <InputLine>
                             <Icon>
-                                <MdOutlinePhoneIphone color="#f57c00" />
+                                <MdOutlinePhoneIphone color="#12B886" />
                             </Icon>
                             <InputField
                                 onChange={onChangeMobNo}
@@ -187,7 +187,7 @@ const SubmitBtn = styled.div`
     margin-top: 2rem;
     width: 100%;
     height: 2.2rem;
-    background-color: #f57c00;
+    background-color: #12b886;
     border-radius: 1rem;
     display: flex;
     justify-content: center;
@@ -205,7 +205,7 @@ const LoginBtn = styled.div`
 `;
 
 const LoginTxt = styled.span`
-    color: #f57c00;
+    color: #12b886;
 `;
 
 /* Flex */

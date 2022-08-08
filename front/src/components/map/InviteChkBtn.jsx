@@ -16,10 +16,10 @@ const InviteChkBtn = ({ notProcInvite }) => {
                                     <UnReadAlarm />
                                 </FlexCol>
                             </UnReadAlarmBorder>
-                            <AiOutlineMail color="#4e61ff" size={21} />
+                            <AiOutlineMail color="#12B886" size={21} />
                         </>
                     ) : (
-                        <AiOutlineMail color="#4e61ff" size={21} />
+                        <AiOutlineMail color="#12B886" size={21} />
                     )}
                 </MsgBox>
             </WhiteCircle>
@@ -65,7 +65,7 @@ const UnReadAlarmBorder = styled.div`
 `;
 
 const UnReadAlarm = styled.div`
-    background-color: red;
+    background-color: #ff6b6b;
     width: 0.45rem;
     height: 0.45rem;
     border-radius: 0.45rem;

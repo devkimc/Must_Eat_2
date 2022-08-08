@@ -41,7 +41,7 @@ const SignUpContainer = () => {
                         <InputNm>Your ID</InputNm>
                         <InputLine>
                             <Icon>
-                                <FiUser color="#f57c00" />
+                                <FiUser color="#12B886" />
                             </Icon>
                             <InputField
                                 value={inputId}
@@ -54,7 +54,7 @@ const SignUpContainer = () => {
                         <InputNm>Password</InputNm>
                         <InputLine>
                             <Icon>
-                                <AiOutlineUnlock color="#f57c00" />
+                                <AiOutlineUnlock color="#12B886" />
                             </Icon>
                             <InputField
                                 type="password"
@@ -143,7 +143,7 @@ const SubmitBtn = styled.button`
     margin-top: 2rem;
     width: 100%;
     height: 2.2rem;
-    background-color: ${props => (props.disable ? '#b8b8b8' : '#f57c00')};
+    background-color: ${props => (props.disable ? '#b8b8b8' : '#12B886')};
     border-radius: 1rem;
     display: flex;
     justify-content: center;
@@ -162,7 +162,7 @@ const SignUpBtn = styled.div`
 `;
 
 const SignUpTxt = styled.span`
-    color: #f57c00;
+    color: #12b886;
 `;
 
 /* Flex */
