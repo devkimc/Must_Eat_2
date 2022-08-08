@@ -248,4 +248,72 @@ router.get('/invite/list', (req, res) => {
   })
 })
 
+/*
+    그룹 초대 수락 : POST /group/invite/accept
+*/
+router.post('/invite/accept', (req, res) => {
+
+  getConnection((conn) => {
+    if(req.session.user === undefined) {
+        return res.status(401).json({
+          code: 20001,
+          msg: "로그인후 사용가능합니다."
+        })
+    }
+    console.log(req.body.INVITE_ID +'|' + req.session.user)
+    conn.query(
+        ' UPDATE GROUP_INVITE T01             ' +
+        '    SET T01.RES_STATUS   = "ACP"     ' +
+        '      , T01.RES_DTM      = SYSDATE() ' +
+        '  WHERE T01.INVITE_ID    = ?         ' +
+        '    AND T01.RECV_USER_ID = ?         ' +
+        '    AND T01.RES_STATUS   = "REQ"     ' ,
+        [ req.body.INVITE_ID
+        , req.session.user ],
+        (err, result) => {
+            if (err) throw err
+
+            return res.status(200).json({
+                success: true
+            })
+        }
+    )
+    conn.release()
+  })
+})
+
+/*
+    그룹 초대 거절 : POST /group/invite/not-accept
+*/
+router.post('/invite/not-accept', (req, res) => {
+
+  getConnection((conn) => {
+    if(req.session.user === undefined) {
+        return res.status(401).json({
+          code: 20001,
+          msg: "로그인후 사용가능합니다."
+        })
+    }
+
+    conn.query(
+        ' UPDATE GROUP_INVITE T01             ' +
+        '    SET T01.RES_STATUS   = "REJ"     ' +
+        '      , T01.RES_DTM      = SYSDATE() ' +
+        '  WHERE T01.INVITE_ID    = ?         ' +
+        '    AND T01.RECV_USER_ID = ?         ' +
+        '    AND T01.RES_STATUS   = "REQ"     ' ,
+        [ req.body.INVITE_ID
+        , req.session.user ],
+        (err, result) => {
+            if (err) throw err
+
+            return res.status(200).json({
+                success: true
+            })
+        }
+    )
+    conn.release()
+  })
+})
+
 export default router
