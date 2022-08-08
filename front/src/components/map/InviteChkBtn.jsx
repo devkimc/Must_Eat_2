@@ -2,19 +2,28 @@ import React from 'react';
 import styled from 'styled-components';
 import { AiOutlineMail } from 'react-icons/ai';
 
-const InviteChkBtn = () => {
+import { InviteChkModal } from '../index';
+
+const InviteChkBtn = ({ notProcInvite }) => {
     return (
         <Wrapper>
             <WhiteCircle>
                 <MsgBox>
-                    <UnReadAlarmBorder>
-                        <FlexCol>
-                            <UnReadAlarm />
-                        </FlexCol>
-                    </UnReadAlarmBorder>
-                    <AiOutlineMail color="#4e61ff" size={21} />
+                    {notProcInvite >= 1 ? (
+                        <>
+                            <UnReadAlarmBorder>
+                                <FlexCol>
+                                    <UnReadAlarm />
+                                </FlexCol>
+                            </UnReadAlarmBorder>
+                            <AiOutlineMail color="#4e61ff" size={21} />
+                        </>
+                    ) : (
+                        <AiOutlineMail color="#4e61ff" size={21} />
+                    )}
                 </MsgBox>
             </WhiteCircle>
+            <InviteChkModal />
         </Wrapper>
     );
 };
@@ -45,7 +54,7 @@ const MsgBox = styled.div`
 `;
 
 const UnReadAlarmBorder = styled.div`
-    right: 0.5rem;
+    right: 0.4rem;
     display: flex;
     justify-content: center;
     position: absolute;

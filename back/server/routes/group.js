@@ -177,9 +177,9 @@ router.post('/invite', (req, res) => {
 });
 
 /*
-    초대를 처리하지 않은 수 조회 : GET /group/invite/not-proc
+    초대를 처리하지 않은 수 조회 : GET /group/invite/not-proc/count
 */
-router.get('/invite/not-proc', (req, res) => {
+router.get('/invite/not-proc/count', (req, res) => {
     getConnection(conn => {
         if (req.session.user === undefined) {
             return res.status(401).json({
@@ -220,16 +220,16 @@ router.get('/invite/list', (req, res) => {
         }
 
         conn.query(
-            ' SELECT T01.INVITE_ID                ' +
-                '      , T01.GROUP_ID                 ' +
-                '      , T02.GROUP_NM                 ' +
-                '      , T01.SEND_USER_ID             ' +
-                '      , T01.RECV_USER_ID             ' +
-                '      , T01.RES_STATUS               ' +
-                '   FROM GROUP_INVITE T01             ' +
-                '      , USER_GROUP T02               ' +
-                '  WHERE T01.RECV_USER_ID = ?         ' +
-                '    AND T01.GROUP_ID = T02.GROUP_ID  ',
+            ' SELECT T01.INVITE_ID                        ' +
+                '      , T01.GROUP_ID                     ' +
+                '      , T02.GROUP_NM                     ' +
+                '      , T01.SEND_USER_ID                 ' +
+                '      , T01.RECV_USER_ID                 ' +
+                '   FROM GROUP_INVITE T01                 ' +
+                '      , USER_GROUP T02                   ' +
+                '  WHERE T01.RECV_USER_ID = ?             ' +
+                '    AND T01.GROUP_ID     = T02.GROUP_ID  ' +
+                '    AND T01.RES_STATUS   = "REQ"         ',
             [req.session.user],
             (err, result) => {
                 if (err) throw err;

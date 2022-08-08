@@ -17,4 +17,12 @@ export const inviteGroup = (groupId, recvUserId) => {
     });
 };
 
+export const getNotProcInvite = () => {
+    return axiosInstance.get('/api/group/invite/not-proc/count', {});
+};
+
+export const getInviteList = () => {
+    return axiosInstance.get('/api/group/invite/list', {});
+};
+
 export default createGroup;
