@@ -1,8 +1,11 @@
 {
   "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": "src",
     "allowJs": true,
     "target": "ES5",
     "outDir": "./dist",
+    "esModuleInterop": true,
     "moduleResolution": "Node",
     "lib": ["ES2015", "DOM", "DOM.Iterable"]
   },

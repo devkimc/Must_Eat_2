@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ramenImg from 'assets/img/ramen_3.jpg';
+// import ramenImg from 'assets/img/ramen_3.jpg';
 
 const Container = styled.div`
     background: #000;
@@ -9,7 +9,7 @@ const Container = styled.div`
 `;
 
 const BackgroundImg = styled.div`
-    background-image: url(${ramenImg});
+    /* background-image: url(); */
     background-repeat: no-repeat;
     background-size: cover;
     opacity: 0.7;
