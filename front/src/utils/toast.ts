@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 
-export const infoToast = text => {
+export const infoToast = (text: string) => {
     toast.info(text, {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
@@ -9,7 +9,7 @@ export const infoToast = text => {
     });
 };
 
-export const successToast = text => {
+export const successToast = (text: string) => {
     toast.success(text, {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
@@ -18,7 +18,7 @@ export const successToast = text => {
     });
 };
 
-export const warningToast = text => {
+export const warningToast = (text: string) => {
     toast.warning(text, {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,
@@ -27,7 +27,7 @@ export const warningToast = text => {
     });
 };
 
-export const errorToast = text => {
+export const errorToast = (text: string) => {
     toast.error(text, {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 1000,

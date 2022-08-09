@@ -97,12 +97,12 @@ const FlexCol = styled.div`
     flex-direction: column;
 `;
 
-const SubmitContainer = () => {
-    const [inputId, setInputId] = useState('');
-    const [inputPw, setInputPw] = useState('');
-    const [inputPwConf, setInputPwConf] = useState('');
-    const [inputEmail, setInputEmail] = useState('');
-    const [inputMobNo, setInputMobNo] = useState('');
+const SignUpContainer = () => {
+    const [inputId, setInputId] = useState<string>('');
+    const [inputPw, setInputPw] = useState<string>('');
+    const [inputPwConf, setInputPwConf] = useState<string>('');
+    const [inputEmail, setInputEmail] = useState<string>('');
+    const [inputMobNo, setInputMobNo] = useState<string>('');
     const navigate = useNavigate();
 
     const onClickSignup = async () => {
@@ -115,11 +115,11 @@ const SubmitContainer = () => {
         }
     };
 
-    const onChangeId = e => {
+    const onChangeId = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputId(e.target.value);
     };
 
-    const onChangePw = e => {
+    const onChangePw = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputPw(e.target.value);
     };
 
@@ -219,4 +219,4 @@ const SubmitContainer = () => {
     );
 };
 
-export default SubmitContainer;
+export default SignUpContainer;
