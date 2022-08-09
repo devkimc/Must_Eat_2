@@ -95,13 +95,13 @@ const InviteChkModal = () => {
         getInviteInfo();
     }, []);
 
-    const onClickAccept = async inviteId => {
+    const onClickAccept = async (inviteId: number) => {
         await acceptInvite(inviteId);
         await getInviteInfo();
         successToast('그룹에 참여했습니다!');
     };
 
-    const onClickReject = async inviteId => {
+    const onClickReject = async (inviteId: number) => {
         await rejectInvite(inviteId);
         await getInviteInfo();
         successToast('초대를 거절했습니다!');

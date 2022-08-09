@@ -140,12 +140,16 @@ const CloseBtn = styled.button`
     right: -0.5rem;
 `;
 
-const InviteMembModal = ({ closeInviteMemb }) => {
+type Props = {
+    closeInviteMemb: () => void;
+};
+
+const InviteMembModal = ({ closeInviteMemb }: Props) => {
     // const [addClicked, setAddClicked] = useState(false);
-    const [selectedGroupId, setSelectedGroupId] = useState();
-    const [userNmInput, setUserNmInput] = useState('');
+    const [selectedGroupId, setSelectedGroupId] = useState<number>();
+    const [userNmInput, setUserNmInput] = useState<string>('');
     const [groupList, setGroupList] = useState([]);
-    const userNmTag = useRef();
+    const userNmTag = useRef<React.MutableRefObject<undefined>>();
 
     const getGroup = () => {
         getGroupList().then(res => {
@@ -157,19 +161,19 @@ const InviteMembModal = ({ closeInviteMemb }) => {
         getGroup();
     }, []);
 
-    const onChangeUserNm = e => {
+    const onChangeUserNm = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUserNmInput(e.target.value);
     };
 
-    const onClickRemoveBtn = () => {
+    const onClickRemoveBtn = (): void => {
         setUserNmInput('');
     };
 
-    const onClickCancleBtn = () => {
+    const onClickCancleBtn = (): void => {
         setUserNmInput('');
     };
 
-    const onClickGroup = index => {
+    const onClickGroup = (index: number): void => {
         setSelectedGroupId(groupList[index].GROUP_ID);
     };
 
@@ -185,12 +189,9 @@ const InviteMembModal = ({ closeInviteMemb }) => {
             // onClickCancleBtn();
             // getGroup();
         });
-        // .catch(err => {
-        //     console.log(err);
-        // });
     };
 
-    const colorArr = [
+    const colorArr: Array<string> = [
         '#f5e6ab',
         '#f0c33c',
         '#b8e6bf',

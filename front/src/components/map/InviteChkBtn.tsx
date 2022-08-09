@@ -55,7 +55,11 @@ const FlexCol = styled.div`
     flex-direction: column;
 `;
 
-const InviteChkBtn = ({ notProcInvite }) => {
+type Props = {
+    notProcInvite: number;
+};
+
+const InviteChkBtn = ({ notProcInvite }: Props) => {
     return (
         <Wrapper>
             <WhiteCircle>

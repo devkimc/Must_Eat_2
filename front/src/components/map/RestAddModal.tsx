@@ -172,11 +172,22 @@ const FlexCol = styled.div`
     flex-direction: column;
 `;
 
-const RestAddModal = ({ onClickCloseBtn, targetRestInfo }) => {
-    const [addClicked, setAddClicked] = useState(false);
-    const [groupNmInput, setGroupNmInput] = useState('');
+type Props = {
+    onClickCloseBtn: () => void;
+    targetRestInfo: {
+        restId: number;
+        placeNm: string;
+        cateNm: string;
+        latCdnt: number;
+        lngCdnt: number;
+    };
+};
+
+const RestAddModal = ({ onClickCloseBtn, targetRestInfo }: Props) => {
+    const [addClicked, setAddClicked] = useState<boolean>(false);
+    const [groupNmInput, setGroupNmInput] = useState<string>('');
     const [groupList, setGroupList] = useState([]);
-    const groupNmTag = useRef();
+    const groupNmTag = useRef<React.MutableRefObject<undefined>>();
 
     const getGroup = () => {
         getGroupList().then(res => {
@@ -218,17 +229,18 @@ const RestAddModal = ({ onClickCloseBtn, targetRestInfo }) => {
         });
     };
 
-    const onClickRestAdd = groupId => {
-        const rest = targetRestInfo;
+    const onClickRestAdd = (groupId: number) => {
         addFavRest(
             groupId,
-            rest.restId,
-            rest.placeNm,
-            rest.cateNm,
-            rest.latCdnt,
-            rest.lngCdnt,
+            targetRestInfo.restId,
+            targetRestInfo.placeNm,
+            targetRestInfo.cateNm,
+            targetRestInfo.latCdnt,
+            targetRestInfo.lngCdnt,
         ).then(() => {
-            successToast(`${rest.placeNm} 식당이 내 그룹에 담겼습니다.`);
+            successToast(
+                `${targetRestInfo.placeNm} 식당이 내 그룹에 담겼습니다.`,
+            );
         });
     };
 

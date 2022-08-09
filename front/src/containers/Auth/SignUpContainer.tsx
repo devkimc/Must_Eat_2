@@ -123,15 +123,15 @@ const SignUpContainer = () => {
         setInputPw(e.target.value);
     };
 
-    const onChangePwConf = e => {
+    const onChangePwConf = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputPwConf(e.target.value);
     };
 
-    const onChangeEmail = e => {
+    const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputEmail(e.target.value);
     };
 
-    const onChangeMobNo = e => {
+    const onChangeMobNo = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputMobNo(e.target.value);
     };
 
