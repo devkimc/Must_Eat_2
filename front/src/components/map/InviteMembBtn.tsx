@@ -2,18 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { FaUserPlus } from 'react-icons/fa';
 
-const InviteMembBtn = ({ onClickInviteMembBtn }) => {
-    return (
-        <Wrapper>
-            <WhiteCircle onClick={onClickInviteMembBtn}>
-                <FlexRow>
-                    <FaUserPlus color="#12B886" size={16} />
-                </FlexRow>
-            </WhiteCircle>
-        </Wrapper>
-    );
-};
-
 const Wrapper = styled.div`
     position: absolute;
     right: 2rem;
@@ -37,5 +25,17 @@ const FlexRow = styled.div`
     display: flex;
     justify-content: center;
 `;
+
+const InviteMembBtn = ({ onClickInviteMembBtn }) => {
+    return (
+        <Wrapper>
+            <WhiteCircle onClick={onClickInviteMembBtn}>
+                <FlexRow>
+                    <FaUserPlus color="#12B886" size={16} />
+                </FlexRow>
+            </WhiteCircle>
+        </Wrapper>
+    );
+};
 
 export default InviteMembBtn;

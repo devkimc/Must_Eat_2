@@ -1,4 +1,5 @@
-import React, { HomeComponent } from 'components';
+import React from 'react';
+import { HomeComponent } from 'components';
 
 const HomeContainer = () => {
     return <HomeComponent />;

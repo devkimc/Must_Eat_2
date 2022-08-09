@@ -5,35 +5,6 @@ import { AiOutlineSearch } from 'react-icons/ai';
 
 import { searchIpState } from 'atom/map';
 
-const SearchInput = ({ onSearch }) => {
-    const [searchIp, setSearchIp] = useRecoilState(searchIpState);
-
-    const onChange = e => {
-        setSearchIp(() => e.target.value);
-    };
-
-    const onEnterPress = e => {
-        if (e.key === 'Enter') onSearch();
-    };
-
-    return (
-        <Container>
-            <InputBox>
-                <InputField
-                    type="text"
-                    value={searchIp}
-                    onChange={onChange}
-                    onKeyPress={onEnterPress}
-                    placeholder="Must Eat 지도 검색"
-                />
-                <SearchButton onClick={onSearch}>
-                    <AiOutlineSearch size={24} />
-                </SearchButton>
-            </InputBox>
-        </Container>
-    );
-};
-
 const Container = styled.div`
     width: 20rem;
     padding: 1rem 1.6rem;
@@ -72,5 +43,34 @@ const SearchButton = styled.button`
         }
     }
 `;
+
+const SearchInput = ({ onSearch }) => {
+    const [searchIp, setSearchIp] = useRecoilState(searchIpState);
+
+    const onChange = e => {
+        setSearchIp(() => e.target.value);
+    };
+
+    const onEnterPress = e => {
+        if (e.key === 'Enter') onSearch();
+    };
+
+    return (
+        <Container>
+            <InputBox>
+                <InputField
+                    type="text"
+                    value={searchIp}
+                    onChange={onChange}
+                    onKeyPress={onEnterPress}
+                    placeholder="Must Eat 지도 검색"
+                />
+                <SearchButton onClick={onSearch}>
+                    <AiOutlineSearch size={24} />
+                </SearchButton>
+            </InputBox>
+        </Container>
+    );
+};
 
 export default SearchInput;

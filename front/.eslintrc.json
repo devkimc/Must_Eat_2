@@ -1,14 +1,20 @@
 {
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint"],
   "env": { 
       "browser": true, 
       "es6": true,
       "node": true 
   },
-  "extends": ["airbnb", "plugin:prettier/recommended"],
+  "extends": ["airbnb", "airbnb-typescript", "plugin:prettier/recommended", "plugin:@typescript-eslint/recommended"],
   "rules": {
-      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
       "react/function-component-definition": [2, {"namedComponents": "arrow-function"}],
       "import/no-unresolved": "off",
-      "react/prop-types": 0
+      "react/prop-types": 0,
+      "import/no-cycle": "off"
   }
 }

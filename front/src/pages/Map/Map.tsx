@@ -2,6 +2,8 @@ import React from 'react';
 import { MapContainer } from 'containers';
 import styled from 'styled-components';
 
+const Container = styled.div``;
+
 const Map = () => {
     return (
         <Container>
@@ -9,7 +11,5 @@ const Map = () => {
         </Container>
     );
 };
-
-const Container = styled.div``;
 
 export default Map;
