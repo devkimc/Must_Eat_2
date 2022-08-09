@@ -2,14 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import ramenImg from 'assets/img/ramen_3.jpg';
 
-const HomeComponent = () => {
-    return (
-        <Container>
-            <BackgroundImg />
-        </Container>
-    );
-};
-
 const Container = styled.div`
     background: #000;
     height: 100vh;
@@ -24,5 +16,13 @@ const BackgroundImg = styled.div`
     height: 100%;
     z-index: -10;
 `;
+
+const HomeComponent = () => {
+    return (
+        <Container>
+            <BackgroundImg />
+        </Container>
+    );
+};
 
 export default HomeComponent;

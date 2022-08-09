@@ -4,66 +4,6 @@ import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai';
 import { acceptInvite, getInviteList, rejectInvite } from '../../lib/api/group';
 import { successToast } from '../../utils/toast';
 
-const InviteChkModal = () => {
-    const [inviteList, setInviteList] = useState([]);
-
-    const getInviteInfo = async () => {
-        const resList = await getInviteList();
-        setInviteList(resList.data.result);
-    };
-
-    useEffect(() => {
-        getInviteInfo();
-    }, []);
-
-    const onClickAccept = async inviteId => {
-        await acceptInvite(inviteId);
-        await getInviteInfo();
-        successToast('그룹에 참여했습니다!');
-    };
-
-    const onClickReject = async inviteId => {
-        await rejectInvite(inviteId);
-        await getInviteInfo();
-        successToast('초대를 거절했습니다!');
-    };
-
-    return (
-        <Wrapper>
-            <Padding>
-                {inviteList.map(invite => (
-                    <Content key={invite.INVITE_ID}>
-                        <InviteTxt>
-                            <BoldTxt>{invite.SEND_USER_ID}</BoldTxt>
-                            <NormalTxt>님이</NormalTxt>&nbsp;
-                            <BoldTxt>{invite.GROUP_NM}</BoldTxt>
-                            <NormalTxt>에 초대했습니다.</NormalTxt>
-                        </InviteTxt>
-                        <BtnGorup>
-                            <AcceptBtn
-                                onClick={() => onClickAccept(invite.INVITE_ID)}
-                            >
-                                <FlexCol>
-                                    <AiOutlineCheck color="#12B886" size={13} />
-                                </FlexCol>
-                            </AcceptBtn>
-                            <RejectBtn
-                                onClick={() => onClickReject(invite.INVITE_ID)}
-                            >
-                                <FlexCol>
-                                    <AiOutlineClose color="#FF6B6B" size={13} />
-                                </FlexCol>
-                            </RejectBtn>
-                        </BtnGorup>
-                    </Content>
-                ))}
-            </Padding>
-        </Wrapper>
-    );
-};
-
-export default InviteChkModal;
-
 const Wrapper = styled.div`
     background-color: #f4f5f7;
     position: absolute;
@@ -142,3 +82,63 @@ const FlexCol = styled.div`
     justify-content: center;
     flex-direction: column;
 `;
+
+const InviteChkModal = () => {
+    const [inviteList, setInviteList] = useState([]);
+
+    const getInviteInfo = async () => {
+        const resList = await getInviteList();
+        setInviteList(resList.data.result);
+    };
+
+    useEffect(() => {
+        getInviteInfo();
+    }, []);
+
+    const onClickAccept = async inviteId => {
+        await acceptInvite(inviteId);
+        await getInviteInfo();
+        successToast('그룹에 참여했습니다!');
+    };
+
+    const onClickReject = async inviteId => {
+        await rejectInvite(inviteId);
+        await getInviteInfo();
+        successToast('초대를 거절했습니다!');
+    };
+
+    return (
+        <Wrapper>
+            <Padding>
+                {inviteList.map(invite => (
+                    <Content key={invite.INVITE_ID}>
+                        <InviteTxt>
+                            <BoldTxt>{invite.SEND_USER_ID}</BoldTxt>
+                            <NormalTxt>님이</NormalTxt>&nbsp;
+                            <BoldTxt>{invite.GROUP_NM}</BoldTxt>
+                            <NormalTxt>에 초대했습니다.</NormalTxt>
+                        </InviteTxt>
+                        <BtnGorup>
+                            <AcceptBtn
+                                onClick={() => onClickAccept(invite.INVITE_ID)}
+                            >
+                                <FlexCol>
+                                    <AiOutlineCheck color="#12B886" size={13} />
+                                </FlexCol>
+                            </AcceptBtn>
+                            <RejectBtn
+                                onClick={() => onClickReject(invite.INVITE_ID)}
+                            >
+                                <FlexCol>
+                                    <AiOutlineClose color="#FF6B6B" size={13} />
+                                </FlexCol>
+                            </RejectBtn>
+                        </BtnGorup>
+                    </Content>
+                ))}
+            </Padding>
+        </Wrapper>
+    );
+};
+
+export default InviteChkModal;

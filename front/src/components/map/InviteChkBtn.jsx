@@ -4,30 +4,6 @@ import { AiOutlineMail } from 'react-icons/ai';
 
 import { InviteChkModal } from '../index';
 
-const InviteChkBtn = ({ notProcInvite }) => {
-    return (
-        <Wrapper>
-            <WhiteCircle>
-                <MsgBox>
-                    {notProcInvite >= 1 ? (
-                        <>
-                            <UnReadAlarmBorder>
-                                <FlexCol>
-                                    <UnReadAlarm />
-                                </FlexCol>
-                            </UnReadAlarmBorder>
-                            <AiOutlineMail color="#12B886" size={21} />
-                        </>
-                    ) : (
-                        <AiOutlineMail color="#12B886" size={21} />
-                    )}
-                </MsgBox>
-            </WhiteCircle>
-            <InviteChkModal />
-        </Wrapper>
-    );
-};
-
 const Wrapper = styled.div`
     position: absolute;
     right: 5.5rem;
@@ -78,5 +54,29 @@ const FlexCol = styled.div`
     justify-content: center;
     flex-direction: column;
 `;
+
+const InviteChkBtn = ({ notProcInvite }) => {
+    return (
+        <Wrapper>
+            <WhiteCircle>
+                <MsgBox>
+                    {notProcInvite >= 1 ? (
+                        <>
+                            <UnReadAlarmBorder>
+                                <FlexCol>
+                                    <UnReadAlarm />
+                                </FlexCol>
+                            </UnReadAlarmBorder>
+                            <AiOutlineMail color="#12B886" size={21} />
+                        </>
+                    ) : (
+                        <AiOutlineMail color="#12B886" size={21} />
+                    )}
+                </MsgBox>
+            </WhiteCircle>
+            <InviteChkModal />
+        </Wrapper>
+    );
+};
 
 export default InviteChkBtn;

@@ -7,145 +7,6 @@ import { createGroup, getGroupList } from '../../lib/api/group';
 import { addFavRest } from '../../lib/api/rest';
 import { successToast } from '../../utils/toast';
 
-const RestAddModal = ({ onClickCloseBtn, targetRestInfo }) => {
-    const [addClicked, setAddClicked] = useState(false);
-    const [groupNmInput, setGroupNmInput] = useState('');
-    const [groupList, setGroupList] = useState([]);
-    const groupNmTag = useRef();
-
-    const getGroup = () => {
-        getGroupList().then(res => {
-            setGroupList(res.data.list);
-        });
-    };
-
-    useEffect(() => {
-        getGroup();
-    }, []);
-
-    const onClickGroupAdd = () => {
-        setAddClicked(true);
-    };
-
-    const onChangeGroupNm = e => {
-        setGroupNmInput(e.target.value);
-    };
-
-    const onClickRemoveBtn = () => {
-        setGroupNmInput('');
-    };
-
-    const onClickCancleBtn = () => {
-        setAddClicked(false);
-        setGroupNmInput('');
-    };
-
-    const onClickConfirmBtn = async () => {
-        if (groupNmInput === '') {
-            groupNmTag.current.focus();
-            errorToast('그룹명을 입력해 주세요.');
-            return;
-        }
-
-        createGroup(groupNmInput)
-            .then(() => {
-                onClickCancleBtn();
-                getGroup();
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    };
-
-    const onClickRestAdd = groupId => {
-        const rest = targetRestInfo;
-        addFavRest(
-            groupId,
-            rest.restId,
-            rest.placeNm,
-            rest.cateNm,
-            rest.latCdnt,
-            rest.lngCdnt,
-        ).then(() => {
-            successToast(`${rest.placeNm} 식당이 내 그룹에 담겼습니다.`);
-        });
-    };
-
-    const colorArr = [
-        '#f5e6ab',
-        '#f0c33c',
-        '#b8e6bf',
-        '#1ed14b',
-        '#c5d9ed',
-        '#72aee6',
-        '#dcdcde',
-        '#a7aaad',
-        '#facfd2',
-        '#ff8085',
-    ];
-
-    return (
-        <Container>
-            <Visible>
-                <Modal>
-                    <Title>맛집 추가하기</Title>
-                    {!addClicked ? (
-                        <GroupAdd onClick={onClickGroupAdd}>
-                            <GroupAddImg>
-                                <FlexCol>
-                                    <AiOutlinePlus size={22} color="#e91e63" />
-                                </FlexCol>
-                            </GroupAddImg>
-                            <GroupAddTxt>새로운 그룹 추가하기</GroupAddTxt>
-                        </GroupAdd>
-                    ) : (
-                        <GroupAddClicked>
-                            <InputBox>
-                                <GroupAddInput
-                                    placeholder="새로운 그룹명을 정해주세요!"
-                                    value={groupNmInput}
-                                    onChange={onChangeGroupNm}
-                                    ref={groupNmTag}
-                                />
-                                <RemoveBtn onClick={onClickRemoveBtn}>
-                                    <AiOutlineClose color="#1a1616" size={15} />
-                                </RemoveBtn>
-                            </InputBox>
-                            <BottomBtn>
-                                <CancleBtn onClick={onClickCancleBtn}>
-                                    취소
-                                </CancleBtn>
-                                <ConfirmBtn onClick={onClickConfirmBtn}>
-                                    확인
-                                </ConfirmBtn>
-                            </BottomBtn>
-                        </GroupAddClicked>
-                    )}
-                    {groupList.map((el, i) => (
-                        <Group
-                            key={el.GROUP_ID}
-                            onClick={() => onClickRestAdd(el.GROUP_ID)}
-                        >
-                            <GroupList>
-                                <GroupImg imgColor={colorArr[i]} />
-                                <GroupInfo>
-                                    <GroupNm>{el.GROUP_NM}</GroupNm>
-                                    <GroupRestCount>{i + 2}개</GroupRestCount>
-                                </GroupInfo>
-                            </GroupList>
-                        </Group>
-                    ))}
-                    <CloseBtn onClick={onClickCloseBtn}>
-                        <AiOutlineClose color="#fff" size={22} />
-                    </CloseBtn>
-                </Modal>
-            </Visible>
-        </Container>
-    );
-};
-
-export default RestAddModal;
-
 const Container = styled.div`
     z-index: 501;
     position: fixed;
@@ -310,3 +171,138 @@ const FlexCol = styled.div`
     justify-content: center;
     flex-direction: column;
 `;
+
+const RestAddModal = ({ onClickCloseBtn, targetRestInfo }) => {
+    const [addClicked, setAddClicked] = useState(false);
+    const [groupNmInput, setGroupNmInput] = useState('');
+    const [groupList, setGroupList] = useState([]);
+    const groupNmTag = useRef();
+
+    const getGroup = () => {
+        getGroupList().then(res => {
+            setGroupList(res.data.list);
+        });
+    };
+
+    useEffect(() => {
+        getGroup();
+    }, []);
+
+    const onClickGroupAdd = () => {
+        setAddClicked(true);
+    };
+
+    const onChangeGroupNm = e => {
+        setGroupNmInput(e.target.value);
+    };
+
+    const onClickRemoveBtn = () => {
+        setGroupNmInput('');
+    };
+
+    const onClickCancleBtn = () => {
+        setAddClicked(false);
+        setGroupNmInput('');
+    };
+
+    const onClickConfirmBtn = async () => {
+        if (groupNmInput === '') {
+            groupNmTag.current.focus();
+            errorToast('그룹명을 입력해 주세요.');
+            return;
+        }
+
+        createGroup(groupNmInput).then(() => {
+            onClickCancleBtn();
+            getGroup();
+        });
+    };
+
+    const onClickRestAdd = groupId => {
+        const rest = targetRestInfo;
+        addFavRest(
+            groupId,
+            rest.restId,
+            rest.placeNm,
+            rest.cateNm,
+            rest.latCdnt,
+            rest.lngCdnt,
+        ).then(() => {
+            successToast(`${rest.placeNm} 식당이 내 그룹에 담겼습니다.`);
+        });
+    };
+
+    const colorArr = [
+        '#f5e6ab',
+        '#f0c33c',
+        '#b8e6bf',
+        '#1ed14b',
+        '#c5d9ed',
+        '#72aee6',
+        '#dcdcde',
+        '#a7aaad',
+        '#facfd2',
+        '#ff8085',
+    ];
+
+    return (
+        <Container>
+            <Visible>
+                <Modal>
+                    <Title>맛집 추가하기</Title>
+                    {!addClicked ? (
+                        <GroupAdd onClick={onClickGroupAdd}>
+                            <GroupAddImg>
+                                <FlexCol>
+                                    <AiOutlinePlus size={22} color="#e91e63" />
+                                </FlexCol>
+                            </GroupAddImg>
+                            <GroupAddTxt>새로운 그룹 추가하기</GroupAddTxt>
+                        </GroupAdd>
+                    ) : (
+                        <GroupAddClicked>
+                            <InputBox>
+                                <GroupAddInput
+                                    placeholder="새로운 그룹명을 정해주세요!"
+                                    value={groupNmInput}
+                                    onChange={onChangeGroupNm}
+                                    ref={groupNmTag}
+                                />
+                                <RemoveBtn onClick={onClickRemoveBtn}>
+                                    <AiOutlineClose color="#1a1616" size={15} />
+                                </RemoveBtn>
+                            </InputBox>
+                            <BottomBtn>
+                                <CancleBtn onClick={onClickCancleBtn}>
+                                    취소
+                                </CancleBtn>
+                                <ConfirmBtn onClick={onClickConfirmBtn}>
+                                    확인
+                                </ConfirmBtn>
+                            </BottomBtn>
+                        </GroupAddClicked>
+                    )}
+                    {groupList.map((el, i) => (
+                        <Group
+                            key={el.GROUP_ID}
+                            onClick={() => onClickRestAdd(el.GROUP_ID)}
+                        >
+                            <GroupList>
+                                <GroupImg imgColor={colorArr[i]} />
+                                <GroupInfo>
+                                    <GroupNm>{el.GROUP_NM}</GroupNm>
+                                    <GroupRestCount>{i + 2}개</GroupRestCount>
+                                </GroupInfo>
+                            </GroupList>
+                        </Group>
+                    ))}
+                    <CloseBtn onClick={onClickCloseBtn}>
+                        <AiOutlineClose color="#fff" size={22} />
+                    </CloseBtn>
+                </Modal>
+            </Visible>
+        </Container>
+    );
+};
+
+export default RestAddModal;

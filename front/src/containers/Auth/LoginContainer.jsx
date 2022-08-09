@@ -7,86 +7,6 @@ import { AiOutlineUnlock } from 'react-icons/ai';
 import { login } from '../../lib/api/auth';
 import { successToast } from '../../utils/toast';
 
-const SignUpContainer = () => {
-    const [inputId, setInputId] = useState('');
-    const [inputPw, setInputPw] = useState('');
-    const navigate = useNavigate();
-
-    const onChangeId = e => {
-        setInputId(e.target.value);
-    };
-
-    const onChangePw = e => {
-        setInputPw(e.target.value);
-    };
-
-    const onClickLogin = async () => {
-        try {
-            await login(inputId, inputPw);
-            navigate('/map');
-            successToast('로그인에 성공하셨습니다!');
-        } catch (error) {
-            setInputPw('');
-        }
-    };
-
-    return (
-        <FlexRow>
-            <Container>
-                <Title>
-                    <TitleTxt>Must Eat</TitleTxt>
-                </Title>
-                <InputBox>
-                    <Input>
-                        <InputNm>Your ID</InputNm>
-                        <InputLine>
-                            <Icon>
-                                <FiUser color="#12B886" />
-                            </Icon>
-                            <InputField
-                                value={inputId}
-                                onChange={onChangeId}
-                                maxLength={16}
-                            />
-                        </InputLine>
-                    </Input>
-                    <Input>
-                        <InputNm>Password</InputNm>
-                        <InputLine>
-                            <Icon>
-                                <AiOutlineUnlock color="#12B886" />
-                            </Icon>
-                            <InputField
-                                type="password"
-                                value={inputPw}
-                                onChange={onChangePw}
-                                maxLength={12}
-                            />
-                        </InputLine>
-                    </Input>
-
-                    <SubmitBtn
-                        onClick={onClickLogin}
-                        disabled={inputId.length < 1 || inputPw.length < 1}
-                        disable={inputId.length < 1 || inputPw.length < 1}
-                    >
-                        <FlexCol>
-                            <SubmitTxt>Login</SubmitTxt>
-                        </FlexCol>
-                    </SubmitBtn>
-                </InputBox>
-                <SignUpBtn>
-                    <Link to="/signup">
-                        <SignUpTxt>SignUp</SignUpTxt>
-                    </Link>
-                </SignUpBtn>
-            </Container>
-        </FlexRow>
-    );
-};
-
-export default SignUpContainer;
-
 const Container = styled.div`
     width: 20rem;
 `;
@@ -177,3 +97,83 @@ const FlexCol = styled.div`
     flex-direction: column;
     height: 100%;
 `;
+
+const SignUpContainer = () => {
+    const [inputId, setInputId] = useState('');
+    const [inputPw, setInputPw] = useState('');
+    const navigate = useNavigate();
+
+    const onChangeId = e => {
+        setInputId(e.target.value);
+    };
+
+    const onChangePw = e => {
+        setInputPw(e.target.value);
+    };
+
+    const onClickLogin = async () => {
+        try {
+            await login(inputId, inputPw);
+            navigate('/map');
+            successToast('로그인에 성공하셨습니다!');
+        } catch (error) {
+            setInputPw('');
+        }
+    };
+
+    return (
+        <FlexRow>
+            <Container>
+                <Title>
+                    <TitleTxt>Must Eat</TitleTxt>
+                </Title>
+                <InputBox>
+                    <Input>
+                        <InputNm>Your ID</InputNm>
+                        <InputLine>
+                            <Icon>
+                                <FiUser color="#12B886" />
+                            </Icon>
+                            <InputField
+                                value={inputId}
+                                onChange={onChangeId}
+                                maxLength={16}
+                            />
+                        </InputLine>
+                    </Input>
+                    <Input>
+                        <InputNm>Password</InputNm>
+                        <InputLine>
+                            <Icon>
+                                <AiOutlineUnlock color="#12B886" />
+                            </Icon>
+                            <InputField
+                                type="password"
+                                value={inputPw}
+                                onChange={onChangePw}
+                                maxLength={12}
+                            />
+                        </InputLine>
+                    </Input>
+
+                    <SubmitBtn
+                        onClick={onClickLogin}
+                        disabled={inputId.length < 1 || inputPw.length < 1}
+                        disable={inputId.length < 1 || inputPw.length < 1}
+                    >
+                        <FlexCol>
+                            <SubmitTxt>Login</SubmitTxt>
+                        </FlexCol>
+                    </SubmitBtn>
+                </InputBox>
+                <SignUpBtn>
+                    <Link to="/signup">
+                        <SignUpTxt>SignUp</SignUpTxt>
+                    </Link>
+                </SignUpBtn>
+            </Container>
+        </FlexRow>
+    );
+};
+
+export default SignUpContainer;

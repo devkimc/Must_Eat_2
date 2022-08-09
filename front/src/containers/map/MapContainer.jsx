@@ -15,6 +15,17 @@ import * as Constants from 'constants/mapConstants';
 import { warningToast, errorToast } from 'utils/toast';
 import { getNotProcInvite } from '../../lib/api/group';
 
+const Wrapper = styled.div``;
+
+const Container = styled.div`
+    background: white;
+    position: absolute;
+    z-index: 20;
+    width: 24rem;
+    height: 100vh;
+    box-shadow: 0 0 0.3rem 0 rgb(0 0 0 / 20%), 0.3rem 0 1rem 0 rgb(0 0 0 / 10%);
+`;
+
 const MapContainer = () => {
     const [mapObj, setMapObj] = useState('');
     const [markers, setMarkers] = useState([]);
@@ -146,16 +157,5 @@ const MapContainer = () => {
         </Wrapper>
     );
 };
-
-const Wrapper = styled.div``;
-
-const Container = styled.div`
-    background: white;
-    position: absolute;
-    z-index: 20;
-    width: 24rem;
-    height: 100vh;
-    box-shadow: 0 0 0.3rem 0 rgb(0 0 0 / 20%), 0.3rem 0 1rem 0 rgb(0 0 0 / 10%);
-`;
 
 export default MapContainer;
