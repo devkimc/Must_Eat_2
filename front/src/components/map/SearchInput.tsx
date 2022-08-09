@@ -44,10 +44,14 @@ const SearchButton = styled.button`
     }
 `;
 
-const SearchInput = ({ onSearch }) => {
+type Props = {
+    onSearch: () => void;
+};
+
+const SearchInput = ({ onSearch }: Props) => {
     const [searchIp, setSearchIp] = useRecoilState(searchIpState);
 
-    const onChange = e => {
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchIp(() => e.target.value);
     };
 

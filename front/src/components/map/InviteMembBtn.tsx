@@ -26,7 +26,11 @@ const FlexRow = styled.div`
     justify-content: center;
 `;
 
-const InviteMembBtn = ({ onClickInviteMembBtn }) => {
+type Props = {
+    onClickInviteMembBtn: () => void;
+};
+
+const InviteMembBtn = ({ onClickInviteMembBtn }: Props) => {
     return (
         <Wrapper>
             <WhiteCircle onClick={onClickInviteMembBtn}>

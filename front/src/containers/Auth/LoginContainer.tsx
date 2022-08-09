@@ -98,16 +98,16 @@ const FlexCol = styled.div`
     height: 100%;
 `;
 
-const SignUpContainer = () => {
-    const [inputId, setInputId] = useState('');
-    const [inputPw, setInputPw] = useState('');
+const LoginContainer = () => {
+    const [inputId, setInputId] = useState<string>('');
+    const [inputPw, setInputPw] = useState<string>('');
     const navigate = useNavigate();
 
-    const onChangeId = e => {
+    const onChangeId = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputId(e.target.value);
     };
 
-    const onChangePw = e => {
+    const onChangePw = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputPw(e.target.value);
     };
 
@@ -176,4 +176,4 @@ const SignUpContainer = () => {
     );
 };
 
-export default SignUpContainer;
+export default LoginContainer;

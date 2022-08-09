@@ -1,13 +1,18 @@
 import axiosInstance from '../defaultClient';
 
-export const login = (userId, userPw) => {
+export const login = (userId: string, userPw: string) => {
     return axiosInstance.post('/api/auth/login', {
         USER_ID: userId,
         USER_PW: userPw,
     });
 };
 
-export const signup = (userId, userPw, userEmail, mobNo) => {
+export const signup = (
+    userId: string,
+    userPw: string,
+    userEmail: string,
+    mobNo: string,
+) => {
     return axiosInstance.post('/api/auth/signup', {
         USER_ID: userId,
         USER_PW: userPw,

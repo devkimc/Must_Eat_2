@@ -5,12 +5,12 @@ export const getFavRest = () => {
 };
 
 export const addFavRest = (
-    groupId,
-    restId,
-    placeNm,
-    cateNm,
-    latCdnt,
-    lngCdnt,
+    groupId: number,
+    restId: number,
+    placeNm: string,
+    cateNm: string,
+    latCdnt: number,
+    lngCdnt: number,
 ) => {
     return axiosInstance.post('/api/fav-rest/add', {
         GROUP_ID: groupId,
