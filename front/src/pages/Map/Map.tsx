@@ -1,5 +1,9 @@
 import React from 'react';
-import { InviteChkBtnContainer, MapContainer } from 'containers';
+import {
+    InviteChkBtnContainer,
+    InviteMembBtnContainer,
+    MapContainer,
+} from 'containers';
 import styled from 'styled-components';
 
 const Container = styled.div``;
@@ -9,6 +13,7 @@ const Map = () => {
         <Container>
             <MapContainer />
             <InviteChkBtnContainer />
+            <InviteMembBtnContainer />
         </Container>
     );
 };

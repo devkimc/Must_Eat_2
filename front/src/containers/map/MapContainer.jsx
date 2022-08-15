@@ -29,17 +29,16 @@ const MapContainer = () => {
     const [searchRes, setSearchRes] = useState([]); // p
 
     const [allSearchRes, setAllSearchRes] = useState([]);
-    const [InviteMemb, setInviteMemb] = useState(false);
     const searchIp = useSelector(state => state.search.input);
 
     /* 멤버 초대 */
-    const onClickInviteMembBtn = () => {
-        setInviteMemb(true);
-    };
+    // const onClickInviteMembBtn = () => {
+    //     setInviteMemb(true);
+    // };
 
-    const closeInviteMemb = () => {
-        setInviteMemb(false);
-    };
+    // const closeInviteMemb = () => {
+    //     setInviteMemb(false);
+    // };
 
     /* 마커 출력 관리 */
     const showMarker = place => {
@@ -138,10 +137,6 @@ const MapContainer = () => {
                 <SearchInput onSearch={onSearch} />
                 <SearchResult allSearchRes={allSearchRes} />
             </Container>
-            <InviteMembBtn onClickInviteMembBtn={onClickInviteMembBtn} />
-            {InviteMemb && (
-                <InviteMembModal closeInviteMemb={closeInviteMemb} />
-            )}
             <MapComponent />
         </Wrapper>
     );

@@ -27,13 +27,13 @@ const FlexRow = styled.div`
 `;
 
 type Props = {
-    onClickInviteMembBtn: () => void;
+    onClick: () => void;
 };
 
-const InviteMembBtn = ({ onClickInviteMembBtn }: Props) => {
+const InviteMembBtn = ({ onClick }: Props) => {
     return (
         <Wrapper>
-            <WhiteCircle onClick={onClickInviteMembBtn}>
+            <WhiteCircle onClick={onClick}>
                 <FlexRow>
                     <FaUserPlus color="#12B886" size={16} />
                 </FlexRow>
