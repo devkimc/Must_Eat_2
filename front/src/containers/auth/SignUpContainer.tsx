@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import useInput from 'lib/hooks/useInput';
-import SignUpComponents from 'components/auth/SignUpComponents';
+import SignUpComponents from 'components/auth/SignUpComponent';
 import { signup } from '../../lib/api/auth';
 import { successToast } from '../../utils/toast';
 

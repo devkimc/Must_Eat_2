@@ -5,7 +5,7 @@ import { BiMap } from 'react-icons/bi';
 import { IoIosCall } from 'react-icons/io';
 import { FiShare, FiFolderPlus } from 'react-icons/fi';
 
-import RestAddModal from './RestAddModal';
+import RestAddModal from 'components/rest/RestAddModal';
 
 const Wrapper = styled.div`
     height: 100vh;

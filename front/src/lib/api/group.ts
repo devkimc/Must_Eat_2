@@ -1,4 +1,4 @@
-import apiClient from '../apiClient';
+import apiClient from './apiClient';
 
 export const createGroup = (groupNm: string) => {
     return apiClient.post('/api/group/create', {
