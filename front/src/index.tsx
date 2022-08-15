@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { RecoilRoot } from 'recoil';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
@@ -16,10 +15,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <Provider store={store}>
-        <RecoilRoot>
-            <App />
-            <GlobalStyle />
-            <ToastContainer autoClose={1000} />
-        </RecoilRoot>
+        <App />
+        <GlobalStyle />
+        <ToastContainer autoClose={1000} />
     </Provider>,
 );
