@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai';
-import { acceptInvite, getInviteList, rejectInvite } from '../../lib/api/group';
-import { successToast } from '../../utils/toast';
 
 const Wrapper = styled.div`
     background-color: #f4f5f7;
@@ -83,30 +81,22 @@ const FlexCol = styled.div`
     flex-direction: column;
 `;
 
-const InviteChkModal = () => {
-    const [inviteList, setInviteList] = useState([]);
+type Props = {
+    inviteList: {
+        INVITE_ID: number;
+        SEND_USER_ID: string;
+        GROUP_NM: string;
+    }[];
 
-    const getInviteInfo = async () => {
-        const resList = await getInviteList();
-        setInviteList(resList.data.result);
-    };
+    onClickAccept: (inviteId: number) => void;
+    onClickReject: (inviteId: number) => void;
+};
 
-    useEffect(() => {
-        getInviteInfo();
-    }, []);
-
-    const onClickAccept = async (inviteId: number) => {
-        await acceptInvite(inviteId);
-        await getInviteInfo();
-        successToast('그룹에 참여했습니다!');
-    };
-
-    const onClickReject = async (inviteId: number) => {
-        await rejectInvite(inviteId);
-        await getInviteInfo();
-        successToast('초대를 거절했습니다!');
-    };
-
+const InviteChkModal = ({
+    inviteList,
+    onClickAccept,
+    onClickReject,
+}: Props) => {
     return (
         <Wrapper>
             <Padding>
