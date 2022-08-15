@@ -1,9 +1,9 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { AiOutlineSearch } from 'react-icons/ai';
-
-import { searchIpState } from 'atom/map';
+import { changeSearchIp } from 'modules/search';
+import { RootState } from 'modules';
 
 const Container = styled.div`
     width: 20rem;
@@ -49,10 +49,10 @@ type Props = {
 };
 
 const SearchInput = ({ onSearch }: Props) => {
-    const [searchIp, setSearchIp] = useRecoilState(searchIpState);
-
+    const dispatch = useDispatch();
+    const searchIp = useSelector((state: RootState) => state.search.input);
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchIp(() => e.target.value);
+        dispatch(changeSearchIp(e.target.value));
     };
 
     const onEnterPress = e => {

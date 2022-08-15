@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import {
@@ -10,7 +10,6 @@ import {
     InviteMembModal,
     InviteChkBtn,
 } from 'components';
-import { searchIpState } from 'atom/map';
 import * as Constants from 'constants/mapConstants';
 import { warningToast, errorToast } from 'utils/toast';
 import { getNotProcInvite } from '../../lib/api/group';
@@ -33,7 +32,7 @@ const MapContainer = () => {
     const [allSearchRes, setAllSearchRes] = useState([]);
     const [InviteMemb, setInviteMemb] = useState(false);
     const [notProcInvite, setNotProcInvite] = useState(0);
-    const searchIp = useRecoilValue(searchIpState);
+    const searchIp = useSelector(state => state.search.input);
 
     /* 처리하지 않은 초대있는 지 확인 */
     useEffect(() => {
