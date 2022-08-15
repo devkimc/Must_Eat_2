@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { changeSearchIp } from 'modules/search';
+import { RootState } from 'modules';
 
 const Container = styled.div`
     width: 20rem;
@@ -49,7 +50,7 @@ type Props = {
 
 const SearchInput = ({ onSearch }: Props) => {
     const dispatch = useDispatch();
-    const searchIp = useSelector<any>(state => state.search.input);
+    const searchIp = useSelector((state: RootState) => state.search.input);
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(changeSearchIp(e.target.value));
     };

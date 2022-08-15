@@ -1,7 +1,7 @@
-import axiosInstance from '../defaultClient';
+import apiClient from '../apiClient';
 
 export const getFavRest = () => {
-    return axiosInstance.get('/api/fav-rest/info', {});
+    return apiClient.get('/api/fav-rest/info', {});
 };
 
 export const addFavRest = (
@@ -12,7 +12,7 @@ export const addFavRest = (
     latCdnt: number,
     lngCdnt: number,
 ) => {
-    return axiosInstance.post('/api/fav-rest/add', {
+    return apiClient.post('/api/fav-rest/add', {
         GROUP_ID: groupId,
         REST_ID: restId,
         REST_NM: placeNm,

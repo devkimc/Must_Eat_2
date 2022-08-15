@@ -1,7 +1,7 @@
-import axiosInstance from '../defaultClient';
+import apiClient from '../apiClient';
 
 export const login = (userId: string, userPw: string) => {
-    return axiosInstance.post('/api/auth/login', {
+    return apiClient.post('/api/auth/login', {
         USER_ID: userId,
         USER_PW: userPw,
     });
@@ -13,7 +13,7 @@ export const signup = (
     userEmail: string,
     mobNo: string,
 ) => {
-    return axiosInstance.post('/api/auth/signup', {
+    return apiClient.post('/api/auth/signup', {
         USER_ID: userId,
         USER_PW: userPw,
         USER_EMAIL: userEmail,
