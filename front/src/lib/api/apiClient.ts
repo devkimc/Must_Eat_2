@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { errorToast } from '../utils/toast';
-import errProc from './error/configErr';
+import { errorToast } from '../../utils/toast';
+import errProc from '../error/configErr';
 
 axios.defaults.withCredentials = true;
 axios.defaults.timeout = 1000;
