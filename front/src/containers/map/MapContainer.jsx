@@ -6,8 +6,6 @@ import {
     SearchInput,
     SearchResult,
     MapComponent,
-    InviteMembBtn,
-    InviteMembModal,
 } from 'components';
 import * as Constants from 'constants/mapConstants';
 import { warningToast, errorToast } from 'utils/toast';
@@ -30,15 +28,6 @@ const MapContainer = () => {
 
     const [allSearchRes, setAllSearchRes] = useState([]);
     const searchIp = useSelector(state => state.search.input);
-
-    /* 멤버 초대 */
-    // const onClickInviteMembBtn = () => {
-    //     setInviteMemb(true);
-    // };
-
-    // const closeInviteMemb = () => {
-    //     setInviteMemb(false);
-    // };
 
     /* 마커 출력 관리 */
     const showMarker = place => {
