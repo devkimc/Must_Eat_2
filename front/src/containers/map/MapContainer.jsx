@@ -13,10 +13,12 @@ const MapContainer = () => {
 
     const singleSearchRes = useSelector(state => state.search.singleSearchRes);
 
+    /* global kakao */
+
     /* 마커 출력 관리 */
     const showMarker = place => {
-        const marker = new kakao.maps.Marker({
-            position: new kakao.maps.LatLng(place.y, place.x),
+        const marker = new window.kakao.maps.Marker({
+            position: new window.kakao.maps.LatLng(place.y, place.x),
             clickable: true,
         });
         marker.setMap(mapObj);
@@ -31,7 +33,7 @@ const MapContainer = () => {
     const setCenter = index => {
         if (singleSearchRes[index] !== undefined) {
             mapObj.setCenter(
-                new kakao.maps.LatLng(
+                new window.kakao.maps.LatLng(
                     singleSearchRes[index].y,
                     singleSearchRes[index].x,
                 ),
@@ -41,14 +43,14 @@ const MapContainer = () => {
 
     const initMap = async () => {
         const mapOptions = {
-            center: new kakao.maps.LatLng(
+            center: new window.kakao.maps.LatLng(
                 Constants.POSITION_LAT_CDNT,
                 Constants.POSITION_LNG_CDNT,
             ),
             level: 8,
         };
         const container = document.getElementById('map');
-        const initMapObj = new kakao.maps.Map(container, mapOptions);
+        const initMapObj = new window.kakao.maps.Map(container, mapOptions);
         setMapObj(initMapObj);
     };
 
@@ -57,11 +59,10 @@ const MapContainer = () => {
         Kakao.init(process.env.REACT_APP_API_KEY_KAKAO_MAP);
     }, []);
 
-    /* global kakao */
     useEffect(() => {
         /* 카카오맵 */
         const script = document.createElement('script');
-        script.onload = () => kakao.maps.load(initMap);
+        script.onload = () => window.kakao.maps.load(initMap);
         script.src =
             Constants.KAKAO_MAP_API_URL +
             process.env.REACT_APP_API_KEY_KAKAO_MAP +
@@ -72,10 +73,10 @@ const MapContainer = () => {
     /* 식당 검색 */
     useEffect(() => {
         if (singleSearchRes.length) {
-            removeMarker();
-            setMarkers([]);
-            setCenter(0);
-            singleSearchRes.forEach(res => showMarker(res));
+            // removeMarker();
+            // setMarkers([]);
+            // setCenter(0);
+            // singleSearchRes.forEach(res => showMarker(res));
         }
     }, [singleSearchRes]);
 

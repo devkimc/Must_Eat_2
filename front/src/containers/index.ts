@@ -9,3 +9,6 @@ export { default as InviteMembBtnContainer } from './invite/InviteMembBtnContain
 export { default as InviteMembModalContainer } from './invite/InviteMembModalContainer';
 
 export { default as MapContainer } from './map/MapContainer';
+
+export { default as SearchInputContainer } from './search/SearchInputContainer';
+export { default as SearchResultContainer } from './search/SearchResultContainer';

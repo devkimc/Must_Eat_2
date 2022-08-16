@@ -3,9 +3,10 @@ import {
     InviteChkBtnContainer,
     InviteMembBtnContainer,
     MapContainer,
+    SearchInputContainer,
+    SearchResultContainer,
 } from 'containers';
 import styled from 'styled-components';
-import SearchInputContainer from 'containers/search/SearchInputContainer';
 
 const Container = styled.div``;
 
@@ -23,6 +24,7 @@ const MapPage = () => {
         <Container>
             <SearchBlock>
                 <SearchInputContainer />
+                <SearchResultContainer />
             </SearchBlock>
             <MapContainer />
             <InviteChkBtnContainer />
