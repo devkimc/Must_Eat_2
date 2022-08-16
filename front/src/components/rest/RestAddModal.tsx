@@ -1,11 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { errorToast } from 'utils/toast';
 
 import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
-import { createGroup, getGroupList } from '../../lib/api/group';
-import { addFavRest } from '../../lib/api/rest';
-import { successToast } from '../../utils/toast';
 
 const Container = styled.div`
     z-index: 501;
@@ -172,78 +168,29 @@ const FlexCol = styled.div`
     flex-direction: column;
 `;
 
-type Props = {
-    onClickCloseBtn: () => void;
-    targetRestInfo: {
-        restId: number;
-        placeNm: string;
-        cateNm: string;
-        latCdnt: number;
-        lngCdnt: number;
-    };
-};
+// type Props = {
+//     onClickCloseBtn: () => void;
+//     targetRestInfo: {
+//         restId: number;
+//         placeNm: string;
+//         cateNm: string;
+//         latCdnt: number;
+//         lngCdnt: number;
+//     };
+// };
 
-const RestAddModal = ({ onClickCloseBtn, targetRestInfo }: Props) => {
-    const [addClicked, setAddClicked] = useState<boolean>(false);
-    const [groupNmInput, setGroupNmInput] = useState<string>('');
-    const [groupList, setGroupList] = useState([]);
-    const groupNmTag = useRef<React.MutableRefObject<undefined>>();
-
-    const getGroup = () => {
-        getGroupList().then(res => {
-            setGroupList(res.data.list);
-        });
-    };
-
-    useEffect(() => {
-        getGroup();
-    }, []);
-
-    const onClickGroupAdd = () => {
-        setAddClicked(true);
-    };
-
-    const onChangeGroupNm = e => {
-        setGroupNmInput(e.target.value);
-    };
-
-    const onClickRemoveBtn = () => {
-        setGroupNmInput('');
-    };
-
-    const onClickCancleBtn = () => {
-        setAddClicked(false);
-        setGroupNmInput('');
-    };
-
-    const onClickConfirmBtn = async () => {
-        if (groupNmInput === '') {
-            // groupNmTag.current.focus();
-            errorToast('그룹명을 입력해 주세요.');
-            return;
-        }
-
-        createGroup(groupNmInput).then(() => {
-            onClickCancleBtn();
-            getGroup();
-        });
-    };
-
-    const onClickRestAdd = (groupId: number) => {
-        addFavRest(
-            groupId,
-            targetRestInfo.restId,
-            targetRestInfo.placeNm,
-            targetRestInfo.cateNm,
-            targetRestInfo.latCdnt,
-            targetRestInfo.lngCdnt,
-        ).then(() => {
-            successToast(
-                `${targetRestInfo.placeNm} 식당이 내 그룹에 담겼습니다.`,
-            );
-        });
-    };
-
+const RestAddModal = ({
+    addClicked,
+    groupNm,
+    groupList,
+    onChange,
+    onClickGroupAdd,
+    onClickRemoveBtn,
+    onClickCancleBtn,
+    onClickConfirmBtn,
+    onClickCloseBtn,
+    onClickRestAdd,
+}) => {
     const colorArr = [
         '#f5e6ab',
         '#f0c33c',
@@ -276,9 +223,9 @@ const RestAddModal = ({ onClickCloseBtn, targetRestInfo }: Props) => {
                             <InputBox>
                                 <GroupAddInput
                                     placeholder="새로운 그룹명을 정해주세요!"
-                                    value={groupNmInput}
-                                    onChange={onChangeGroupNm}
-                                    ref={groupNmTag}
+                                    value={groupNm}
+                                    onChange={onChange}
+                                    // ref={groupNmTag}
                                 />
                                 <RemoveBtn onClick={onClickRemoveBtn}>
                                     <AiOutlineClose color="#1a1616" size={15} />
@@ -294,7 +241,7 @@ const RestAddModal = ({ onClickCloseBtn, targetRestInfo }: Props) => {
                             </BottomBtn>
                         </GroupAddClicked>
                     )}
-                    {groupList.map((el, i) => (
+                    {groupList?.map((el, i) => (
                         <Group
                             key={el.GROUP_ID}
                             onClick={() => onClickRestAdd(el.GROUP_ID)}

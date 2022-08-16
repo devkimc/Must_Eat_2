@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { SearchResult } from 'components';
 import { RootState } from 'modules';
 import { useSelector } from 'react-redux';
+import RestAddModalContainer from 'containers/rest/RestAddModalContainer';
 
 declare global {
     interface Window {
@@ -63,14 +64,22 @@ const SearchResultContainer = () => {
     }, [allSearchRes]);
 
     return (
-        <SearchResult
-            allSearchRes={allSearchRes}
-            restAddModal={restAddModal}
-            targetRestInfo={targetRestInfo}
-            onClickFolderAdd={onClickFolderAdd}
-            splitCateNm={splitCateNm}
-            onClickCloseBtn={onClickCloseBtn}
-        />
+        <>
+            <SearchResult
+                allSearchRes={allSearchRes}
+                restAddModal={restAddModal}
+                targetRestInfo={targetRestInfo}
+                onClickFolderAdd={onClickFolderAdd}
+                splitCateNm={splitCateNm}
+                onClickCloseBtn={onClickCloseBtn}
+            />
+            {restAddModal && (
+                <RestAddModalContainer
+                    targetRestInfo={targetRestInfo}
+                    onClickCloseBtn={onClickCloseBtn}
+                />
+            )}
+        </>
     );
 };
 

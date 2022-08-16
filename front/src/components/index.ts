@@ -10,5 +10,7 @@ export { default as InviteChkModal } from './invite/InviteChkModal';
 
 export { default as MapComponent } from './map/MapComponent';
 
+export { default as RestAddModal } from './rest/RestAddModal';
+
 export { default as SearchInput } from './search/SearchInput';
 export { default as SearchResult } from './search/SearchResult';
