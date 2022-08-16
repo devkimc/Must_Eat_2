@@ -1,7 +1,7 @@
 import React from 'react';
 import { SignUpContainer } from 'containers';
 
-const SignUp = () => {
+const SignUpPage = () => {
     return (
         <div>
             <SignUpContainer />
@@ -9,4 +9,4 @@ const SignUp = () => {
     );
 };
 
-export default SignUp;
+export default SignUpPage;

@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 const Container = styled.div``;
 
-const Map = () => {
+const MapPage = () => {
     return (
         <Container>
             <MapContainer />
@@ -18,4 +18,4 @@ const Map = () => {
     );
 };
 
-export default Map;
+export default MapPage;

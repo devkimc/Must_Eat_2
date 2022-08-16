@@ -1,4 +1,4 @@
-export { default as Home } from './Home/Home';
-export { default as Map } from './Map/Map';
-export { default as Login } from './Auth/Login';
-export { default as SignUp } from './Auth/SignUp';
+export { default as Home } from './home/HomePage';
+export { default as Map } from './map/MapPage';
+export { default as Login } from './auth/LoginPage';
+export { default as SignUp } from './auth/SignUpPage';
