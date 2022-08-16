@@ -48,28 +48,8 @@ export const resetSearchRes = () => ({
 
 const initialState: SearchState = {
     input: '',
-    singleSearchRes: [
-        {
-            id: null,
-            place_name: null,
-            category_name: null,
-            y: null,
-            x: null,
-            address_name: null,
-            phone: null,
-        },
-    ],
-    allSearchRes: [
-        {
-            id: null,
-            place_name: null,
-            category_name: null,
-            y: null,
-            x: null,
-            address_name: null,
-            phone: null,
-        },
-    ],
+    singleSearchRes: [],
+    allSearchRes: [],
 };
 
 // eslint-disable-next-line @typescript-eslint/default-param-last

@@ -10,5 +10,7 @@ export { default as InviteMembModalContainer } from './invite/InviteMembModalCon
 
 export { default as MapContainer } from './map/MapContainer';
 
+export { default as RestAddModalContainer } from './rest/RestAddModalContainer';
+
 export { default as SearchInputContainer } from './search/SearchInputContainer';
 export { default as SearchResultContainer } from './search/SearchResultContainer';
