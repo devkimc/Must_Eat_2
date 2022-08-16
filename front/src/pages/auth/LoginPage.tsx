@@ -1,7 +1,7 @@
 import React from 'react';
 import { LoginContainer } from 'containers';
 
-const Login = () => {
+const LoginPage = () => {
     return (
         <div>
             <LoginContainer />
@@ -9,4 +9,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default LoginPage;

@@ -1,10 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { errorToast } from 'utils/toast';
 
 import { AiOutlineClose } from 'react-icons/ai';
-import { inviteGroup, getGroupList } from '../../lib/api/group';
-import { successToast } from '../../utils/toast';
 
 const Container = styled.div`
     z-index: 501;
@@ -140,56 +137,21 @@ const CloseBtn = styled.button`
     right: -0.5rem;
 `;
 
-type Props = {
-    closeInviteMemb: () => void;
-};
+// type Props = {
+//     closeInviteMemb: () => void;
+// };
 
-const InviteMembModal = ({ closeInviteMemb }: Props) => {
-    // const [addClicked, setAddClicked] = useState(false);
-    const [selectedGroupId, setSelectedGroupId] = useState<number>();
-    const [userNmInput, setUserNmInput] = useState<string>('');
-    const [groupList, setGroupList] = useState([]);
-    const userNmTag = useRef<React.MutableRefObject<undefined>>();
-
-    const getGroup = () => {
-        getGroupList().then(res => {
-            setGroupList(res.data.list);
-        });
-    };
-
-    useEffect(() => {
-        getGroup();
-    }, []);
-
-    const onChangeUserNm = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setUserNmInput(e.target.value);
-    };
-
-    const onClickRemoveBtn = (): void => {
-        setUserNmInput('');
-    };
-
-    const onClickCancleBtn = (): void => {
-        setUserNmInput('');
-    };
-
-    const onClickGroup = (index: number): void => {
-        setSelectedGroupId(groupList[index].GROUP_ID);
-    };
-
-    const onClickConfirmBtn = async () => {
-        if (userNmInput === '') {
-            // userNmTag.current.focus();
-            errorToast('유저 이름을 입력해 주세요!');
-            return;
-        }
-
-        inviteGroup(selectedGroupId, userNmInput).then(() => {
-            successToast(`${userNmInput} 님을 초대했습니다!`);
-            // onClickCancleBtn();
-            // getGroup();
-        });
-    };
+const InviteMembModal = ({
+    groupList,
+    userId,
+    onChange,
+    onClickGroup,
+    onClickRemoveBtn,
+    onClickCancleBtn,
+    onClickConfirmBtn,
+    closeInviteMemb,
+}) => {
+    const userIdTag = useRef<React.MutableRefObject<undefined>>();
 
     const colorArr: Array<string> = [
         '#f5e6ab',
@@ -227,9 +189,9 @@ const InviteMembModal = ({ closeInviteMemb }: Props) => {
                         <InputBox>
                             <GroupAddInput
                                 placeholder="맛집을 공유하고 싶은 유저의 ID를 입력해주세요!"
-                                value={userNmInput}
-                                onChange={onChangeUserNm}
-                                ref={userNmTag}
+                                value={userId}
+                                onChange={onChange}
+                                ref={userIdTag}
                             />
                             <RemoveBtn onClick={onClickRemoveBtn}>
                                 <AiOutlineClose color="#1a1616" size={15} />
