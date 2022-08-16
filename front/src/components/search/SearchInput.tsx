@@ -1,9 +1,6 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { changeSearchIp } from 'modules/search';
-import { RootState } from 'modules';
 
 const Container = styled.div`
     width: 20rem;
@@ -45,16 +42,14 @@ const SearchButton = styled.button`
 `;
 
 type Props = {
+    searchIp: string;
+    onChange: (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => void;
     onSearch: () => void;
 };
 
-const SearchInput = ({ onSearch }: Props) => {
-    const dispatch = useDispatch();
-    const searchIp = useSelector((state: RootState) => state.search.input);
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(changeSearchIp(e.target.value));
-    };
-
+const SearchInput = ({ searchIp, onChange, onSearch }: Props) => {
     const onEnterPress = e => {
         if (e.key === 'Enter') onSearch();
     };

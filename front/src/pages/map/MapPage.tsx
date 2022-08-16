@@ -5,12 +5,25 @@ import {
     MapContainer,
 } from 'containers';
 import styled from 'styled-components';
+import SearchInputContainer from 'containers/search/SearchInputContainer';
 
 const Container = styled.div``;
+
+const SearchBlock = styled.div`
+    background: white;
+    position: absolute;
+    z-index: 20;
+    width: 24rem;
+    height: 100vh;
+    box-shadow: 0 0 0.3rem 0 rgb(0 0 0 / 20%), 0.3rem 0 1rem 0 rgb(0 0 0 / 10%);
+`;
 
 const MapPage = () => {
     return (
         <Container>
+            <SearchBlock>
+                <SearchInputContainer />
+            </SearchBlock>
             <MapContainer />
             <InviteChkBtnContainer />
             <InviteMembBtnContainer />
