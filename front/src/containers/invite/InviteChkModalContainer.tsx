@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { InviteChkModal } from 'components';
+import { toast } from 'react-toastify';
 import { acceptInvite, getInviteList, rejectInvite } from '../../lib/api/group';
-import { successToast } from '../../utils/toast';
 
 type InViteList = {
     INVITE_ID: number;
@@ -24,13 +24,13 @@ const InviteChkModalContainer = () => {
     const onClickAccept = async (inviteId: number) => {
         await acceptInvite(inviteId);
         await getInviteInfo();
-        successToast('그룹에 참여했습니다!');
+        toast.success('그룹에 참여했습니다!');
     };
 
     const onClickReject = async (inviteId: number) => {
         await rejectInvite(inviteId);
         await getInviteInfo();
-        successToast('초대를 거절했습니다!');
+        toast.success('초대를 거절했습니다!');
     };
 
     return (

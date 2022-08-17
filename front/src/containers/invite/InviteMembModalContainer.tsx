@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { InviteMembModal } from 'components';
 import { getGroupList, inviteGroup } from 'lib/api/group';
 import useInput from 'lib/hooks/useInput';
-import { errorToast, successToast } from 'utils/toast';
+import { toast } from 'react-toastify';
 
 const InviteMembModalContainer = ({ closeInviteMemb }) => {
     const [selectedGroupId, setSelectedGroupId] = useState<number>();
@@ -35,12 +35,12 @@ const InviteMembModalContainer = ({ closeInviteMemb }) => {
     const onClickConfirmBtn = async () => {
         if (userId === '') {
             // userNmTag.current.focus();
-            errorToast('유저 이름을 입력해 주세요!');
+            toast.error('유저 이름을 입력해 주세요!');
             return;
         }
 
         inviteGroup(selectedGroupId, userId).then(() => {
-            successToast(`${userId} 님을 초대했습니다!`);
+            toast.success(`${userId} 님을 초대했습니다!`);
             onClickCancleBtn();
             getGroup();
         });

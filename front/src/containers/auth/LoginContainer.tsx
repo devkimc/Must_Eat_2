@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useInput from 'lib/hooks/useInput';
 import LoginComponents from 'components/auth/LoginComponent';
 import { login } from 'lib/api/auth';
-import { successToast } from '../../utils/toast';
+import { toast } from 'react-toastify';
 
 const LoginContainer = () => {
     const [inputId, onChangeId] = useInput('');
@@ -15,7 +15,7 @@ const LoginContainer = () => {
         try {
             await login(inputId, inputPw);
             navigate('/map');
-            successToast('로그인에 성공하셨습니다!');
+            toast.success('로그인에 성공하셨습니다!');
         } catch (error) {
             onResetPw();
         }

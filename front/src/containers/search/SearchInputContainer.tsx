@@ -9,7 +9,7 @@ import {
     resetSearchRes,
 } from 'modules/search';
 import { useDispatch, useSelector } from 'react-redux';
-import { errorToast, warningToast } from 'utils/toast';
+import { toast } from 'react-toastify';
 
 declare global {
     interface Window {
@@ -34,15 +34,15 @@ const SearchInputContainer = () => {
             dispatch(changeSingleSearchRes(result));
             dispatch(addSearchRes(result));
         } else if (status === resStatus.ZERO_RESULT) {
-            warningToast('검색 결과가 없습니다!');
+            toast.warning('검색 결과가 없습니다!');
         } else {
-            errorToast('서버 응답에 문제가 있습니다!');
+            toast.error('서버 응답에 문제가 있습니다!');
         }
     };
 
     const onSearch = () => {
         if (!searchIp) {
-            warningToast('검색어를 입력해주세요');
+            toast.warning('검색어를 입력해주세요');
         }
         dispatch(resetSearchRes());
         // const places = new global.kakao.maps.services.Places();

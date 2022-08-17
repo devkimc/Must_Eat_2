@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import useInput from 'lib/hooks/useInput';
 import SignUpComponents from 'components/auth/SignUpComponent';
+import { toast } from 'react-toastify';
 import { signup } from '../../lib/api/auth';
-import { successToast } from '../../utils/toast';
 
 const SignUpContainer = () => {
     const [inputId, onChangeId] = useInput('');
@@ -18,7 +18,7 @@ const SignUpContainer = () => {
         try {
             await signup(inputId, inputPw, inputEmail, inputMobNo);
             navigate('/login');
-            successToast('회원가입을 축하해요!');
+            toast.success('회원가입을 축하해요!');
         } catch (error) {
             onResetPwConf();
         }
