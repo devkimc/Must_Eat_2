@@ -11,12 +11,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-declare global {
-    interface Window {
-        kakao: any;
-    }
-}
-
 const SearchInputContainer = () => {
     const dispatch = useDispatch();
     const searchIp = useSelector((state: RootState) => state.search.input);

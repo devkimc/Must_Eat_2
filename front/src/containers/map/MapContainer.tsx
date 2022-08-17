@@ -4,16 +4,28 @@ import styled from 'styled-components';
 
 import { MapComponent } from 'components';
 import * as Constants from 'constants/mapConstants';
+import { RootState } from 'modules';
+
+declare global {
+    interface Window {
+        kakao: any;
+        Kakao: any;
+    }
+}
+
+type Map = {
+    setCenter: (latlng: object) => void;
+};
 
 const Wrapper = styled.div``;
 
 const MapContainer = () => {
-    const [mapObj, setMapObj] = useState('');
+    const [mapObj, setMapObj] = useState<Map>();
     const [markers, setMarkers] = useState([]);
 
-    const singleSearchRes = useSelector(state => state.search.singleSearchRes);
-
-    /* global kakao */
+    const singleSearchRes = useSelector(
+        (state: RootState) => state.search.singleSearchRes,
+    );
 
     /* 마커 출력 관리 */
     const showMarker = place => {
@@ -54,9 +66,8 @@ const MapContainer = () => {
         setMapObj(initMapObj);
     };
 
-    /* global Kakao */
     useEffect(() => {
-        Kakao.init(process.env.REACT_APP_API_KEY_KAKAO_MAP);
+        window.Kakao.init(process.env.REACT_APP_API_KEY_KAKAO_MAP);
     }, []);
 
     useEffect(() => {
@@ -73,10 +84,10 @@ const MapContainer = () => {
     /* 식당 검색 */
     useEffect(() => {
         if (singleSearchRes.length) {
-            // removeMarker();
-            // setMarkers([]);
-            // setCenter(0);
-            // singleSearchRes.forEach(res => showMarker(res));
+            removeMarker();
+            setMarkers([]);
+            setCenter(0);
+            singleSearchRes.forEach(res => showMarker(res));
         }
     }, [singleSearchRes]);
 

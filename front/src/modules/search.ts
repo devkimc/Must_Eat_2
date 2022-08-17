@@ -3,7 +3,7 @@ const CHANGE_SINGLE_SEARCH_RES = 'search/CHANGE_SINGLE_SEARCH_RES';
 const ADD_SEARCH_RES = 'search/ADD_SEARCH_RES';
 const RESET_SEARCH_RES = 'search/RESET_SEARCH_RES';
 
-export interface SearchState {
+export type SearchState = {
     input: string;
     singleSearchRes: {
         id: number | null;
@@ -23,7 +23,7 @@ export interface SearchState {
         address_name: string | null;
         phone: string | null;
     }[];
-}
+};
 
 export const changeSearchIp = (input: string) => ({
     type: CHANGE_SEARCH_IP,

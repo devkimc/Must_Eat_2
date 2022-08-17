@@ -4,13 +4,6 @@ import { RootState } from 'modules';
 import { useSelector } from 'react-redux';
 import RestAddModalContainer from 'containers/rest/RestAddModalContainer';
 
-declare global {
-    interface Window {
-        kakao: any;
-        Kakao: any;
-    }
-}
-
 const SearchResultContainer = () => {
     const allSearchRes = useSelector(
         (state: RootState) => state.search.allSearchRes,
@@ -67,11 +60,8 @@ const SearchResultContainer = () => {
         <>
             <SearchResult
                 allSearchRes={allSearchRes}
-                restAddModal={restAddModal}
-                targetRestInfo={targetRestInfo}
                 onClickFolderAdd={onClickFolderAdd}
                 splitCateNm={splitCateNm}
-                onClickCloseBtn={onClickCloseBtn}
             />
             {restAddModal && (
                 <RestAddModalContainer
