@@ -25,13 +25,13 @@ const SearchResultContainer = () => {
         return cateNmWord;
     };
 
-    const onClickFolderAdd = ({
-        restId,
-        placeNm,
-        cateNm,
-        latCdnt,
-        lngCdnt,
-    }: Rest) => {
+    const onClickFolderAdd = (
+        restId: number,
+        placeNm: string,
+        cateNm: string,
+        latCdnt: number,
+        lngCdnt: number,
+    ) => {
         setRestAddModal(true);
         setTargetRestInfo({
             restId,
