@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RestAddModal } from 'components';
 import createGroup, { getGroupList } from 'lib/api/group';
 import { addFavRest } from 'lib/api/rest';
@@ -41,25 +41,21 @@ const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
             return;
         }
 
-        createGroup(groupNm).then(() => {
-            onClickCancleBtn();
-            getGroup();
-        });
+        await createGroup(groupNm);
+        onClickCancleBtn();
+        getGroup();
     };
 
-    const onClickRestAdd = (groupId: number) => {
-        addFavRest(
+    const onClickRestAdd = async (groupId: number) => {
+        await addFavRest(
             groupId,
             targetRestInfo.restId,
             targetRestInfo.placeNm,
             targetRestInfo.cateNm,
             targetRestInfo.latCdnt,
             targetRestInfo.lngCdnt,
-        ).then(() => {
-            toast.success(
-                `${targetRestInfo.placeNm} 식당이 내 그룹에 담겼습니다.`,
-            );
-        });
+        );
+        toast.success(`${targetRestInfo.placeNm} 식당이 내 그룹에 담겼습니다.`);
     };
 
     return (

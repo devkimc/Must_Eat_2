@@ -94,6 +94,20 @@ const FlexCol = styled.div`
     flex-direction: column;
 `;
 
+type Props = {
+    inputId: string;
+    inputPw: string;
+    inputPwConf: string;
+    inputEmail: string;
+    inputMobNo: string;
+    onChangeId: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChangePw: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChangePwConf: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChangeEmail: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChangeMobNo: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onClick: () => void;
+};
+
 const SignUpComponents = ({
     inputId,
     inputPw,
@@ -106,7 +120,7 @@ const SignUpComponents = ({
     onChangeEmail,
     onChangeMobNo,
     onClick,
-}) => {
+}: Props) => {
     return (
         <FlexRow>
             <Container>

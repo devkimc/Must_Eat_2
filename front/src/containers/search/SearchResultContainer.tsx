@@ -4,20 +4,34 @@ import { RootState } from 'modules';
 import { useSelector } from 'react-redux';
 import RestAddModalContainer from 'containers/rest/RestAddModalContainer';
 
+type Rest = {
+    restId: number | null;
+    placeNm: string | null;
+    cateNm: string | null;
+    latCdnt: number | null;
+    lngCdnt: number | null;
+};
+
 const SearchResultContainer = () => {
     const allSearchRes = useSelector(
         (state: RootState) => state.search.allSearchRes,
     );
-    const [restAddModal, setRestAddModal] = useState(false);
-    const [targetRestInfo, setTargetRestInfo] = useState({});
+    const [restAddModal, setRestAddModal] = useState<boolean>(false);
+    const [targetRestInfo, setTargetRestInfo] = useState<Rest>();
 
-    const splitCateNm = cateNm => {
+    const splitCateNm = (cateNm: string): string[] => {
         const cateNmWord = cateNm.split(' > ');
         cateNmWord.shift();
         return cateNmWord;
     };
 
-    const onClickFolderAdd = (restId, placeNm, cateNm, latCdnt, lngCdnt) => {
+    const onClickFolderAdd = ({
+        restId,
+        placeNm,
+        cateNm,
+        latCdnt,
+        lngCdnt,
+    }: Rest) => {
         setRestAddModal(true);
         setTargetRestInfo({
             restId,

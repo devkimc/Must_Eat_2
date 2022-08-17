@@ -134,7 +134,33 @@ const FlexCol = styled.div`
     justify-content: center;
 `;
 
-const SearchResult = ({ allSearchRes, onClickFolderAdd, splitCateNm }) => {
+type SearchRes = {
+    id: number | null;
+    place_name: string | null;
+    category_name: string | null;
+    y: number | null;
+    x: number | null;
+    address_name: string | null;
+    phone: string | null;
+};
+
+type Props = {
+    allSearchRes: SearchRes[];
+    onClickFolderAdd: (
+        id: number,
+        place_name: string,
+        category_name: string,
+        x: number,
+        y: number,
+    ) => void;
+    splitCateNm: (cateNm: string) => string[];
+};
+
+const SearchResult = ({
+    allSearchRes,
+    onClickFolderAdd,
+    splitCateNm,
+}: Props) => {
     const colorArr = [
         '#c5d9ed',
         '#72aee6',

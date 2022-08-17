@@ -137,9 +137,21 @@ const CloseBtn = styled.button`
     right: -0.5rem;
 `;
 
-// type Props = {
-//     closeInviteMemb: () => void;
-// };
+type GroupType = {
+    GROUP_ID: number;
+    GROUP_NM: string;
+};
+
+type Props = {
+    groupList: GroupType[];
+    userId: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onClickGroup: (index: number) => void;
+    onClickRemoveBtn: () => void;
+    onClickCancleBtn: () => void;
+    onClickConfirmBtn: () => void;
+    closeInviteMemb: () => void;
+};
 
 const InviteMembModal = ({
     groupList,
@@ -150,7 +162,7 @@ const InviteMembModal = ({
     onClickCancleBtn,
     onClickConfirmBtn,
     closeInviteMemb,
-}) => {
+}: Props) => {
     const userIdTag = useRef<React.MutableRefObject<undefined>>();
 
     const colorArr: Array<string> = [

@@ -1,34 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
 
 import { MapComponent } from 'components';
 import * as Constants from 'constants/mapConstants';
 import { RootState } from 'modules';
 
-declare global {
-    interface Window {
-        kakao: any;
-        Kakao: any;
-    }
-}
-
 type Map = {
     setCenter: (latlng: object) => void;
 };
 
-const Wrapper = styled.div``;
+type Marker = {
+    setMap: (mapObj: object) => void;
+};
+
+type Place = {
+    id: number | null;
+    place_name: string | null;
+    category_name: string | null;
+    y: number | null;
+    x: number | null;
+    address_name: string | null;
+    phone: string | null;
+};
 
 const MapContainer = () => {
     const [mapObj, setMapObj] = useState<Map>();
-    const [markers, setMarkers] = useState([]);
+    const [markers, setMarkers] = useState<Marker[]>([]);
 
     const singleSearchRes = useSelector(
         (state: RootState) => state.search.singleSearchRes,
     );
 
     /* 마커 출력 관리 */
-    const showMarker = place => {
+    const showMarker = (place: Place) => {
         const marker = new window.kakao.maps.Marker({
             position: new window.kakao.maps.LatLng(place.y, place.x),
             clickable: true,
@@ -42,7 +46,7 @@ const MapContainer = () => {
     };
 
     /* 중심 좌표 설정 */
-    const setCenter = index => {
+    const setCenter = (index: number) => {
         if (singleSearchRes[index] !== undefined) {
             mapObj.setCenter(
                 new window.kakao.maps.LatLng(
@@ -91,11 +95,7 @@ const MapContainer = () => {
         }
     }, [singleSearchRes]);
 
-    return (
-        <Wrapper>
-            <MapComponent />
-        </Wrapper>
-    );
+    return <MapComponent />;
 };
 
 export default MapContainer;

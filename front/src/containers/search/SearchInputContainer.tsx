@@ -11,6 +11,16 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
+type Place = {
+    id: number | null;
+    place_name: string | null;
+    category_name: string | null;
+    y: number | null;
+    x: number | null;
+    address_name: string | null;
+    phone: string | null;
+};
+
 const SearchInputContainer = () => {
     const dispatch = useDispatch();
     const searchIp = useSelector((state: RootState) => state.search.input);
@@ -22,7 +32,7 @@ const SearchInputContainer = () => {
         category_group_code: Constants.SEARCH_OPT_CATEGORY_FOOD,
     };
 
-    const onSearchCB = (result, status) => {
+    const onSearchCB = (result: Place[], status: string) => {
         const resStatus = window.kakao.maps.services.Status;
         if (status === resStatus.OK) {
             dispatch(changeSingleSearchRes(result));
@@ -39,7 +49,6 @@ const SearchInputContainer = () => {
             toast.warning('검색어를 입력해주세요');
         }
         dispatch(resetSearchRes());
-        // const places = new global.kakao.maps.services.Places();
         const places = new window.kakao.maps.services.Places();
         places.keywordSearch(searchIp, onSearchCB, searchOption);
     };
@@ -49,12 +58,16 @@ const SearchInputContainer = () => {
     ) => {
         dispatch(changeSearchIp(e.target.value));
     };
+    const onEnterPress = (e: React.KeyboardEvent<HTMLImageElement>) => {
+        if (e.key === 'Enter') onSearch();
+    };
 
     return (
         <SearchInput
             searchIp={searchIp}
             onChange={onChange}
             onSearch={onSearch}
+            onEnterPress={onEnterPress}
         />
     );
 };

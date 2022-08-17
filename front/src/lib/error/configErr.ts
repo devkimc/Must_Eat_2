@@ -1,7 +1,12 @@
 import { toast } from 'react-toastify';
 import errCodeMsg from './errCodeMsg';
 
-const errProc = errData => {
+type Error = {
+    code: number;
+    status: string;
+};
+
+const errProc = (errData: Error) => {
     const errCode = String(errData.code);
     // const errStatus = errData.status;
     if (errCode === '20001') {

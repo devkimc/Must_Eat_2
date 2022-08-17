@@ -47,13 +47,10 @@ type Props = {
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     ) => void;
     onSearch: () => void;
+    onEnterPress: (e: React.KeyboardEvent<HTMLImageElement>) => void;
 };
 
-const SearchInput = ({ searchIp, onChange, onSearch }: Props) => {
-    const onEnterPress = e => {
-        if (e.key === 'Enter') onSearch();
-    };
-
+const SearchInput = ({ searchIp, onChange, onSearch, onEnterPress }: Props) => {
     return (
         <Container>
             <InputBox>
