@@ -168,16 +168,23 @@ const FlexCol = styled.div`
     flex-direction: column;
 `;
 
-// type Props = {
-//     onClickCloseBtn: () => void;
-//     targetRestInfo: {
-//         restId: number;
-//         placeNm: string;
-//         cateNm: string;
-//         latCdnt: number;
-//         lngCdnt: number;
-//     };
-// };
+type GroupType = {
+    GROUP_ID: number;
+    GROUP_NM: string;
+};
+
+type Props = {
+    addClicked: boolean;
+    groupNm: string;
+    groupList: GroupType[];
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onClickGroupAdd: () => void;
+    onClickRemoveBtn: () => void;
+    onClickCancleBtn: () => void;
+    onClickConfirmBtn: () => void;
+    onClickCloseBtn: () => void;
+    onClickRestAdd: (groupId: number) => void;
+};
 
 const RestAddModal = ({
     addClicked,
@@ -190,7 +197,7 @@ const RestAddModal = ({
     onClickConfirmBtn,
     onClickCloseBtn,
     onClickRestAdd,
-}) => {
+}: Props) => {
     const colorArr = [
         '#f5e6ab',
         '#f0c33c',

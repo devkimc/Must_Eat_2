@@ -5,8 +5,6 @@ import { BiMap } from 'react-icons/bi';
 import { IoIosCall } from 'react-icons/io';
 import { FiShare, FiFolderPlus } from 'react-icons/fi';
 
-import RestAddModal from 'components/rest/RestAddModal';
-
 const Wrapper = styled.div`
     height: 100vh;
     overflow: hidden;
@@ -136,14 +134,33 @@ const FlexCol = styled.div`
     justify-content: center;
 `;
 
+type SearchRes = {
+    id: number | null;
+    place_name: string | null;
+    category_name: string | null;
+    y: number | null;
+    x: number | null;
+    address_name: string | null;
+    phone: string | null;
+};
+
+type Props = {
+    allSearchRes: SearchRes[];
+    onClickFolderAdd: (
+        id: number,
+        place_name: string,
+        category_name: string,
+        x: number,
+        y: number,
+    ) => void;
+    splitCateNm: (cateNm: string) => string[];
+};
+
 const SearchResult = ({
     allSearchRes,
-    restAddModal,
-    targetRestInfo,
     onClickFolderAdd,
     splitCateNm,
-    onClickCloseBtn,
-}) => {
+}: Props) => {
     const colorArr = [
         '#c5d9ed',
         '#72aee6',
@@ -250,12 +267,6 @@ const SearchResult = ({
                     </RequestSearch>
                 )}
             </Result>
-            {restAddModal && (
-                <RestAddModal
-                    onClickCloseBtn={onClickCloseBtn}
-                    targetRestInfo={targetRestInfo}
-                />
-            )}
         </Wrapper>
     );
 };

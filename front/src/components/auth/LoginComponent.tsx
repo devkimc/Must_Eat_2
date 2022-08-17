@@ -96,13 +96,21 @@ const FlexCol = styled.div`
     height: 100%;
 `;
 
+type Props = {
+    inputId: string;
+    inputPw: string;
+    onChangeId: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChangePw: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onClick: () => void;
+};
+
 const LoginComponents = ({
     inputId,
     inputPw,
     onChangeId,
     onChangePw,
     onClick,
-}) => {
+}: Props) => {
     return (
         <FlexRow>
             <Container>

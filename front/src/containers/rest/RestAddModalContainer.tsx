@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RestAddModal } from 'components';
 import createGroup, { getGroupList } from 'lib/api/group';
-import { errorToast, successToast } from 'utils/toast';
 import { addFavRest } from 'lib/api/rest';
 import useInput from 'lib/hooks/useInput';
+import { toast } from 'react-toastify';
 
 const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
     const [addClicked, setAddClicked] = useState<boolean>(false);
@@ -37,29 +37,25 @@ const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
     const onClickConfirmBtn = async () => {
         if (groupNm === '') {
             // groupNmTag.current.focus();
-            errorToast('그룹명을 입력해 주세요.');
+            toast.error('그룹명을 입력해 주세요.');
             return;
         }
 
-        createGroup(groupNm).then(() => {
-            onClickCancleBtn();
-            getGroup();
-        });
+        await createGroup(groupNm);
+        onClickCancleBtn();
+        getGroup();
     };
 
-    const onClickRestAdd = (groupId: number) => {
-        addFavRest(
+    const onClickRestAdd = async (groupId: number) => {
+        await addFavRest(
             groupId,
             targetRestInfo.restId,
             targetRestInfo.placeNm,
             targetRestInfo.cateNm,
             targetRestInfo.latCdnt,
             targetRestInfo.lngCdnt,
-        ).then(() => {
-            successToast(
-                `${targetRestInfo.placeNm} 식당이 내 그룹에 담겼습니다.`,
-            );
-        });
+        );
+        toast.success(`${targetRestInfo.placeNm} 식당이 내 그룹에 담겼습니다.`);
     };
 
     return (

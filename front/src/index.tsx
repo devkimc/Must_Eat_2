@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, Flip } from 'react-toastify';
 
 import GlobalStyle from 'style/GlobalStyle';
 import rootReducer from './modules';
@@ -17,6 +17,12 @@ root.render(
     <Provider store={store}>
         <App />
         <GlobalStyle />
-        <ToastContainer autoClose={1000} />
+        <ToastContainer
+            transition={Flip}
+            position="top-center"
+            autoClose={2000}
+            closeOnClick
+            pauseOnHover
+        />
     </Provider>,
 );

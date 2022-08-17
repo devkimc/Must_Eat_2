@@ -1,22 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
 
 import { MapComponent } from 'components';
 import * as Constants from 'constants/mapConstants';
+import { RootState } from 'modules';
 
-const Wrapper = styled.div``;
+type Map = {
+    setCenter: (latlng: object) => void;
+};
+
+type Marker = {
+    setMap: (mapObj: object) => void;
+};
+
+type Place = {
+    id: number | null;
+    place_name: string | null;
+    category_name: string | null;
+    y: number | null;
+    x: number | null;
+    address_name: string | null;
+    phone: string | null;
+};
 
 const MapContainer = () => {
-    const [mapObj, setMapObj] = useState('');
-    const [markers, setMarkers] = useState([]);
+    const [mapObj, setMapObj] = useState<Map>();
+    const [markers, setMarkers] = useState<Marker[]>([]);
 
-    const singleSearchRes = useSelector(state => state.search.singleSearchRes);
-
-    /* global kakao */
+    const singleSearchRes = useSelector(
+        (state: RootState) => state.search.singleSearchRes,
+    );
 
     /* 마커 출력 관리 */
-    const showMarker = place => {
+    const showMarker = (place: Place) => {
         const marker = new window.kakao.maps.Marker({
             position: new window.kakao.maps.LatLng(place.y, place.x),
             clickable: true,
@@ -30,7 +46,7 @@ const MapContainer = () => {
     };
 
     /* 중심 좌표 설정 */
-    const setCenter = index => {
+    const setCenter = (index: number) => {
         if (singleSearchRes[index] !== undefined) {
             mapObj.setCenter(
                 new window.kakao.maps.LatLng(
@@ -54,9 +70,8 @@ const MapContainer = () => {
         setMapObj(initMapObj);
     };
 
-    /* global Kakao */
     useEffect(() => {
-        Kakao.init(process.env.REACT_APP_API_KEY_KAKAO_MAP);
+        window.Kakao.init(process.env.REACT_APP_API_KEY_KAKAO_MAP);
     }, []);
 
     useEffect(() => {
@@ -73,18 +88,14 @@ const MapContainer = () => {
     /* 식당 검색 */
     useEffect(() => {
         if (singleSearchRes.length) {
-            // removeMarker();
-            // setMarkers([]);
-            // setCenter(0);
-            // singleSearchRes.forEach(res => showMarker(res));
+            removeMarker();
+            setMarkers([]);
+            setCenter(0);
+            singleSearchRes.forEach(res => showMarker(res));
         }
     }, [singleSearchRes]);
 
-    return (
-        <Wrapper>
-            <MapComponent />
-        </Wrapper>
-    );
+    return <MapComponent />;
 };
 
 export default MapContainer;

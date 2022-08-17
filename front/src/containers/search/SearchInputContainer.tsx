@@ -9,13 +9,17 @@ import {
     resetSearchRes,
 } from 'modules/search';
 import { useDispatch, useSelector } from 'react-redux';
-import { errorToast, warningToast } from 'utils/toast';
+import { toast } from 'react-toastify';
 
-declare global {
-    interface Window {
-        kakao: any;
-    }
-}
+type Place = {
+    id: number | null;
+    place_name: string | null;
+    category_name: string | null;
+    y: number | null;
+    x: number | null;
+    address_name: string | null;
+    phone: string | null;
+};
 
 const SearchInputContainer = () => {
     const dispatch = useDispatch();
@@ -28,24 +32,23 @@ const SearchInputContainer = () => {
         category_group_code: Constants.SEARCH_OPT_CATEGORY_FOOD,
     };
 
-    const onSearchCB = (result, status) => {
+    const onSearchCB = (result: Place[], status: string) => {
         const resStatus = window.kakao.maps.services.Status;
         if (status === resStatus.OK) {
             dispatch(changeSingleSearchRes(result));
             dispatch(addSearchRes(result));
         } else if (status === resStatus.ZERO_RESULT) {
-            warningToast('검색 결과가 없습니다!');
+            toast.warning('검색 결과가 없습니다!');
         } else {
-            errorToast('서버 응답에 문제가 있습니다!');
+            toast.error('서버 응답에 문제가 있습니다!');
         }
     };
 
     const onSearch = () => {
         if (!searchIp) {
-            warningToast('검색어를 입력해주세요');
+            toast.warning('검색어를 입력해주세요');
         }
         dispatch(resetSearchRes());
-        // const places = new global.kakao.maps.services.Places();
         const places = new window.kakao.maps.services.Places();
         places.keywordSearch(searchIp, onSearchCB, searchOption);
     };
@@ -55,12 +58,16 @@ const SearchInputContainer = () => {
     ) => {
         dispatch(changeSearchIp(e.target.value));
     };
+    const onEnterPress = (e: React.KeyboardEvent<HTMLImageElement>) => {
+        if (e.key === 'Enter') onSearch();
+    };
 
     return (
         <SearchInput
             searchIp={searchIp}
             onChange={onChange}
             onSearch={onSearch}
+            onEnterPress={onEnterPress}
         />
     );
 };
