@@ -1,15 +1,16 @@
 import React from 'react';
 import { SearchInput } from 'components';
-import { RootState } from 'modules';
+import { RootState } from 'store/store';
 import * as Constants from 'constants/mapConstants';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+
 import {
     addSearchRes,
     changeSearchIp,
     changeSingleSearchRes,
     resetSearchRes,
-} from 'modules/search';
-import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
+} from 'store/searchSlice';
 
 type Place = {
     id: number | null;

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { MapComponent } from 'components';
 import * as Constants from 'constants/mapConstants';
-import { RootState } from 'modules';
+import { RootState } from 'store/store';
 
 type Map = {
     setCenter: (latlng: object) => void;
