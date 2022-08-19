@@ -143,7 +143,7 @@ type GroupType = {
 };
 
 type Props = {
-    groupList: GroupType[];
+    groupList: any;
     userId: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onClickGroup: (index: number) => void;
@@ -183,7 +183,7 @@ const InviteMembModal = ({
             <Visible>
                 <Modal>
                     <Title>유저 초대하기</Title>
-                    {groupList.map((el, i) => (
+                    {groupList?.map((el, i) => (
                         <Group
                             key={el.GROUP_ID}
                             onClick={() => onClickGroup(i)}
