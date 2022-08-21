@@ -19,6 +19,10 @@ apiClient.interceptors.response.use(
         return response;
     },
     error => {
+        // if (error.response.status === 504) {
+        //     toast.error('서버가 연결되지 않았습니다.');
+        // }
+
         if (error.code === 'ECONNABORTED') {
             toast.error('timeout exception');
         } else {

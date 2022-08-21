@@ -1,25 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+import { AxiosResponse, AxiosError } from 'axios';
+import { useQuery } from 'react-query';
+
 import { RestAddModal } from 'components';
 import createGroup, { getGroupList } from 'lib/api/group';
 import { addFavRest } from 'lib/api/rest';
 import useInput from 'lib/hooks/useInput';
-import { toast } from 'react-toastify';
 
 const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
     const [addClicked, setAddClicked] = useState<boolean>(false);
-    const [groupList, setGroupList] = useState([]);
     // const groupNmTag = useRef<React.MutableRefObject<undefined>>();
     const [groupNm, onChangeGroupNm, onResetGroupNm] = useInput('');
 
-    const getGroup = () => {
-        getGroupList().then(res => {
-            setGroupList(res.data.list);
-        });
-    };
-
-    useEffect(() => {
-        getGroup();
-    }, []);
+    const { data: groupList } = useQuery<
+        AxiosResponse,
+        AxiosError,
+        AxiosResponse
+    >('groupList', getGroupList);
 
     const onClickGroupAdd = () => {
         setAddClicked(true);
@@ -43,7 +41,7 @@ const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
 
         await createGroup(groupNm);
         onClickCancleBtn();
-        getGroup();
+        // getGroup();
     };
 
     const onClickRestAdd = async (groupId: number) => {
@@ -62,7 +60,7 @@ const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
         <RestAddModal
             addClicked={addClicked}
             groupNm={groupNm}
-            groupList={groupList}
+            groupList={groupList?.data.list}
             onChange={onChangeGroupNm}
             onClickGroupAdd={onClickGroupAdd}
             onClickRemoveBtn={onClickRemoveBtn}

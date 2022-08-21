@@ -1,43 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { InviteMembModal } from 'components';
 import { useQuery } from 'react-query';
 
 import { getGroupList, inviteGroup } from 'lib/api/group';
 import useInput from 'lib/hooks/useInput';
 import { toast } from 'react-toastify';
-import { AxiosError } from 'axios';
-
-type GroupType = {
-    GROUP_ID: number;
-    GROUP_NM: string;
-};
+import { AxiosError, AxiosResponse } from 'axios';
 
 const InviteMembModalContainer = ({ closeInviteMemb }) => {
     const [selectedGroupId, setSelectedGroupId] = useState<number>();
-    // const [groupList, setGroupList] = useState<GroupType[]>([]);
 
     const [userId, onChangeUserId, onResetUserId] = useInput('');
 
-    const { data } = useQuery<number, AxiosError, number>(
-        'groupList',
-        getGroupList,
-        {
-            staleTime: 5 * 1000,
-        },
-    );
-
-    // const getGroup = () => {
-    //     getGroupList().then(res => {
-    //         setGroupList(res.data.list);
-    //     });
-    // };
-
-    // useEffect(() => {
-    //     getGroup();
-    // }, []);
+    const { data: groupList } = useQuery<
+        AxiosResponse,
+        AxiosError,
+        AxiosResponse
+    >('groupList', getGroupList);
 
     const onClickGroup = (index: number) => {
-        setSelectedGroupId(data[index].GROUP_ID);
+        setSelectedGroupId(groupList.data.list[index].GROUP_ID);
     };
 
     const onClickRemoveBtn = () => {
@@ -63,7 +45,7 @@ const InviteMembModalContainer = ({ closeInviteMemb }) => {
 
     return (
         <InviteMembModal
-            groupList={data}
+            groupList={groupList?.data.list}
             userId={userId}
             onChange={onChangeUserId}
             onClickGroup={onClickGroup}

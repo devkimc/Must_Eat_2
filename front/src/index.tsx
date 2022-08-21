@@ -9,7 +9,14 @@ import store from 'store/store';
 import App from './App';
 import 'react-toastify/dist/ReactToastify.css';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            useErrorBoundary: true,
+            staleTime: Infinity,
+        },
+    },
+});
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(

@@ -143,7 +143,7 @@ type GroupType = {
 };
 
 type Props = {
-    groupList: any;
+    groupList: GroupType[];
     userId: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onClickGroup: (index: number) => void;
