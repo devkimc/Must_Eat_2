@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SearchResult } from 'components';
-import { RootState } from 'modules';
+import { RootState } from 'store/store';
 import { useSelector } from 'react-redux';
 import RestAddModalContainer from 'containers/rest/RestAddModalContainer';
 

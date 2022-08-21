@@ -24,7 +24,7 @@ const InviteChkBtnContainer = () => {
     return (
         <Wrapper>
             <InviteChkBtn notProcInvite={notProcInvite} />
-            <InviteChkModalContainer />
+            {/* <InviteChkModalContainer /> */}
         </Wrapper>
     );
 };

@@ -1,32 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { InviteMembModal } from 'components';
+import { useQuery } from 'react-query';
+
 import { getGroupList, inviteGroup } from 'lib/api/group';
 import useInput from 'lib/hooks/useInput';
 import { toast } from 'react-toastify';
-
-type GroupType = {
-    GROUP_ID: number;
-    GROUP_NM: string;
-};
+import { AxiosError, AxiosResponse } from 'axios';
 
 const InviteMembModalContainer = ({ closeInviteMemb }) => {
     const [selectedGroupId, setSelectedGroupId] = useState<number>();
-    const [groupList, setGroupList] = useState<GroupType[]>([]);
 
     const [userId, onChangeUserId, onResetUserId] = useInput('');
 
-    const getGroup = () => {
-        getGroupList().then(res => {
-            setGroupList(res.data.list);
-        });
-    };
-
-    useEffect(() => {
-        getGroup();
-    }, []);
+    const { data: groupList } = useQuery<
+        AxiosResponse,
+        AxiosError,
+        AxiosResponse
+    >('groupList', getGroupList);
 
     const onClickGroup = (index: number) => {
-        setSelectedGroupId(groupList[index].GROUP_ID);
+        setSelectedGroupId(groupList.data.list[index].GROUP_ID);
     };
 
     const onClickRemoveBtn = () => {
@@ -47,12 +40,12 @@ const InviteMembModalContainer = ({ closeInviteMemb }) => {
         await inviteGroup(selectedGroupId, userId);
         toast.success(`${userId} 님을 초대했습니다!`);
         onClickCancleBtn();
-        getGroup();
+        // getGroup();
     };
 
     return (
         <InviteMembModal
-            groupList={groupList}
+            groupList={groupList?.data?.list}
             userId={userId}
             onChange={onChangeUserId}
             onClickGroup={onClickGroup}

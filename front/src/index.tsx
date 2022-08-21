@@ -1,28 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createStore } from 'redux';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { ToastContainer, Flip } from 'react-toastify';
 
 import GlobalStyle from 'style/GlobalStyle';
-import rootReducer from './modules';
+import store from 'store/store';
 import App from './App';
 import 'react-toastify/dist/ReactToastify.css';
 
-const store = createStore(rootReducer);
-
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            useErrorBoundary: true,
+            staleTime: Infinity,
+        },
+    },
+});
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-    <Provider store={store}>
-        <App />
-        <GlobalStyle />
-        <ToastContainer
-            transition={Flip}
-            position="top-center"
-            autoClose={2000}
-            closeOnClick
-            pauseOnHover
-        />
-    </Provider>,
+    <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+            <App />
+            <GlobalStyle />
+            <ToastContainer
+                transition={Flip}
+                position="top-center"
+                autoClose={2000}
+                closeOnClick
+                pauseOnHover
+            />
+        </Provider>
+    </QueryClientProvider>,
 );
