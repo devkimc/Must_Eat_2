@@ -118,13 +118,18 @@ const ConfirmBtn = styled.div`
 `;
 
 /* 그룹 리스트 */
-const Group = styled.div`
-    border-top: 1px solid silver;
+const GroupBlock = styled.ul`
+    height: 20rem;
+    overflow-y: scroll;
+`;
+
+const Group = styled.li`
+    border-bottom: 1px solid silver;
     padding: 0.5rem 0;
     cursor: pointer;
 `;
 
-const GroupList = styled.li`
+const GroupList = styled.div`
     display: flex;
 `;
 
@@ -248,20 +253,24 @@ const RestAddModal = ({
                             </BottomBtn>
                         </GroupAddClicked>
                     )}
-                    {groupList?.map((el, i) => (
-                        <Group
-                            key={el.GROUP_ID}
-                            onClick={() => onClickRestAdd(el.GROUP_ID)}
-                        >
-                            <GroupList>
-                                <GroupImg imgColor={colorArr[i]} />
-                                <GroupInfo>
-                                    <GroupNm>{el.GROUP_NM}</GroupNm>
-                                    <GroupRestCount>{i + 2}개</GroupRestCount>
-                                </GroupInfo>
-                            </GroupList>
-                        </Group>
-                    ))}
+                    <GroupBlock>
+                        {groupList?.map((el, i) => (
+                            <Group
+                                key={el.GROUP_ID}
+                                onClick={() => onClickRestAdd(el.GROUP_ID)}
+                            >
+                                <GroupList>
+                                    <GroupImg imgColor={colorArr[i]} />
+                                    <GroupInfo>
+                                        <GroupNm>{el.GROUP_NM}</GroupNm>
+                                        <GroupRestCount>
+                                            {i + 2}개
+                                        </GroupRestCount>
+                                    </GroupInfo>
+                                </GroupList>
+                            </Group>
+                        ))}
+                    </GroupBlock>
                     <CloseBtn onClick={onClickCloseBtn}>
                         <AiOutlineClose color="#fff" size={22} />
                     </CloseBtn>

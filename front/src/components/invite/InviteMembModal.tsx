@@ -94,13 +94,18 @@ const ConfirmBtn = styled.div`
 `;
 
 /* 그룹 리스트 */
-const Group = styled.div`
+const GroupBlock = styled.ul`
+    height: 20rem;
+    overflow-y: scroll;
+`;
+
+const Group = styled.li`
     border-bottom: 1px solid silver;
     padding: 0.5rem 0;
     cursor: pointer;
 `;
 
-const GroupList = styled.li`
+const GroupList = styled.div`
     display: flex;
 `;
 
@@ -183,20 +188,24 @@ const InviteMembModal = ({
             <Visible>
                 <Modal>
                     <Title>유저 초대하기</Title>
-                    {groupList?.map((el, i) => (
-                        <Group
-                            key={el.GROUP_ID}
-                            onClick={() => onClickGroup(i)}
-                        >
-                            <GroupList>
-                                <GroupImg imgColor={colorArr[i]} />
-                                <GroupInfo>
-                                    <UserNm>{el.GROUP_NM}</UserNm>
-                                    <GroupRestCount>{i + 2}개</GroupRestCount>
-                                </GroupInfo>
-                            </GroupList>
-                        </Group>
-                    ))}
+                    <GroupBlock>
+                        {groupList?.map((el, i) => (
+                            <Group
+                                key={el.GROUP_ID}
+                                onClick={() => onClickGroup(i)}
+                            >
+                                <GroupList>
+                                    <GroupImg imgColor={colorArr[i]} />
+                                    <GroupInfo>
+                                        <UserNm>{el.GROUP_NM}</UserNm>
+                                        <GroupRestCount>
+                                            {i + 2}개
+                                        </GroupRestCount>
+                                    </GroupInfo>
+                                </GroupList>
+                            </Group>
+                        ))}
+                    </GroupBlock>
                     <GroupAddClicked>
                         <InputBox>
                             <GroupAddInput

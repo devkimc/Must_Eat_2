@@ -45,7 +45,7 @@ const InviteMembModalContainer = ({ closeInviteMemb }) => {
 
     return (
         <InviteMembModal
-            groupList={groupList?.data.list}
+            groupList={groupList?.data?.list}
             userId={userId}
             onChange={onChangeUserId}
             onClickGroup={onClickGroup}
