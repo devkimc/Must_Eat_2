@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { InviteChkModal } from 'components';
 import { toast } from 'react-toastify';
-import { acceptInvite, getInviteList, rejectInvite } from '../../lib/api/group';
+import { acceptInvite, getInviteList, rejectInvite } from 'lib/api/group';
+import { AxiosResponse, AxiosError } from 'axios';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 
 type InViteList = {
     INVITE_ID: number;
@@ -10,32 +12,41 @@ type InViteList = {
 };
 
 const InviteChkModalContainer = () => {
-    const [inviteList, setInviteList] = useState<InViteList[]>([]);
+    const queryClient = useQueryClient();
 
-    const getInviteInfo = async () => {
-        const resList = await getInviteList();
-        setInviteList(resList.data.result);
+    const { data: inviteList } = useQuery<
+        AxiosResponse,
+        AxiosError,
+        AxiosResponse
+    >('getInviteList', getInviteList);
+
+    const onAccept = (inviteId: number) =>
+        useMutation(() => acceptInvite(inviteId), {
+            onSuccess: () => {
+                queryClient.invalidateQueries('getInviteList');
+                toast.success('그룹에 참여했습니다!');
+            },
+        });
+
+    const onReject = (inviteId: number) =>
+        useMutation(() => rejectInvite(inviteId), {
+            onSuccess: () => {
+                queryClient.invalidateQueries('getInviteList');
+                toast.success('초대를 거절했습니다!');
+            },
+        });
+
+    const onClickAccept = (inviteId: number) => {
+        onAccept(inviteId).mutate();
     };
 
-    useEffect(() => {
-        getInviteInfo();
-    }, []);
-
-    const onClickAccept = async (inviteId: number) => {
-        await acceptInvite(inviteId);
-        await getInviteInfo();
-        toast.success('그룹에 참여했습니다!');
-    };
-
-    const onClickReject = async (inviteId: number) => {
-        await rejectInvite(inviteId);
-        await getInviteInfo();
-        toast.success('초대를 거절했습니다!');
+    const onClickReject = (inviteId: number) => {
+        onReject(inviteId).mutate();
     };
 
     return (
         <InviteChkModal
-            inviteList={inviteList}
+            inviteList={inviteList?.data?.result}
             onClickAccept={onClickAccept}
             onClickReject={onClickReject}
         />
