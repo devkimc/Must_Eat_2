@@ -18,30 +18,29 @@ const InviteChkModalContainer = () => {
         AxiosResponse,
         AxiosError,
         AxiosResponse
-    >('getInviteList', getInviteList);
+    >('inviteList', getInviteList);
 
-    const onAccept = (inviteId: number) =>
-        useMutation(() => acceptInvite(inviteId), {
-            onSuccess: () => {
-                queryClient.invalidateQueries('getInviteList');
-                toast.success('그룹에 참여했습니다!');
-            },
-        });
+    const onAccept = useMutation((inviteId: number) => acceptInvite(inviteId), {
+        onSuccess: () => {
+            queryClient.invalidateQueries('inviteList');
+            queryClient.invalidateQueries('groupList');
+            toast.success('그룹에 참여했습니다!');
+        },
+    });
 
-    const onReject = (inviteId: number) =>
-        useMutation(() => rejectInvite(inviteId), {
-            onSuccess: () => {
-                queryClient.invalidateQueries('getInviteList');
-                toast.success('초대를 거절했습니다!');
-            },
-        });
+    const onReject = useMutation((inviteId: number) => rejectInvite(inviteId), {
+        onSuccess: () => {
+            queryClient.invalidateQueries('inviteList');
+            toast.success('초대를 거절했습니다!');
+        },
+    });
 
     const onClickAccept = (inviteId: number) => {
-        onAccept(inviteId).mutate();
+        onAccept.mutate(inviteId);
     };
 
     const onClickReject = (inviteId: number) => {
-        onReject(inviteId).mutate();
+        onReject.mutate(inviteId);
     };
 
     return (
