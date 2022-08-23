@@ -4,9 +4,19 @@ import { AxiosResponse, AxiosError } from 'axios';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 
 import { RestAddModal } from 'components';
-import createGroup, { getGroupList } from 'lib/api/group';
+import { createGroup, getGroupList } from 'lib/api/group';
 import { addFavRest } from 'lib/api/rest';
 import useInput from 'lib/hooks/useInput';
+
+type AxiosData = AxiosError & {
+    response: {
+        data: {
+            code: number;
+            list: [];
+            msg: string;
+        };
+    };
+};
 
 const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
     const [addClicked, setAddClicked] = useState<boolean>(false);
@@ -36,6 +46,9 @@ const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
     const { mutate } = useMutation(() => createGroup(groupNm), {
         onSuccess: () => {
             queryClient.invalidateQueries('groupList');
+        },
+        onError: (res: AxiosData) => {
+            toast.error(res.response.data.msg);
         },
     });
 

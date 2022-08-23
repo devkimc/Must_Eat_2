@@ -26,7 +26,7 @@ apiClient.interceptors.response.use(
         if (error.code === 'ECONNABORTED') {
             toast.error('timeout exception');
         } else {
-            errProc(error.response.data);
+            // errProc(error.response.data);
         }
         return Promise.reject(error);
     },

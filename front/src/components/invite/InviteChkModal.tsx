@@ -100,7 +100,7 @@ const InviteChkModal = ({
     return (
         <Wrapper>
             <Padding>
-                {inviteList.map(invite => (
+                {inviteList?.map(invite => (
                     <Content key={invite.INVITE_ID}>
                         <InviteTxt>
                             <BoldTxt>{invite.SEND_USER_ID}</BoldTxt>

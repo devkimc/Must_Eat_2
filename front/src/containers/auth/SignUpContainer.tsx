@@ -5,6 +5,18 @@ import useInput from 'lib/hooks/useInput';
 import SignUpComponents from 'components/auth/SignUpComponent';
 import { toast } from 'react-toastify';
 import { signup } from 'lib/api/auth';
+import { useMutation } from 'react-query';
+import { AxiosError } from 'axios';
+
+type AxiosData = AxiosError & {
+    response: {
+        data: {
+            code: number;
+            list: [];
+            msg: string;
+        };
+    };
+};
 
 const SignUpContainer = () => {
     const [inputId, onChangeId] = useInput('');
@@ -14,11 +26,22 @@ const SignUpContainer = () => {
     const [inputMobNo, onChangeMobNo] = useInput('');
     const navigate = useNavigate();
 
+    const { mutate } = useMutation(
+        () => signup(inputId, inputPw, inputEmail, inputMobNo),
+        {
+            onSuccess: () => {
+                navigate('/login');
+                toast.success('회원가입을 축하해요!');
+            },
+            onError: (res: AxiosData) => {
+                toast.error(res.response.data.msg);
+            },
+        },
+    );
+
     const onClickSignup = async () => {
         try {
-            await signup(inputId, inputPw, inputEmail, inputMobNo);
-            navigate('/login');
-            toast.success('회원가입을 축하해요!');
+            mutate();
         } catch (error) {
             onResetPwConf();
         }

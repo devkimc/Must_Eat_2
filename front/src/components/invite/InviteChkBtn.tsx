@@ -48,11 +48,12 @@ const FlexCol = styled.div`
 
 type Props = {
     notProcInvite: number;
+    onClick: () => void;
 };
 
-const InviteChkBtn = ({ notProcInvite }: Props) => {
+const InviteChkBtn = ({ notProcInvite, onClick }: Props) => {
     return (
-        <Wrapper>
+        <Wrapper onClick={onClick}>
             <MsgBox>
                 {notProcInvite >= 1 ? (
                     <>

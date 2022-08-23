@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
 import { InviteMembModal } from 'components';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 
 import { getGroupList, inviteGroup } from 'lib/api/group';
 import useInput from 'lib/hooks/useInput';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
 
+type AxiosData = AxiosError & {
+    response: {
+        data: {
+            code: number;
+            list: [];
+            msg: string;
+        };
+    };
+};
+
 const InviteMembModalContainer = ({ closeInviteMemb }) => {
     const [selectedGroupId, setSelectedGroupId] = useState<number>();
-
     const [userId, onChangeUserId, onResetUserId] = useInput('');
 
     const { data: groupList } = useQuery<
@@ -17,6 +26,16 @@ const InviteMembModalContainer = ({ closeInviteMemb }) => {
         AxiosError,
         AxiosResponse
     >('groupList', getGroupList);
+
+    const { mutate } = useMutation(() => inviteGroup(selectedGroupId, userId), {
+        onSuccess: () => {
+            toast.success(`${userId} 님을 초대했습니다!`);
+            onResetUserId();
+        },
+        onError: (res: AxiosData) => {
+            toast.error(res.response.data.msg);
+        },
+    });
 
     const onClickGroup = (index: number) => {
         setSelectedGroupId(groupList.data.list[index].GROUP_ID);
@@ -36,11 +55,7 @@ const InviteMembModalContainer = ({ closeInviteMemb }) => {
             toast.error('유저 이름을 입력해 주세요!');
             return;
         }
-
-        await inviteGroup(selectedGroupId, userId);
-        toast.success(`${userId} 님을 초대했습니다!`);
-        onClickCancleBtn();
-        // getGroup();
+        mutate();
     };
 
     return (

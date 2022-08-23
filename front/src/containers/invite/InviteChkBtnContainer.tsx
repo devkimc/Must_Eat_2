@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { InviteChkBtn } from 'components';
 import { getNotProcInvite } from 'lib/api/group';
+import { useQuery, useQueryClient } from 'react-query';
+import { AxiosResponse, AxiosError } from 'axios';
 import InviteChkModalContainer from './InviteChkModalContainer';
 
 const Wrapper = styled.div`
@@ -12,19 +14,36 @@ const Wrapper = styled.div`
 `;
 
 const InviteChkBtnContainer = () => {
-    const [notProcInvite, setNotProcInvite] = useState(0);
+    const [inviteChkModal, setInviteChkModal] = useState(false);
 
-    /* 처리하지 않은 초대있는 지 확인 */
-    useEffect(() => {
-        getNotProcInvite().then(res => {
-            setNotProcInvite(res.data.result[0].count);
-        });
-    }, []);
+    const queryClient = useQueryClient();
+    const { data: notProcInvite } = useQuery<
+        AxiosResponse,
+        AxiosError,
+        AxiosResponse
+    >('notProcInvite', getNotProcInvite);
+
+    const setPlugInviteChkModal = () => {
+        setInviteChkModal(prev => !prev);
+    };
+
+    const reQueryInviteList = () => {
+        queryClient.invalidateQueries('inviteList');
+    };
+
+    const onClickInviteChkBtn = () => {
+        setPlugInviteChkModal();
+
+        if (!inviteChkModal) reQueryInviteList();
+    };
 
     return (
         <Wrapper>
-            <InviteChkBtn notProcInvite={notProcInvite} />
-            {/* <InviteChkModalContainer /> */}
+            <InviteChkBtn
+                notProcInvite={notProcInvite?.data?.result[0].count}
+                onClick={onClickInviteChkBtn}
+            />
+            {inviteChkModal && <InviteChkModalContainer />}
         </Wrapper>
     );
 };
