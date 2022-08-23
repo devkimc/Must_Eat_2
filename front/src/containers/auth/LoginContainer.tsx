@@ -6,6 +6,17 @@ import LoginComponents from 'components/auth/LoginComponent';
 import { login } from 'lib/api/auth';
 import { toast } from 'react-toastify';
 import { useMutation } from 'react-query';
+import { AxiosError } from 'axios';
+
+type AxiosData = AxiosError & {
+    response: {
+        data: {
+            code: number;
+            list: [];
+            msg: string;
+        };
+    };
+};
 
 const LoginContainer = () => {
     const [inputId, onChangeId] = useInput('');
@@ -16,6 +27,9 @@ const LoginContainer = () => {
         onSuccess: () => {
             navigate('/map');
             toast.success('로그인에 성공하셨습니다!');
+        },
+        onError: (res: AxiosData) => {
+            toast.error(res.response.data.msg);
         },
     });
 

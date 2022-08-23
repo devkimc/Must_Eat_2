@@ -7,6 +7,16 @@ import useInput from 'lib/hooks/useInput';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
 
+type AxiosData = AxiosError & {
+    response: {
+        data: {
+            code: number;
+            list: [];
+            msg: string;
+        };
+    };
+};
+
 const InviteMembModalContainer = ({ closeInviteMemb }) => {
     const [selectedGroupId, setSelectedGroupId] = useState<number>();
     const [userId, onChangeUserId, onResetUserId] = useInput('');
@@ -21,6 +31,9 @@ const InviteMembModalContainer = ({ closeInviteMemb }) => {
         onSuccess: () => {
             toast.success(`${userId} 님을 초대했습니다!`);
             onResetUserId();
+        },
+        onError: (res: AxiosData) => {
+            toast.error(res.response.data.msg);
         },
     });
 

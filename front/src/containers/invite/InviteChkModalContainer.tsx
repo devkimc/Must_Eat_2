@@ -5,6 +5,16 @@ import { acceptInvite, getInviteList, rejectInvite } from 'lib/api/group';
 import { AxiosResponse, AxiosError } from 'axios';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
+type AxiosData = AxiosError & {
+    response: {
+        data: {
+            code: number;
+            list: [];
+            msg: string;
+        };
+    };
+};
+
 type InViteList = {
     INVITE_ID: number;
     SEND_USER_ID: string;
@@ -26,12 +36,18 @@ const InviteChkModalContainer = () => {
             queryClient.invalidateQueries('groupList');
             toast.success('그룹에 참여했습니다!');
         },
+        onError: (res: AxiosData) => {
+            toast.error(res.response.data.msg);
+        },
     });
 
     const onReject = useMutation((inviteId: number) => rejectInvite(inviteId), {
         onSuccess: () => {
             queryClient.invalidateQueries('inviteList');
             toast.success('초대를 거절했습니다!');
+        },
+        onError: (res: AxiosData) => {
+            toast.error(res.response.data.msg);
         },
     });
 
