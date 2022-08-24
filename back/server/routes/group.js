@@ -40,9 +40,8 @@ router.post('/create', (req, res) => {
                                 if (err3) throw err3;
 
                                 return res.status(200).json({
-                                    code: 10000,
-                                    msg: '정상 처리되었습니다.',
-                                    list: '',
+                                    success: true,
+                                    result: true,
                                 });
                             },
                         );
@@ -78,9 +77,8 @@ router.get('/list', (req, res) => {
                 if (err) throw err;
 
                 return res.status(200).json({
-                    code: 10001,
-                    msg: '정상 조회되었습니다.',
-                    list: result,
+                    success: true,
+                    result,
                 });
             },
         );
@@ -112,7 +110,6 @@ router.post('/invite', (req, res) => {
                     return res.status(400).json({
                         code: 40001,
                         msg: '존재하지 않는 회원입니다.',
-                        list: req.body.RECV_USER_ID,
                     });
                 }
 
@@ -160,8 +157,8 @@ router.post('/invite', (req, res) => {
                                         if (err4) throw err4;
 
                                         return res.status(200).json({
-                                            code: 10000,
-                                            msg: '정상 처리되었습니다.',
+                                            success: true,
+                                            result: true,
                                         });
                                     },
                                 );
@@ -292,6 +289,7 @@ router.post('/invite/accept', (req, res) => {
 
                                 return res.status(200).json({
                                     success: true,
+                                    result: true,
                                 });
                             },
                         );
@@ -328,6 +326,7 @@ router.post('/invite/not-accept', (req, res) => {
 
                 return res.status(200).json({
                     success: true,
+                    result: true,
                 });
             },
         );

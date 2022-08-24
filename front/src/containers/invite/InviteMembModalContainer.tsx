@@ -38,7 +38,7 @@ const InviteMembModalContainer = ({ closeInviteMemb }) => {
     });
 
     const onClickGroup = (index: number) => {
-        setSelectedGroupId(groupList.data.list[index].GROUP_ID);
+        setSelectedGroupId(groupList.data.result[index].GROUP_ID);
     };
 
     const onClickRemoveBtn = () => {
@@ -60,7 +60,7 @@ const InviteMembModalContainer = ({ closeInviteMemb }) => {
 
     return (
         <InviteMembModal
-            groupList={groupList?.data?.list}
+            groupList={groupList?.data?.result}
             userId={userId}
             onChange={onChangeUserId}
             onClickGroup={onClickGroup}
