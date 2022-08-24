@@ -6,7 +6,7 @@ import { IoIosCall } from 'react-icons/io';
 import { FiShare, FiFolderPlus } from 'react-icons/fi';
 
 const Wrapper = styled.div`
-    height: 100vh;
+    height: 87%;
     overflow: hidden;
     overflow-y: auto;
     flex: 1;

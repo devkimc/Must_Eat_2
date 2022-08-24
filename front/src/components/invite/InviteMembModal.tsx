@@ -43,7 +43,7 @@ const Modal = styled.div`
     top: 50%;
     left: 50%;
     height: auto;
-    padding: 30px;
+    padding: 2.4rem 2.4rem 1.2rem 2.4rem;
     transform: translate(-50%, -50%);
 `;
 
@@ -62,6 +62,7 @@ const InputBox = styled.div`
     display: flex;
     border-bottom: 1px solid;
     padding-bottom: 0.5rem;
+    padding-top: 1.5rem;
 `;
 
 const GroupAddInput = styled.input`
@@ -97,12 +98,34 @@ const ConfirmBtn = styled.div`
 const GroupBlock = styled.ul`
     height: 20rem;
     overflow-y: scroll;
+    padding-right: 0.5rem;
+
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+        width: 0.44rem;
+        height: 3rem;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(175, 175, 175, 0.72);
+        border-radius: 10px;
+        height: 1rem;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: #e4e4e4;
+        border-radius: 100px;
+    }
 `;
 
 const Group = styled.li`
     border-bottom: 1px solid silver;
     padding: 0.5rem 0;
+    background-color: ${props => (props.selected ? '#f5f6f8' : null)};
     cursor: pointer;
+
+    &:hover {
+        background-color: #f5f6f8;
+    }
 `;
 
 const GroupList = styled.div`
@@ -150,6 +173,7 @@ type GroupType = {
 type Props = {
     groupList: GroupType[];
     userId: string;
+    selectedGroupId: number;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onClickGroup: (index: number) => void;
     onClickRemoveBtn: () => void;
@@ -161,6 +185,7 @@ type Props = {
 const InviteMembModal = ({
     groupList,
     userId,
+    selectedGroupId,
     onChange,
     onClickGroup,
     onClickRemoveBtn,
@@ -192,10 +217,11 @@ const InviteMembModal = ({
                         {groupList?.map((el, i) => (
                             <Group
                                 key={el.GROUP_ID}
-                                onClick={() => onClickGroup(i)}
+                                onClick={() => onClickGroup(el.GROUP_ID)}
+                                selected={el.GROUP_ID === selectedGroupId}
                             >
                                 <GroupList>
-                                    <GroupImg imgColor={colorArr[i]} />
+                                    <GroupImg imgColor={colorArr[i % 10]} />
                                     <GroupInfo>
                                         <UserNm>{el.GROUP_NM}</UserNm>
                                         <GroupRestCount>
