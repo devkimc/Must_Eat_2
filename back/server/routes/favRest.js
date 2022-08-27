@@ -30,26 +30,9 @@ router.get('/info', (req, res) => {
             (err, result) => {
                 if (err) throw err;
 
-                if (result.length === 0) {
-                    return res.status(200).json({
-                        code: 40000,
-                        msg: '즐겨찾기 식당이 존재하지 않습니다.',
-                        list: result,
-                    });
-                }
-
-                if (result.length >= 1) {
-                    return res.status(200).json({
-                        code: 10001,
-                        msg: '정상 조회되었습니다.',
-                        list: result,
-                    });
-                }
-
-                return res.status(500).json({
-                    code: 99999,
-                    msg: '서버 오류입니다.',
-                    list: result,
+                return res.status(200).json({
+                    success: true,
+                    result,
                 });
             },
         );
@@ -74,10 +57,9 @@ router.post('/proc', (req, res) => {
                 // 즐겨찾기 추가
                 if (req.body.INS_YN === 'Y') {
                     if (result.length >= 1) {
-                        return res.status(200).json({
+                        return res.status(400).json({
                             code: 40002,
                             msg: '이미 즐겨찾기 목록에 추가된 식당입니다.',
-                            list: result,
                         });
                     }
 
@@ -119,9 +101,8 @@ router.post('/proc', (req, res) => {
                         err2 => {
                             if (err2) throw err2;
                             return res.status(200).json({
-                                code: 10000,
-                                msg: '정상 처리되었습니다.',
-                                list: '',
+                                success: true,
+                                result: true,
                             });
                         },
                     );
@@ -130,10 +111,9 @@ router.post('/proc', (req, res) => {
                 // 즐겨찾기 삭제
                 else {
                     if (result.length !== 1) {
-                        return res.status(200).json({
+                        return res.status(400).json({
                             code: 40003,
                             msg: '즐겨찾기 목록에 존재하지 않은 식당입니다.',
-                            list: result,
                         });
                     }
 
@@ -146,9 +126,8 @@ router.post('/proc', (req, res) => {
                         err2 => {
                             if (err2) throw err2;
                             return res.status(200).json({
-                                code: 10000,
-                                msg: '정상 처리되었습니다.',
-                                list: '',
+                                success: true,
+                                result: true,
                             });
                         },
                     );
@@ -181,7 +160,6 @@ router.post('/add', (req, res) => {
                     return res.status(400).json({
                         code: 40002,
                         msg: '이미 즐겨찾기 목록에 추가된 식당입니다.',
-                        list: result,
                     });
                 }
 
@@ -203,9 +181,8 @@ router.post('/add', (req, res) => {
 
                                 if (result.length >= 1) {
                                     return res.status(200).json({
-                                        code: 10000,
-                                        msg: '정상 처리되었습니다.',
-                                        list: '',
+                                        success: true,
+                                        result: true,
                                     });
                                 }
 
@@ -223,9 +200,8 @@ router.post('/add', (req, res) => {
                                     err4 => {
                                         if (err4) throw err4;
                                         return res.status(200).json({
-                                            code: 10000,
-                                            msg: '정상 처리되었습니다.',
-                                            list: '',
+                                            success: true,
+                                            result: true,
                                         });
                                     },
                                 );

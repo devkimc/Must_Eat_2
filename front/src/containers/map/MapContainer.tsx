@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { MapComponent } from 'components';
 import * as Constants from 'constants/mapConstants';
 import { RootState } from 'store/store';
+import { SearchState } from 'store/searchSlice';
 
 type Map = {
     setCenter: (latlng: object) => void;
@@ -13,26 +14,16 @@ type Marker = {
     setMap: (mapObj: object) => void;
 };
 
-type Place = {
-    id: number | null;
-    place_name: string | null;
-    category_name: string | null;
-    y: number | null;
-    x: number | null;
-    address_name: string | null;
-    phone: string | null;
-};
-
 const MapContainer = () => {
     const [mapObj, setMapObj] = useState<Map>();
     const [markers, setMarkers] = useState<Marker[]>([]);
 
     const singleSearchRes = useSelector(
-        (state: RootState) => state.search.singleSearchRes,
+        (state: RootState) => state.search.searchRes,
     );
 
     /* 마커 출력 관리 */
-    const showMarker = (place: Place) => {
+    const showMarker = (place: SearchState['place']) => {
         const marker = new window.kakao.maps.Marker({
             position: new window.kakao.maps.LatLng(place.y, place.x),
             clickable: true,
@@ -87,7 +78,7 @@ const MapContainer = () => {
 
     /* 식당 검색 */
     useEffect(() => {
-        if (singleSearchRes.length) {
+        if (singleSearchRes?.length) {
             removeMarker();
             setMarkers([]);
             setCenter(0);

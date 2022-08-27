@@ -4,22 +4,31 @@ export const getFavRest = () => {
     return apiClient.get('/api/fav-rest/info', {});
 };
 
-export const addFavRest = (
-    groupId: number,
-    restId: number,
-    placeNm: string,
-    cateNm: string,
-    latCdnt: number,
-    lngCdnt: number,
-) => {
+export const addFavRest = ({
+    groupId,
+    id,
+    place_name,
+    category_name,
+    y,
+    x,
+}: FavRest) => {
     return apiClient.post('/api/fav-rest/add', {
         GROUP_ID: groupId,
-        REST_ID: restId,
-        REST_NM: placeNm,
-        FOOD_CATE: cateNm,
-        LAT_CDNT: latCdnt,
-        LNG_CDNT: lngCdnt,
+        REST_ID: id,
+        REST_NM: place_name,
+        FOOD_CATE: category_name,
+        LAT_CDNT: y,
+        LNG_CDNT: x,
     });
+};
+
+type FavRest = {
+    groupId: number;
+    id: number;
+    place_name: string;
+    category_name: string;
+    y: number;
+    x: number;
 };
 
 export default getFavRest;

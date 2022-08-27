@@ -6,17 +6,7 @@ import LoginComponents from 'components/auth/LoginComponent';
 import { login } from 'lib/api/auth';
 import { toast } from 'react-toastify';
 import { useMutation } from 'react-query';
-import { AxiosError } from 'axios';
-
-type AxiosData = AxiosError & {
-    response: {
-        data: {
-            code: number;
-            list: [];
-            msg: string;
-        };
-    };
-};
+import { AxiosData } from 'lib/api/apiClient';
 
 const LoginContainer = () => {
     const [inputId, onChangeId] = useInput('');

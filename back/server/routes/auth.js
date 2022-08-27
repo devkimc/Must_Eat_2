@@ -11,7 +11,6 @@ router.post('/signup', (req, res) => {
         return res.status(400).json({
             code: 20002,
             msg: '아이디를 확인하세요.',
-            list: '',
         });
     }
 
@@ -19,7 +18,6 @@ router.post('/signup', (req, res) => {
         return res.status(400).json({
             code: 20003,
             msg: '비밀번호를 확인하세요.',
-            list: '',
         });
     }
 
@@ -36,7 +34,6 @@ router.post('/signup', (req, res) => {
                     return res.status(400).json({
                         code: 20004,
                         msg: '존재하는 아이디입니다. 다른 아이디를 입력해주세요.',
-                        list: '',
                     });
                 }
 
@@ -56,9 +53,8 @@ router.post('/signup', (req, res) => {
 
                         if (result2.length !== 0) {
                             return res.status(200).json({
-                                code: 20005,
-                                msg: '회원가입에 성공하셨습니다. 로그인 후 서비스 이용 가능합니다.',
-                                list: '',
+                                success: true,
+                                result: true,
                             });
                         }
                     },
@@ -87,7 +83,6 @@ router.post('/login', (req, res) => {
                     return res.status(400).json({
                         code: 20000,
                         msg: '아이디와 패스워드를 확인하세요',
-                        list: result,
                     });
                 }
 
@@ -96,15 +91,14 @@ router.post('/login', (req, res) => {
                     req.session.resetMaxAge();
                     console.log(req.sessionID);
                     return res.status(200).json({
-                        code: 20001,
-                        msg: '로그인에 성공하셨습니다.',
+                        success: true,
+                        result: true,
                     });
                 }
 
                 return res.status(500).json({
                     code: 99999,
                     msg: 'Server Error.',
-                    list: result,
                 });
             },
         );

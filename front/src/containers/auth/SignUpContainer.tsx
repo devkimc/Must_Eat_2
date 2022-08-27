@@ -6,17 +6,7 @@ import SignUpComponents from 'components/auth/SignUpComponent';
 import { toast } from 'react-toastify';
 import { signup } from 'lib/api/auth';
 import { useMutation } from 'react-query';
-import { AxiosError } from 'axios';
-
-type AxiosData = AxiosError & {
-    response: {
-        data: {
-            code: number;
-            list: [];
-            msg: string;
-        };
-    };
-};
+import { AxiosData } from 'lib/api/apiClient';
 
 const SignUpContainer = () => {
     const [inputId, onChangeId] = useInput('');

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export type SearchState = {
     input: string;
-    singleSearchRes: {
+    place: {
         id: number | null;
         place_name: string | null;
         category_name: string | null;
@@ -10,8 +10,8 @@ export type SearchState = {
         x: number | null;
         address_name: string | null;
         phone: string | null;
-    }[];
-    allSearchRes: {
+    };
+    searchRes: {
         id: number | null;
         place_name: string | null;
         category_name: string | null;

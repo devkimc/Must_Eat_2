@@ -4,17 +4,17 @@ import { RootState } from 'store/store';
 import { useSelector } from 'react-redux';
 import RestAddModalContainer from 'containers/rest/RestAddModalContainer';
 
-type Rest = {
-    restId: number | null;
-    placeNm: string | null;
-    cateNm: string | null;
-    latCdnt: number | null;
-    lngCdnt: number | null;
+export type Rest = {
+    id: number | null;
+    place_name: string | null;
+    category_name: string | null;
+    y: number | null;
+    x: number | null;
 };
 
 const SearchResultContainer = () => {
     const allSearchRes = useSelector(
-        (state: RootState) => state.search.allSearchRes,
+        (state: RootState) => state.search.searchRes,
     );
     const [restAddModal, setRestAddModal] = useState<boolean>(false);
     const [targetRestInfo, setTargetRestInfo] = useState<Rest>();
@@ -25,20 +25,20 @@ const SearchResultContainer = () => {
         return cateNmWord;
     };
 
-    const onClickFolderAdd = (
-        restId: number,
-        placeNm: string,
-        cateNm: string,
-        latCdnt: number,
-        lngCdnt: number,
-    ) => {
+    const onClickFolderAdd = ({
+        id,
+        place_name,
+        category_name,
+        y,
+        x,
+    }: Rest) => {
         setRestAddModal(true);
         setTargetRestInfo({
-            restId,
-            placeNm,
-            cateNm,
-            latCdnt,
-            lngCdnt,
+            id,
+            place_name,
+            category_name,
+            y,
+            x,
         });
     };
 
@@ -47,7 +47,7 @@ const SearchResultContainer = () => {
     };
 
     useEffect(() => {
-        if (allSearchRes.length >= 1) {
+        if (allSearchRes?.length >= 1) {
             /* 카카오톡 공유하기 */
             allSearchRes.forEach((el, i) => {
                 window.Kakao.Share.createDefaultButton({

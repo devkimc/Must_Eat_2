@@ -17,7 +17,7 @@ router.post('/create', (req, res) => {
 
         /* 그룹 생성 */
         conn.query(
-            ' INSERT INTO USER_GROUP ' +
+            ' INSERT INTO GROUP_INFO ' +
                 ' (CRT_USER_ID, GROUP_NM, CRT_DTM) ' +
                 '  VALUES (?, ?, SYSDATE()) ',
             [req.session.user, req.body.GROUP_NM],
@@ -40,9 +40,8 @@ router.post('/create', (req, res) => {
                                 if (err3) throw err3;
 
                                 return res.status(200).json({
-                                    code: 10000,
-                                    msg: '정상 처리되었습니다.',
-                                    list: '',
+                                    success: true,
+                                    result: true,
                                 });
                             },
                         );
@@ -67,20 +66,26 @@ router.get('/list', (req, res) => {
         }
 
         conn.query(
-            ' SELECT T02.GROUP_ID                 ' +
-                '      , T02.GROUP_NM                 ' +
-                '   FROM GROUP_MEMBER T01             ' +
-                '      ,   USER_GROUP T02             ' +
-                '  WHERE T01.USER_ID = ?              ' +
-                '    AND T01.GROUP_ID = T02.GROUP_ID  ',
+            '     SELECT DISTINCT                             ' +
+                '        T02.GROUP_ID                         ' +
+                '      , T02.GROUP_NM                         ' +
+                '      , T02.CRT_USER_ID                      ' +
+                '      , ( SELECT COUNT(*)                    ' +
+                '            FROM GROUP_REST T11              ' +
+                '	   	    WHERE T02.GROUP_ID = T11.GROUP_ID ' +
+                '        ) AS REST_CNT                        ' +
+                '   FROM GROUP_MEMBER T01                     ' +
+                '      , GROUP_INFO T02                       ' +
+                '      , GROUP_REST T03                       ' +
+                '  WHERE T01.USER_ID = ?                      ' +
+                '    AND T01.GROUP_ID = T02.GROUP_ID          ',
             [req.session.user],
             (err, result) => {
                 if (err) throw err;
 
                 return res.status(200).json({
-                    code: 10001,
-                    msg: '정상 조회되었습니다.',
-                    list: result,
+                    success: true,
+                    result,
                 });
             },
         );
@@ -112,7 +117,6 @@ router.post('/invite', (req, res) => {
                     return res.status(400).json({
                         code: 40001,
                         msg: '존재하지 않는 회원입니다.',
-                        list: req.body.RECV_USER_ID,
                     });
                 }
 
@@ -160,8 +164,8 @@ router.post('/invite', (req, res) => {
                                         if (err4) throw err4;
 
                                         return res.status(200).json({
-                                            code: 10000,
-                                            msg: '정상 처리되었습니다.',
+                                            success: true,
+                                            result: true,
                                         });
                                     },
                                 );
@@ -226,7 +230,7 @@ router.get('/invite/list', (req, res) => {
                 '      , T01.SEND_USER_ID                 ' +
                 '      , T01.RECV_USER_ID                 ' +
                 '   FROM GROUP_INVITE T01                 ' +
-                '      , USER_GROUP T02                   ' +
+                '      , GROUP_INFO T02                   ' +
                 '  WHERE T01.RECV_USER_ID = ?             ' +
                 '    AND T01.GROUP_ID     = T02.GROUP_ID  ' +
                 '    AND T01.RES_STATUS   = "REQ"         ',
@@ -292,6 +296,7 @@ router.post('/invite/accept', (req, res) => {
 
                                 return res.status(200).json({
                                     success: true,
+                                    result: true,
                                 });
                             },
                         );
@@ -328,6 +333,7 @@ router.post('/invite/not-accept', (req, res) => {
 
                 return res.status(200).json({
                     success: true,
+                    result: true,
                 });
             },
         );

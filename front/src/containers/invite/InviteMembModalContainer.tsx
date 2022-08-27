@@ -6,16 +6,7 @@ import { getGroupList, inviteGroup } from 'lib/api/group';
 import useInput from 'lib/hooks/useInput';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
-
-type AxiosData = AxiosError & {
-    response: {
-        data: {
-            code: number;
-            list: [];
-            msg: string;
-        };
-    };
-};
+import { AxiosData } from 'lib/api/apiClient';
 
 const InviteMembModalContainer = ({ closeInviteMemb }) => {
     const [selectedGroupId, setSelectedGroupId] = useState<number>();
@@ -38,7 +29,7 @@ const InviteMembModalContainer = ({ closeInviteMemb }) => {
     });
 
     const onClickGroup = (index: number) => {
-        setSelectedGroupId(groupList.data.list[index].GROUP_ID);
+        setSelectedGroupId(index);
     };
 
     const onClickRemoveBtn = () => {
@@ -60,8 +51,9 @@ const InviteMembModalContainer = ({ closeInviteMemb }) => {
 
     return (
         <InviteMembModal
-            groupList={groupList?.data?.list}
+            groupList={groupList?.data?.result}
             userId={userId}
+            selectedGroupId={selectedGroupId}
             onChange={onChangeUserId}
             onClickGroup={onClickGroup}
             onClickRemoveBtn={onClickRemoveBtn}

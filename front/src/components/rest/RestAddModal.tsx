@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
+import { GroupType } from 'lib/api/group';
 
 const Container = styled.div`
     z-index: 501;
@@ -43,7 +44,7 @@ const Modal = styled.div`
     top: 50%;
     left: 50%;
     height: auto;
-    padding: 30px;
+    padding: 2.4rem 2.4rem 3rem 2.4rem;
     transform: translate(-50%, -50%);
 `;
 
@@ -121,12 +122,33 @@ const ConfirmBtn = styled.div`
 const GroupBlock = styled.ul`
     height: 20rem;
     overflow-y: scroll;
+    padding-right: 0.5rem;
+
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+        width: 0.44rem;
+        height: 3rem;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(175, 175, 175, 0.72);
+        border-radius: 10px;
+        height: 1rem;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: #e4e4e4;
+        border-radius: 100px;
+    }
 `;
 
 const Group = styled.li`
     border-bottom: 1px solid silver;
     padding: 0.5rem 0;
     cursor: pointer;
+
+    &:hover {
+        background-color: #f5f6f8;
+    }
 `;
 
 const GroupList = styled.div`
@@ -172,11 +194,6 @@ const FlexCol = styled.div`
     justify-content: center;
     flex-direction: column;
 `;
-
-type GroupType = {
-    GROUP_ID: number;
-    GROUP_NM: string;
-};
 
 type Props = {
     addClicked: boolean;
@@ -260,11 +277,11 @@ const RestAddModal = ({
                                 onClick={() => onClickRestAdd(el.GROUP_ID)}
                             >
                                 <GroupList>
-                                    <GroupImg imgColor={colorArr[i]} />
+                                    <GroupImg imgColor={colorArr[i % 10]} />
                                     <GroupInfo>
                                         <GroupNm>{el.GROUP_NM}</GroupNm>
                                         <GroupRestCount>
-                                            {i + 2}개
+                                            {el.REST_CNT}개
                                         </GroupRestCount>
                                     </GroupInfo>
                                 </GroupList>
