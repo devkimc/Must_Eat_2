@@ -7,16 +7,7 @@ import { RestAddModal } from 'components';
 import { createGroup, getGroupList } from 'lib/api/group';
 import { addFavRest } from 'lib/api/rest';
 import useInput from 'lib/hooks/useInput';
-
-type AxiosData = AxiosError & {
-    response: {
-        data: {
-            code: number;
-            list: [];
-            msg: string;
-        };
-    };
-};
+import { AxiosData } from 'lib/api/apiClient';
 
 const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
     const [addClicked, setAddClicked] = useState<boolean>(false);
@@ -64,14 +55,14 @@ const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
     };
 
     const onClickRestAdd = async (groupId: number) => {
-        await addFavRest(
+        await addFavRest({
             groupId,
-            targetRestInfo.restId,
-            targetRestInfo.placeNm,
-            targetRestInfo.cateNm,
-            targetRestInfo.latCdnt,
-            targetRestInfo.lngCdnt,
-        );
+            id: targetRestInfo.id,
+            place_name: targetRestInfo.place_name,
+            category_name: targetRestInfo.category_name,
+            y: targetRestInfo.y,
+            x: targetRestInfo.x,
+        });
         toast.success(`${targetRestInfo.placeNm} 식당이 내 그룹에 담겼습니다.`);
     };
 

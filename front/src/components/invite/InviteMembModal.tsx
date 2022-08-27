@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 import { AiOutlineClose } from 'react-icons/ai';
+import { GroupType } from 'lib/api/group';
 
 const Container = styled.div`
     z-index: 501;
@@ -164,11 +165,6 @@ const CloseBtn = styled.button`
     top: -2rem;
     right: -0.5rem;
 `;
-
-type GroupType = {
-    GROUP_ID: number;
-    GROUP_NM: string;
-};
 
 type Props = {
     groupList: GroupType[];

@@ -4,22 +4,7 @@ import { toast } from 'react-toastify';
 import { acceptInvite, getInviteList, rejectInvite } from 'lib/api/group';
 import { AxiosResponse, AxiosError } from 'axios';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-
-type AxiosData = AxiosError & {
-    response: {
-        data: {
-            code: number;
-            list: [];
-            msg: string;
-        };
-    };
-};
-
-type InViteList = {
-    INVITE_ID: number;
-    SEND_USER_ID: string;
-    GROUP_NM: string;
-};
+import { AxiosData } from 'lib/api/apiClient';
 
 const InviteChkModalContainer = () => {
     const queryClient = useQueryClient();

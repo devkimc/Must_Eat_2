@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { BiMap } from 'react-icons/bi';
 import { IoIosCall } from 'react-icons/io';
 import { FiShare, FiFolderPlus } from 'react-icons/fi';
+import { SearchState } from 'store/searchSlice';
+import { Rest } from 'containers/search/SearchResultContainer';
 
 const Wrapper = styled.div`
     height: 87%;
@@ -134,25 +136,9 @@ const FlexCol = styled.div`
     justify-content: center;
 `;
 
-type SearchRes = {
-    id: number | null;
-    place_name: string | null;
-    category_name: string | null;
-    y: number | null;
-    x: number | null;
-    address_name: string | null;
-    phone: string | null;
-};
-
 type Props = {
-    allSearchRes: SearchRes[];
-    onClickFolderAdd: (
-        id: number,
-        place_name: string,
-        category_name: string,
-        x: number,
-        y: number,
-    ) => void;
+    allSearchRes: SearchState['searchRes'];
+    onClickFolderAdd: ({ id, place_name, category_name, y, x }: Rest) => void;
     splitCateNm: (cateNm: string) => string[];
 };
 
@@ -189,15 +175,17 @@ const SearchResult = ({
                                         <PlaceBtn>
                                             <FolderAddBtn
                                                 onClick={() =>
-                                                    onClickFolderAdd(
-                                                        res.id,
-                                                        res.place_name,
-                                                        splitCateNm(
-                                                            res.category_name,
-                                                        )[0],
-                                                        res.y,
-                                                        res.x,
-                                                    )
+                                                    onClickFolderAdd({
+                                                        id: res.id,
+                                                        place_name:
+                                                            res.place_name,
+                                                        category_name:
+                                                            splitCateNm(
+                                                                res.category_name,
+                                                            )[0],
+                                                        y: res.y,
+                                                        x: res.x,
+                                                    })
                                                 }
                                             >
                                                 <FiFolderPlus

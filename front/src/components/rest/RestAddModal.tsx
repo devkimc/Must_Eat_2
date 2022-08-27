@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
+import { GroupType } from 'lib/api/group';
 
 const Container = styled.div`
     z-index: 501;
@@ -193,11 +194,6 @@ const FlexCol = styled.div`
     justify-content: center;
     flex-direction: column;
 `;
-
-type GroupType = {
-    GROUP_ID: number;
-    GROUP_NM: string;
-};
 
 type Props = {
     addClicked: boolean;

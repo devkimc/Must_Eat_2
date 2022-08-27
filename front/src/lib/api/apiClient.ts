@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import errProc from '../error/configErr';
 
@@ -12,6 +12,16 @@ const apiClient = axios.create({
     baseURL,
     withCredentials: true,
 });
+
+export type AxiosData = AxiosError & {
+    response: {
+        data: {
+            code: number;
+            list: [];
+            msg: string;
+        };
+    };
+};
 
 // 응답 인터셉터 추가하기
 apiClient.interceptors.response.use(

@@ -7,7 +7,12 @@ export const createGroup = (groupNm: string) => {
 };
 
 export const getGroupList = () => {
-    return apiClient.get('/api/group/list', {});
+    return apiClient.get<GroupType[]>('/api/group/list', {});
+};
+
+export type GroupType = {
+    GROUP_ID: number;
+    GROUP_NM: string;
 };
 
 export const inviteGroup = (groupId: number, recvUserId: string) => {

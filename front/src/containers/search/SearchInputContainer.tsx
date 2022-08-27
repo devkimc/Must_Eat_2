@@ -10,17 +10,8 @@ import {
     changeSearchIp,
     changeSingleSearchRes,
     resetSearchRes,
+    SearchState,
 } from 'store/searchSlice';
-
-type Place = {
-    id: number | null;
-    place_name: string | null;
-    category_name: string | null;
-    y: number | null;
-    x: number | null;
-    address_name: string | null;
-    phone: string | null;
-};
 
 const SearchInputContainer = () => {
     const dispatch = useDispatch();
@@ -33,7 +24,7 @@ const SearchInputContainer = () => {
         category_group_code: Constants.SEARCH_OPT_CATEGORY_FOOD,
     };
 
-    const onSearchCB = (result: Place[], status: string) => {
+    const onSearchCB = (result: SearchState['searchRes'], status: string) => {
         const resStatus = window.kakao.maps.services.Status;
         if (status === resStatus.OK) {
             dispatch(changeSingleSearchRes(result));
