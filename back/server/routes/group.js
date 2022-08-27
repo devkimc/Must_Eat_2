@@ -17,7 +17,7 @@ router.post('/create', (req, res) => {
 
         /* 그룹 생성 */
         conn.query(
-            ' INSERT INTO USER_GROUP ' +
+            ' INSERT INTO GROUP_INFO ' +
                 ' (CRT_USER_ID, GROUP_NM, CRT_DTM) ' +
                 '  VALUES (?, ?, SYSDATE()) ',
             [req.session.user, req.body.GROUP_NM],
@@ -66,12 +66,19 @@ router.get('/list', (req, res) => {
         }
 
         conn.query(
-            ' SELECT T02.GROUP_ID                 ' +
-                '      , T02.GROUP_NM                 ' +
-                '   FROM GROUP_MEMBER T01             ' +
-                '      ,   USER_GROUP T02             ' +
-                '  WHERE T01.USER_ID = ?              ' +
-                '    AND T01.GROUP_ID = T02.GROUP_ID  ',
+            '     SELECT DISTINCT                             ' +
+                '        T02.GROUP_ID                         ' +
+                '      , T02.GROUP_NM                         ' +
+                '      , T02.CRT_USER_ID                      ' +
+                '      , ( SELECT COUNT(*)                    ' +
+                '            FROM GROUP_REST T11              ' +
+                '	   	    WHERE T02.GROUP_ID = T11.GROUP_ID ' +
+                '        ) AS REST_CNT                        ' +
+                '   FROM GROUP_MEMBER T01                     ' +
+                '      , GROUP_INFO T02                       ' +
+                '      , GROUP_REST T03                       ' +
+                '  WHERE T01.USER_ID = ?                      ' +
+                '    AND T01.GROUP_ID = T02.GROUP_ID          ',
             [req.session.user],
             (err, result) => {
                 if (err) throw err;
@@ -223,7 +230,7 @@ router.get('/invite/list', (req, res) => {
                 '      , T01.SEND_USER_ID                 ' +
                 '      , T01.RECV_USER_ID                 ' +
                 '   FROM GROUP_INVITE T01                 ' +
-                '      , USER_GROUP T02                   ' +
+                '      , GROUP_INFO T02                   ' +
                 '  WHERE T01.RECV_USER_ID = ?             ' +
                 '    AND T01.GROUP_ID     = T02.GROUP_ID  ' +
                 '    AND T01.RES_STATUS   = "REQ"         ',
