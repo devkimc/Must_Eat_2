@@ -78,7 +78,7 @@ const MapContainer = () => {
 
     /* 식당 검색 */
     useEffect(() => {
-        if (singleSearchRes.length) {
+        if (singleSearchRes?.length) {
             removeMarker();
             setMarkers([]);
             setCenter(0);

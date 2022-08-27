@@ -163,7 +163,7 @@ const SearchResult = ({
     return (
         <Wrapper>
             <Result>
-                {allSearchRes.length ? (
+                {allSearchRes?.length ? (
                     allSearchRes.map((res, i) => (
                         <ResultList key={res.id}>
                             <FlexRow>

@@ -221,7 +221,7 @@ const InviteMembModal = ({
                                     <GroupInfo>
                                         <UserNm>{el.GROUP_NM}</UserNm>
                                         <GroupRestCount>
-                                            {i + 2}개
+                                            {el.REST_CNT}개
                                         </GroupRestCount>
                                     </GroupInfo>
                                 </GroupList>

@@ -281,7 +281,7 @@ const RestAddModal = ({
                                     <GroupInfo>
                                         <GroupNm>{el.GROUP_NM}</GroupNm>
                                         <GroupRestCount>
-                                            {i + 2}개
+                                            {el.REST_CNT}개
                                         </GroupRestCount>
                                     </GroupInfo>
                                 </GroupList>

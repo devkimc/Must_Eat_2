@@ -47,7 +47,7 @@ const SearchResultContainer = () => {
     };
 
     useEffect(() => {
-        if (allSearchRes.length >= 1) {
+        if (allSearchRes?.length >= 1) {
             /* 카카오톡 공유하기 */
             allSearchRes.forEach((el, i) => {
                 window.Kakao.Share.createDefaultButton({

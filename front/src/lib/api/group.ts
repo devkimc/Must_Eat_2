@@ -13,6 +13,8 @@ export const getGroupList = () => {
 export type GroupType = {
     GROUP_ID: number;
     GROUP_NM: string;
+    CRT_USER_ID: string;
+    REST_CNT: number;
 };
 
 export const inviteGroup = (groupId: number, recvUserId: string) => {
