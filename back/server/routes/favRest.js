@@ -133,7 +133,7 @@ router.delete('/', (req, res) => {
     getConnection(conn => {
         conn.query(
             ' DELETE ' +
-                '  FROM GROUP_REST = ? ' +
+                '   FROM GROUP_REST    ' +
                 '  WHERE GROUP_ID = ?  ' +
                 '    AND REST_ID  = ?  ',
             [req.query.GROUP_ID, req.query.REST_ID],
@@ -146,6 +146,7 @@ router.delete('/', (req, res) => {
                 });
             },
         );
+        conn.release();
     });
 });
 

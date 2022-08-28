@@ -94,6 +94,93 @@ router.get('/list', (req, res) => {
 });
 
 /*
+    그룹 탈퇴/삭제 : DELETE /group
+*/
+router.delete('/', (req, res) => {
+    if (req.session.user === undefined) {
+        return res.status(401).json({
+            code: 20001,
+            msg: '로그인후 사용가능합니다.',
+        });
+    }
+
+    getConnection(conn => {
+        conn.query(
+            ' DELETE ' +
+                '   FROM GROUP_MEMBER  ' +
+                '  WHERE GROUP_ID = ?  ' +
+                '    AND USER_ID  = ?  ',
+            [req.query.GROUP_ID, req.session.user],
+            err => {
+                if (err) throw err;
+
+                conn.query(
+                    ' SELECT EXISTS (                ' +
+                        ' SELECT *                   ' +
+                        '   FROM GROUP_INFO T01      ' +
+                        '  WHERE T01.GROUP_ID    = ? ' +
+                        '    AND T01.CRT_USER_ID = ? ' +
+                        '  LIMIT 1                   ' +
+                        ') AS success                ',
+                    [req.query.GROUP_ID, req.session.user],
+                    (err2, result2) => {
+                        console.log(result2);
+                        if (err2) throw err;
+
+                        if (result2[0].success) {
+                            conn.query(
+                                ' DELETE ' +
+                                    '   FROM GROUP_INFO        ' +
+                                    '  WHERE GROUP_ID     = ?  ' +
+                                    '    AND CRT_USER_ID  = ?  ',
+                                [req.query.GROUP_ID, req.session.user],
+                                err3 => {
+                                    if (err3) throw err3;
+
+                                    conn.query(
+                                        ' DELETE ' +
+                                            '   FROM GROUP_REST        ' +
+                                            '  WHERE GROUP_ID     = ?  ',
+                                        [req.query.GROUP_ID],
+                                        err4 => {
+                                            if (err4) throw err4;
+
+                                            conn.query(
+                                                ' DELETE ' +
+                                                    '   FROM GROUP_MEMBER  ' +
+                                                    '  WHERE GROUP_ID = ?  ',
+                                                [req.query.GROUP_ID],
+                                                err5 => {
+                                                    if (err5) throw err5;
+
+                                                    return res
+                                                        .status(200)
+                                                        .json({
+                                                            success: true,
+                                                            result: true,
+                                                        });
+                                                },
+                                            );
+                                        },
+                                    );
+                                },
+                            );
+                        } else {
+                            return res.status(200).json({
+                                success: true,
+                                result: true,
+                            });
+                        }
+                    },
+                );
+            },
+        );
+
+        conn.release();
+    });
+});
+
+/*
     그룹에 초대하기 : POST /group/invite
 */
 router.post('/invite', (req, res) => {
