@@ -1,22 +1,43 @@
 import { AxiosResponse, AxiosError } from 'axios';
 import { GroupList } from 'components';
-import { getGroupList } from 'lib/api/group';
-import getFavRest from 'lib/api/rest';
+import { AxiosData } from 'lib/api/apiClient';
+import { deleteGroup, getGroupList } from 'lib/api/group';
 import React from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { toast } from 'react-toastify';
 
 const GroupListContainer = () => {
+    const queryClient = useQueryClient();
+
     const { data: groupList } = useQuery<
         AxiosResponse,
         AxiosError,
         AxiosResponse
     >('groupList', getGroupList);
 
-    const onClickGroup = () => {
-        getFavRest
-    }
+    const onDeleteGroup = useMutation(
+        (groupId: number) => deleteGroup(groupId),
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries('groupList');
+                toast.success('그룹을 삭제했습니다!');
+            },
+            onError: (res: AxiosData) => {
+                toast.error(res.response.data.msg);
+            },
+        },
+    );
 
-    return <GroupList groupList={groupList?.data?.result} />;
+    const onClickDeleteGroup = (groupId: number) => {
+        onDeleteGroup.mutate(groupId);
+    };
+
+    return (
+        <GroupList
+            groupList={groupList?.data?.result}
+            onClickDelete={onClickDeleteGroup}
+        />
+    );
 };
 
 export default GroupListContainer;

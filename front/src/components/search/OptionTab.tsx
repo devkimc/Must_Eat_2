@@ -25,7 +25,7 @@ const Option = styled.div`
 const OptionTxt = styled.div`
     padding-bottom: 0.3rem;
     font-size: 1.2rem;
-    color: ${props => (props.selected ? '#12b886' : 'none')};
+    color: ${props => (props.selected ? '#12b886' : '#969696')};
     border-bottom: ${props => (props.selected ? '3px solid #12b886' : 'none')};
 `;
 

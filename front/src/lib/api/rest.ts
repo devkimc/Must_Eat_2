@@ -12,7 +12,7 @@ export const addFavRest = ({
     y,
     x,
 }: FavRest) => {
-    return apiClient.post('/api/fav-rest/add', {
+    return apiClient.post('/api/fav-rest', {
         GROUP_ID: groupId,
         REST_ID: id,
         REST_NM: place_name,

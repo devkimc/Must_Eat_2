@@ -1,6 +1,8 @@
 import { GroupType } from 'lib/api/group';
 import React from 'react';
 import styled from 'styled-components';
+import { RiDeleteBin6Line } from 'react-icons/ri';
+import { ImExit } from 'react-icons/im';
 
 const GroupListBlock = styled.div`
     overflow: hidden;
@@ -25,7 +27,7 @@ const GroupListBlock = styled.div`
 
 const GroupBox = styled.div`
     display: flex;
-    padding-left: 1rem;
+    padding-left: 1.5rem;
 `;
 
 const GroupImg = styled.div`
@@ -54,6 +56,8 @@ const GroupNm = styled.div`
 `;
 
 const Group = styled.li`
+    display: flex;
+    justify-content: space-between;
     border-bottom: 1px solid silver;
     padding: 0.5rem 0;
     cursor: pointer;
@@ -63,11 +67,19 @@ const Group = styled.li`
     }
 `;
 
+const GroupExit = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 2rem;
+`;
+
 type Props = {
     groupList: GroupType[];
+    onClickDelete: (groupId: number) => void;
 };
 
-const GroupList = ({ groupList }: Props) => {
+const GroupList = ({ groupList, onClickDelete }: Props) => {
     const colorArr = [
         '#f5e6ab',
         '#f0c33c',
@@ -92,6 +104,13 @@ const GroupList = ({ groupList }: Props) => {
                             <GroupRestCount>{el.REST_CNT}개</GroupRestCount>
                         </GroupInfo>
                     </GroupBox>
+                    <GroupExit>
+                        <RiDeleteBin6Line
+                            onClick={() => onClickDelete(el.GROUP_ID)}
+                            color="#FF6B6B"
+                            size={18}
+                        />
+                    </GroupExit>
                 </Group>
             ))}
         </GroupListBlock>

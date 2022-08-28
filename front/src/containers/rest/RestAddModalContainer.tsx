@@ -63,7 +63,9 @@ const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
             y: targetRestInfo.y,
             x: targetRestInfo.x,
         });
-        toast.success(`${targetRestInfo.placeNm} 식당이 내 그룹에 담겼습니다.`);
+        toast.success(
+            `${targetRestInfo.place_name} 식당이 내 그룹에 담겼습니다.`,
+        );
     };
 
     return (

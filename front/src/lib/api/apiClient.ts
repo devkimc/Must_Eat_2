@@ -29,8 +29,8 @@ apiClient.interceptors.response.use(
         return response;
     },
     error => {
-        if (error.code === 'ECONNABORTED') {
-            toast.error('timeout exception');
+        if (error.response.status === 504) {
+            toast.error('에러! 관리자에게 문의하세요.');
         } else {
             errProc(error.response.data);
         }
