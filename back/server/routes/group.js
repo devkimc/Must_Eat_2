@@ -76,7 +76,6 @@ router.get('/list', (req, res) => {
                 '        ) AS REST_CNT                        ' +
                 '   FROM GROUP_MEMBER T01                     ' +
                 '      , GROUP_INFO T02                       ' +
-                '      , GROUP_REST T03                       ' +
                 '  WHERE T01.USER_ID = ?                      ' +
                 '    AND T01.GROUP_ID = T02.GROUP_ID          ',
             [req.session.user],
