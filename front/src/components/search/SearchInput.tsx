@@ -43,32 +43,6 @@ const SearchButton = styled.button`
     }
 `;
 
-const SearchOption = styled.div`
-    display: flex;
-    justify-content: space-around;
-    border-bottom: 1px solid #eee;
-`;
-
-const DivLine = styled.div`
-    width: 0.1rem;
-    border-right: 1rem;
-    background-color: #eee;
-`;
-
-const Option = styled.div`
-    padding-top: 0.7rem;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-`;
-
-const OptionTxt = styled.div`
-    padding-bottom: 0.3rem;
-    font-size: 1.2rem;
-    color: ${props => (props.selected ? '#12b886' : 'none')};
-    border-bottom: ${props => (props.selected ? '3px solid #12b886' : 'none')};
-`;
-
 type Props = {
     searchIp: string;
     onChange: (
@@ -95,15 +69,6 @@ const SearchInput = ({ searchIp, onChange, onSearch, onEnterPress }: Props) => {
                     </SearchButton>
                 </InputBox>
             </Container>
-            <SearchOption>
-                <Option>
-                    <OptionTxt selected>검색</OptionTxt>
-                </Option>
-                <DivLine />
-                <Option>
-                    <OptionTxt selected={false}> 그룹</OptionTxt>
-                </Option>
-            </SearchOption>
         </SearchInputBlock>
     );
 };

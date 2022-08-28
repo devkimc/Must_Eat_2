@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { SearchResult } from 'components';
+import styled from 'styled-components';
+import { OptionTab, SearchResult } from 'components';
 import { RootState } from 'store/store';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import RestAddModalContainer from 'containers/rest/RestAddModalContainer';
+import { changeTab } from 'store/searchSlice';
+import GroupListContainer from './GroupListContainer';
 
 export type Rest = {
     id: number | null;
@@ -12,12 +15,19 @@ export type Rest = {
     x: number | null;
 };
 
+const SearchResultBlock = styled.div``;
+
 const SearchResultContainer = () => {
-    const allSearchRes = useSelector(
-        (state: RootState) => state.search.searchRes,
-    );
     const [restAddModal, setRestAddModal] = useState<boolean>(false);
     const [targetRestInfo, setTargetRestInfo] = useState<Rest>();
+
+    const searchRes = useSelector((state: RootState) => state.search.searchRes);
+    const tab = useSelector((state: RootState) => state.search.tab);
+    const dispatch = useDispatch();
+
+    const onclickTab = () => {
+        dispatch(changeTab());
+    };
 
     const splitCateNm = (cateNm: string): string[] => {
         const cateNmWord = cateNm.split(' > ');
@@ -47,9 +57,9 @@ const SearchResultContainer = () => {
     };
 
     useEffect(() => {
-        if (allSearchRes?.length >= 1) {
+        if (searchRes?.length >= 1) {
             /* 카카오톡 공유하기 */
-            allSearchRes.forEach((el, i) => {
+            searchRes.forEach((el, i) => {
                 window.Kakao.Share.createDefaultButton({
                     container: `#create-kakaotalk-sharing-btn${i}`,
                     objectType: 'location',
@@ -68,22 +78,28 @@ const SearchResultContainer = () => {
                 });
             });
         }
-    }, [allSearchRes]);
+    }, [searchRes]);
 
     return (
-        <>
-            <SearchResult
-                allSearchRes={allSearchRes}
-                onClickFolderAdd={onClickFolderAdd}
-                splitCateNm={splitCateNm}
-            />
+        <SearchResultBlock>
+            <OptionTab tab={tab} onClickTab={onclickTab} />
+            {tab ? (
+                <SearchResult
+                    searchRes={searchRes}
+                    onClickFolderAdd={onClickFolderAdd}
+                    splitCateNm={splitCateNm}
+                />
+            ) : (
+                <GroupListContainer />
+            )}
+
             {restAddModal && (
                 <RestAddModalContainer
                     targetRestInfo={targetRestInfo}
                     onClickCloseBtn={onClickCloseBtn}
                 />
             )}
-        </>
+        </SearchResultBlock>
     );
 };
 

@@ -9,13 +9,17 @@ import { Rest } from 'containers/search/SearchResultContainer';
 
 const Wrapper = styled.div`
     height: 87%;
-    overflow: hidden;
-    overflow-y: auto;
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+`;
 
+/* 검색 결과 */
+const Result = styled.ul`
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 44rem;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
     &::-webkit-scrollbar {
@@ -32,8 +36,6 @@ const Wrapper = styled.div`
         border-radius: 100px;
     }
 `;
-
-const Result = styled.ul``;
 
 const ResultList = styled.li`
     padding: 1rem 1.5rem 1.2rem;
@@ -153,16 +155,12 @@ const FlexCol = styled.div`
 `;
 
 type Props = {
-    allSearchRes: SearchState['searchRes'];
+    searchRes: SearchState['searchRes'];
     onClickFolderAdd: ({ id, place_name, category_name, y, x }: Rest) => void;
     splitCateNm: (cateNm: string) => string[];
 };
 
-const SearchResult = ({
-    allSearchRes,
-    onClickFolderAdd,
-    splitCateNm,
-}: Props) => {
+const SearchResult = ({ searchRes, onClickFolderAdd, splitCateNm }: Props) => {
     const colorArr = [
         '#c5d9ed',
         '#72aee6',
@@ -179,8 +177,8 @@ const SearchResult = ({
     return (
         <Wrapper>
             <Result>
-                {allSearchRes?.length ? (
-                    allSearchRes.map((res, i) => (
+                {searchRes?.length ? (
+                    searchRes.map((res, i) => (
                         <ResultList key={res.id}>
                             <FlexRow>
                                 <RadiusBox>
