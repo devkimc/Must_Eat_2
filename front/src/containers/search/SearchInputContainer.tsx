@@ -8,7 +8,6 @@ import { toast } from 'react-toastify';
 import {
     addSearchRes,
     changeSearchIp,
-    changeSingleSearchRes,
     resetSearchRes,
     SearchState,
 } from 'store/searchSlice';
@@ -27,7 +26,6 @@ const SearchInputContainer = () => {
     const onSearchCB = (result: SearchState['searchRes'], status: string) => {
         const resStatus = window.kakao.maps.services.Status;
         if (status === resStatus.OK) {
-            dispatch(changeSingleSearchRes(result));
             dispatch(addSearchRes(result));
         } else if (status === resStatus.ZERO_RESULT) {
             toast.warning('검색 결과가 없습니다!');

@@ -26,30 +26,22 @@ const searchSlice = createSlice({
     name: 'searchSlice',
     initialState: {
         input: '',
-        singleSearchRes: [],
-        allSearchRes: [],
+        searchRes: [],
     },
     reducers: {
         changeSearchIp: (state, action) => {
             state.input = action.payload;
         },
-        changeSingleSearchRes: (state, action) => {
-            state.singleSearchRes = action.payload;
-        },
         addSearchRes: (state, action) => {
-            state.allSearchRes = state.allSearchRes.concat(action.payload);
+            state.searchRes = state.searchRes.concat(action.payload);
         },
         resetSearchRes: state => {
-            state.allSearchRes = [];
+            state.searchRes = [];
         },
     },
 });
 
 export default searchSlice;
 
-export const {
-    changeSearchIp,
-    changeSingleSearchRes,
-    addSearchRes,
-    resetSearchRes,
-} = searchSlice.actions;
+export const { changeSearchIp, addSearchRes, resetSearchRes } =
+    searchSlice.actions;

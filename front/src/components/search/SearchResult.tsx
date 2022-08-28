@@ -15,6 +15,22 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+        width: 0.44rem;
+        height: 3rem;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(175, 175, 175, 0.72);
+        border-radius: 10px;
+        height: 1rem;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: #e4e4e4;
+        border-radius: 100px;
+    }
 `;
 
 const Result = styled.ul``;
