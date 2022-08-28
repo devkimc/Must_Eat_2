@@ -10,6 +10,14 @@ export const getGroupList = () => {
     return apiClient.get<GroupType[]>('/api/group/list', {});
 };
 
+export const deleteGroup = (groupId: number) => {
+    return apiClient.delete('/api/group', {
+        params: {
+            GROUP_ID: groupId,
+        },
+    });
+};
+
 export type GroupType = {
     GROUP_ID: number;
     GROUP_NM: string;

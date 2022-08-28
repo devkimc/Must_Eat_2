@@ -2,9 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { AiOutlineSearch } from 'react-icons/ai';
 
+const SearchInputBlock = styled.div``;
+
 const Container = styled.div`
-    width: 20rem;
-    padding: 1rem 1.6rem;
+    width: 22rem;
+    padding: 1.5rem 1rem;
+    background-color: #12b886;
 `;
 
 const InputBox = styled.div`
@@ -13,14 +16,13 @@ const InputBox = styled.div`
     border-radius: 0.5rem;
     box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 20%), 0 0.06rem 0 rgb(0 0 0 / 2%);
     position: relative;
+    background-color: white;
 `;
 
 const InputField = styled.input`
     border: 0 none;
     outline: none;
-    height: 1.2rem;
-    line-height: 1.2;
-    padding: 0.75rem 1rem 1rem;
+    padding: 1rem 1rem 0.8rem;
     font-size: 1rem;
 `;
 
@@ -52,20 +54,22 @@ type Props = {
 
 const SearchInput = ({ searchIp, onChange, onSearch, onEnterPress }: Props) => {
     return (
-        <Container>
-            <InputBox>
-                <InputField
-                    type="text"
-                    value={searchIp}
-                    onChange={onChange}
-                    onKeyPress={onEnterPress}
-                    placeholder="Must Eat 지도 검색"
-                />
-                <SearchButton onClick={onSearch}>
-                    <AiOutlineSearch size={24} />
-                </SearchButton>
-            </InputBox>
-        </Container>
+        <SearchInputBlock>
+            <Container>
+                <InputBox>
+                    <InputField
+                        type="text"
+                        value={searchIp}
+                        onChange={onChange}
+                        onKeyPress={onEnterPress}
+                        placeholder="검색어를 입력하세요."
+                    />
+                    <SearchButton onClick={onSearch}>
+                        <AiOutlineSearch size={24} />
+                    </SearchButton>
+                </InputBox>
+            </Container>
+        </SearchInputBlock>
     );
 };
 

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export type SearchState = {
+    tab: boolean;
     input: string;
     place: {
         id: number | null;
@@ -26,30 +27,26 @@ const searchSlice = createSlice({
     name: 'searchSlice',
     initialState: {
         input: '',
-        singleSearchRes: [],
-        allSearchRes: [],
+        tab: true,
+        searchRes: [],
     },
     reducers: {
         changeSearchIp: (state, action) => {
             state.input = action.payload;
         },
-        changeSingleSearchRes: (state, action) => {
-            state.singleSearchRes = action.payload;
+        changeTab: state => {
+            state.tab = !state.tab;
         },
         addSearchRes: (state, action) => {
-            state.allSearchRes = state.allSearchRes.concat(action.payload);
+            state.searchRes = state.searchRes.concat(action.payload);
         },
         resetSearchRes: state => {
-            state.allSearchRes = [];
+            state.searchRes = [];
         },
     },
 });
 
 export default searchSlice;
 
-export const {
-    changeSearchIp,
-    changeSingleSearchRes,
-    addSearchRes,
-    resetSearchRes,
-} = searchSlice.actions;
+export const { changeSearchIp, changeTab, addSearchRes, resetSearchRes } =
+    searchSlice.actions;

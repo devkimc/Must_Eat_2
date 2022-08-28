@@ -1,6 +1,8 @@
 export { default as SignUpContainer } from './auth/SignUpContainer';
 export { default as LoginContainer } from './auth/LoginContainer';
 
+export { default as GroupListContainer } from './group/GroupListContainer';
+
 export { default as HomeContainer } from './home/HomeContainer';
 
 export { default as InviteChkBtnContainer } from './invite/InviteChkBtnContainer';

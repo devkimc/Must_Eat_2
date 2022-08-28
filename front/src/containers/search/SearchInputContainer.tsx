@@ -8,14 +8,15 @@ import { toast } from 'react-toastify';
 import {
     addSearchRes,
     changeSearchIp,
-    changeSingleSearchRes,
+    changeTab,
     resetSearchRes,
     SearchState,
 } from 'store/searchSlice';
 
 const SearchInputContainer = () => {
-    const dispatch = useDispatch();
     const searchIp = useSelector((state: RootState) => state.search.input);
+    const tab = useSelector((state: RootState) => state.search.tab);
+    const dispatch = useDispatch();
 
     const searchOption = {
         page: 1,
@@ -27,7 +28,6 @@ const SearchInputContainer = () => {
     const onSearchCB = (result: SearchState['searchRes'], status: string) => {
         const resStatus = window.kakao.maps.services.Status;
         if (status === resStatus.OK) {
-            dispatch(changeSingleSearchRes(result));
             dispatch(addSearchRes(result));
         } else if (status === resStatus.ZERO_RESULT) {
             toast.warning('검색 결과가 없습니다!');
@@ -39,6 +39,10 @@ const SearchInputContainer = () => {
     const onSearch = () => {
         if (!searchIp) {
             toast.warning('검색어를 입력해주세요');
+        }
+
+        if (!tab) {
+            dispatch(changeTab());
         }
         dispatch(resetSearchRes());
         const places = new window.kakao.maps.services.Places();
