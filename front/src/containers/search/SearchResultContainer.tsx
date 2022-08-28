@@ -5,7 +5,7 @@ import { RootState } from 'store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import RestAddModalContainer from 'containers/rest/RestAddModalContainer';
 import { changeTab } from 'store/searchSlice';
-import GroupListContainer from './GroupListContainer';
+import GroupListContainer from '../group/GroupListContainer';
 
 export type Rest = {
     id: number | null;

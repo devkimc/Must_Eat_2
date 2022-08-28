@@ -25,6 +25,7 @@ const GroupListBlock = styled.div`
 
 const GroupBox = styled.div`
     display: flex;
+    padding-left: 1rem;
 `;
 
 const GroupImg = styled.div`
