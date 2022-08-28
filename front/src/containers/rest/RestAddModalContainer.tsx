@@ -62,10 +62,15 @@ const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
             category_name: targetRestInfo.category_name,
             y: targetRestInfo.y,
             x: targetRestInfo.x,
-        });
-        toast.success(
-            `${targetRestInfo.place_name} 식당이 내 그룹에 담겼습니다.`,
-        );
+        })
+            .then(() => {
+                toast.success(
+                    `${targetRestInfo.place_name} 식당이 내 그룹에 담겼습니다.`,
+                );
+            })
+            .catch((res: AxiosData) => {
+                toast.error(res.response.data.msg);
+            });
     };
 
     return (

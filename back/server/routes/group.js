@@ -123,7 +123,6 @@ router.delete('/', (req, res) => {
                         ') AS success                ',
                     [req.query.GROUP_ID, req.session.user],
                     (err2, result2) => {
-                        console.log(result2);
                         if (err2) throw err;
 
                         if (result2[0].success) {

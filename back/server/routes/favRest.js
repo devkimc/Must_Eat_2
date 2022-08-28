@@ -76,14 +76,17 @@ router.post('/', (req, res) => {
                         if (err2) throw err2;
 
                         conn.query(
-                            ' SELECT REST_ID     ' +
-                                '   FROM REST        ' +
-                                '  WHERE REST_ID = ? ',
+                            ' SELECT EXISTS (               ' +
+                                ' SELECT *                  ' +
+                                '   FROM REST T01           ' +
+                                '  WHERE T01.REST_ID    = ? ' +
+                                '  LIMIT 1                  ' +
+                                ') AS success               ',
                             [req.body.REST_ID],
-                            err3 => {
+                            (err3, result3) => {
                                 if (err3) throw err3;
 
-                                if (result.length >= 1) {
+                                if (result3[0].success) {
                                     return res.status(200).json({
                                         success: true,
                                         result: true,
