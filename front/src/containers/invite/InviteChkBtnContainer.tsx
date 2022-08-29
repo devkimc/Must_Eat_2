@@ -1,12 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { InviteChkBtn } from 'components';
-import { getNotProcInvite } from 'lib/api/group';
-import { useQuery, useQueryClient } from 'react-query';
-import { AxiosResponse, AxiosError } from 'axios';
+import { useQueryClient } from 'react-query';
 import * as queryKes from 'constants/queryKeys';
 import useToggle from 'lib/hooks/useToggle';
 import InviteChkModalContainer from './InviteChkModalContainer';
+import useNotProcData from './hooks/useNotProcData';
 
 const Wrapper = styled.div`
     position: absolute;
@@ -19,11 +18,7 @@ const InviteChkBtnContainer = () => {
     const [inviteChk, toggleInviteChk] = useToggle(false);
 
     const queryClient = useQueryClient();
-    const { data: notProcInvite } = useQuery<
-        AxiosResponse,
-        AxiosError,
-        AxiosResponse
-    >(queryKes.NOT_PROC_CNT, getNotProcInvite);
+    const { data: notProcInvite } = useNotProcData();
 
     const reQueryInviteList = () => {
         queryClient.invalidateQueries(queryKes.INVITE_LIST);

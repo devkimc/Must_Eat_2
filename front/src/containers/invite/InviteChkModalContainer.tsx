@@ -9,14 +9,7 @@ import useInviteData from './hooks/useInviteData';
 
 const InviteChkModalContainer = () => {
     const queryClient = useQueryClient();
-
     const { data: inviteList } = useInviteData();
-
-    // const { data: inviteList } = useQuery<
-    //     AxiosResponse,
-    //     AxiosError,
-    //     AxiosResponse
-    // >(queryKeys.INVITE_LIST, getInviteList);
 
     const onAccept = useMutation((inviteId: number) => acceptInvite(inviteId), {
         onSuccess: () => {

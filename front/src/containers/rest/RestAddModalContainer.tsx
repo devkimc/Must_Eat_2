@@ -1,26 +1,22 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { AxiosResponse, AxiosError } from 'axios';
-import { useQuery, useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 
 import { RestAddModal } from 'components';
-import { createGroup, getGroupList } from 'lib/api/group';
+import { createGroup } from 'lib/api/group';
 import { addFavRest } from 'lib/api/rest';
 import useInput from 'lib/hooks/useInput';
 import { AxiosData } from 'lib/api/apiClient';
 import * as queryKes from 'constants/queryKeys';
+import useGroupData from 'containers/group/hooks/useGroupData';
 
 const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
     const [addClicked, setAddClicked] = useState<boolean>(false);
     // const groupNmTag = useRef<React.MutableRefObject<undefined>>();
     const [groupNm, onChangeGroupNm, onResetGroupNm] = useInput('');
-    const queryClient = useQueryClient();
 
-    const { data: groupList } = useQuery<
-        AxiosResponse,
-        AxiosError,
-        AxiosResponse
-    >(queryKes.GROUP_LIST, getGroupList);
+    const queryClient = useQueryClient();
+    const { data: groupList } = useGroupData();
 
     const onClickGroupAdd = () => {
         setAddClicked(true);

@@ -1,20 +1,15 @@
-import { AxiosResponse, AxiosError } from 'axios';
 import { GroupList } from 'components';
 import { AxiosData } from 'lib/api/apiClient';
-import { deleteGroup, getGroupList } from 'lib/api/group';
+import { deleteGroup } from 'lib/api/group';
 import React from 'react';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import * as queryKes from 'constants/queryKeys';
+import useGroupData from './hooks/useGroupData';
 
 const GroupListContainer = () => {
     const queryClient = useQueryClient();
-
-    const { data: groupList } = useQuery<
-        AxiosResponse,
-        AxiosError,
-        AxiosResponse
-    >(queryKes.GROUP_LIST, getGroupList);
+    const { data: groupList } = useGroupData();
 
     const onDeleteGroup = useMutation(
         (groupId: number) => deleteGroup(groupId),
