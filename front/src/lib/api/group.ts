@@ -33,11 +33,19 @@ export const inviteGroup = (groupId: number, recvUserId: string) => {
 };
 
 export const getNotProcInvite = () => {
-    return apiClient.get('/api/group/invite/not-proc/count', {});
+    return apiClient.get<number>('/api/group/invite/not-proc/count', {});
 };
 
 export const getInviteList = () => {
-    return apiClient.get('/api/group/invite/list', {});
+    return apiClient.get<InviteType[]>('/api/group/invite/list', {});
+};
+
+export type InviteType = {
+    GROUP_ID: number;
+    GROUP_NM: string;
+    INVITE_ID: number;
+    RECV_USER_ID: string;
+    SEND_USER_ID: string;
 };
 
 export const acceptInvite = (inviteId: number) => {

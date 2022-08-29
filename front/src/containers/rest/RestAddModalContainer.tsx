@@ -74,7 +74,7 @@ const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
         <RestAddModal
             addClicked={addClicked}
             groupNm={groupNm}
-            groupList={groupList?.data?.result}
+            groupList={groupList}
             onChange={onChangeGroupNm}
             onClickGroupAdd={onClickGroupAdd}
             onClickRemoveBtn={onClickRemoveBtn}

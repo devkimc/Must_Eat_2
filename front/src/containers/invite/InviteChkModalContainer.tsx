@@ -42,7 +42,7 @@ const InviteChkModalContainer = () => {
 
     return (
         <InviteChkModal
-            inviteList={inviteList?.data?.result}
+            inviteList={inviteList}
             onClickAccept={onClickAccept}
             onClickReject={onClickReject}
         />

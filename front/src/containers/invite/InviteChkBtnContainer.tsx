@@ -33,7 +33,7 @@ const InviteChkBtnContainer = () => {
     return (
         <Wrapper>
             <InviteChkBtn
-                notProcInvite={notProcInvite?.data?.result[0].count}
+                notProcInvite={notProcInvite}
                 onClick={onClickInviteChkBtn}
             />
             {inviteChk && <InviteChkModalContainer />}

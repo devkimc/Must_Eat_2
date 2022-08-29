@@ -29,10 +29,7 @@ const GroupListContainer = () => {
     };
 
     return (
-        <GroupList
-            groupList={groupList?.data?.result}
-            onClickDelete={onClickDeleteGroup}
-        />
+        <GroupList groupList={groupList} onClickDelete={onClickDeleteGroup} />
     );
 };
 

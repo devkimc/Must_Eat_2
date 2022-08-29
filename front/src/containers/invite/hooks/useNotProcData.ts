@@ -4,11 +4,11 @@ import { getNotProcInvite } from 'lib/api/group';
 import { AxiosResponse, AxiosError } from 'axios';
 
 export default function useNotProcData() {
-    return useQuery<AxiosResponse, AxiosError, AxiosResponse>(
+    return useQuery<AxiosResponse, AxiosError, number>(
         queryKeys.NOT_PROC_CNT,
         getNotProcInvite,
         {
-            select: data => data,
+            select: data => data?.data?.result[0].count,
         },
     );
 }
