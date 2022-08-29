@@ -3,23 +3,26 @@ import { useNavigate } from 'react-router-dom';
 
 import useInput from 'lib/hooks/useInput';
 import LoginComponents from 'components/auth/LoginComponent';
-import { login } from 'lib/api/auth';
 import { toast } from 'react-toastify';
-import { useMutation } from 'react-query';
 import { AxiosData } from 'lib/api/apiClient';
+import useLogin from './hooks/useLogin';
 
 const LoginContainer = () => {
     const [inputId, onChangeId] = useInput('');
     const [inputPw, onChangePw, onResetPw] = useInput('');
     const navigate = useNavigate();
 
-    const { mutate } = useMutation(() => login(inputId, inputPw), {
-        onSuccess: () => {
-            navigate('/map');
-            toast.success('로그인에 성공하셨습니다!');
-        },
-        onError: (res: AxiosData) => {
-            toast.error(res.response.data.msg);
+    const { mutate } = useLogin({
+        inputId,
+        inputPw,
+        options: {
+            onSuccess: () => {
+                navigate('/map');
+                toast.success('로그인에 성공하셨습니다!');
+            },
+            onError: (res: AxiosData) => {
+                toast.error(res.response.data.msg);
+            },
         },
     });
 

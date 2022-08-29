@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { InviteMembModal } from 'components';
-import { useMutation } from 'react-query';
-
-import { inviteGroup } from 'lib/api/group';
 import useInput from 'lib/hooks/useInput';
 import { toast } from 'react-toastify';
 import { AxiosData } from 'lib/api/apiClient';
 import useGroupData from 'containers/group/hooks/useGroupData';
+import useInviteGroup from './hooks/useInviteGroup';
 
 const InviteMembModalContainer = ({ closeInviteMemb }) => {
     const [selectedGroupId, setSelectedGroupId] = useState<number>();
@@ -14,13 +12,17 @@ const InviteMembModalContainer = ({ closeInviteMemb }) => {
 
     const { data: groupList } = useGroupData();
 
-    const { mutate } = useMutation(() => inviteGroup(selectedGroupId, userId), {
-        onSuccess: () => {
-            toast.success(`${userId} 님을 초대했습니다!`);
-            onResetUserId();
-        },
-        onError: (res: AxiosData) => {
-            toast.error(res.response.data.msg);
+    const { mutate } = useInviteGroup({
+        selectedGroupId,
+        userId,
+        options: {
+            onSuccess: () => {
+                toast.success(`${userId} 님을 초대했습니다!`);
+                onResetUserId();
+            },
+            onError: (res: AxiosData) => {
+                toast.error(res.response.data.msg);
+            },
         },
     });
 

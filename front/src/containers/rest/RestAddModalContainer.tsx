@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { useMutation, useQueryClient } from 'react-query';
+import { useQueryClient } from 'react-query';
 
 import { RestAddModal } from 'components';
-import { createGroup } from 'lib/api/group';
 import { addFavRest } from 'lib/api/rest';
 import useInput from 'lib/hooks/useInput';
 import { AxiosData } from 'lib/api/apiClient';
 import * as queryKes from 'constants/queryKeys';
 import useGroupData from 'containers/group/hooks/useGroupData';
+import useCreateGroup from 'containers/group/hooks/useCreateGroup';
 
 const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
     const [addClicked, setAddClicked] = useState<boolean>(false);
@@ -31,12 +31,15 @@ const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
         onResetGroupNm();
     };
 
-    const { mutate } = useMutation(() => createGroup(groupNm), {
-        onSuccess: () => {
-            queryClient.invalidateQueries(queryKes.GROUP_LIST);
-        },
-        onError: (res: AxiosData) => {
-            toast.error(res.response.data.msg);
+    const { mutate } = useCreateGroup({
+        groupNm,
+        options: {
+            onSuccess: () => {
+                queryClient.invalidateQueries(queryKes.GROUP_LIST);
+            },
+            onError: (res: AxiosData) => {
+                toast.error(res.response.data.msg);
+            },
         },
     });
 
