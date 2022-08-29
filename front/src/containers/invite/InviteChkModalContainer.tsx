@@ -5,6 +5,7 @@ import { acceptInvite, getInviteList, rejectInvite } from 'lib/api/group';
 import { AxiosResponse, AxiosError } from 'axios';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { AxiosData } from 'lib/api/apiClient';
+import * as queryKeys from 'constants/queryKeys';
 
 const InviteChkModalContainer = () => {
     const queryClient = useQueryClient();
@@ -13,12 +14,12 @@ const InviteChkModalContainer = () => {
         AxiosResponse,
         AxiosError,
         AxiosResponse
-    >('inviteList', getInviteList);
+    >(queryKeys.INVITE_LIST, getInviteList);
 
     const onAccept = useMutation((inviteId: number) => acceptInvite(inviteId), {
         onSuccess: () => {
-            queryClient.invalidateQueries('inviteList');
-            queryClient.invalidateQueries('groupList');
+            queryClient.invalidateQueries(queryKeys.INVITE_LIST);
+            queryClient.invalidateQueries(queryKeys.GROUP_LIST);
             toast.success('그룹에 참여했습니다!');
         },
         onError: (res: AxiosData) => {
@@ -28,7 +29,7 @@ const InviteChkModalContainer = () => {
 
     const onReject = useMutation((inviteId: number) => rejectInvite(inviteId), {
         onSuccess: () => {
-            queryClient.invalidateQueries('inviteList');
+            queryClient.invalidateQueries(queryKeys.INVITE_LIST);
             toast.success('초대를 거절했습니다!');
         },
         onError: (res: AxiosData) => {

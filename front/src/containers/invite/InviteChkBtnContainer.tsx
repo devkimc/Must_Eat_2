@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { InviteChkBtn } from 'components';
 import { getNotProcInvite } from 'lib/api/group';
 import { useQuery, useQueryClient } from 'react-query';
 import { AxiosResponse, AxiosError } from 'axios';
+import * as queryKes from 'constants/queryKeys';
+import useToggle from 'lib/hooks/useToggle';
 import InviteChkModalContainer from './InviteChkModalContainer';
 
 const Wrapper = styled.div`
@@ -14,27 +16,23 @@ const Wrapper = styled.div`
 `;
 
 const InviteChkBtnContainer = () => {
-    const [inviteChkModal, setInviteChkModal] = useState(false);
+    const [inviteChk, toggleInviteChk] = useToggle(false);
 
     const queryClient = useQueryClient();
     const { data: notProcInvite } = useQuery<
         AxiosResponse,
         AxiosError,
         AxiosResponse
-    >('notProcInvite', getNotProcInvite);
-
-    const setPlugInviteChkModal = () => {
-        setInviteChkModal(prev => !prev);
-    };
+    >(queryKes.NOT_PROC_CNT, getNotProcInvite);
 
     const reQueryInviteList = () => {
-        queryClient.invalidateQueries('inviteList');
+        queryClient.invalidateQueries(queryKes.INVITE_LIST);
     };
 
     const onClickInviteChkBtn = () => {
-        setPlugInviteChkModal();
+        toggleInviteChk();
 
-        if (!inviteChkModal) reQueryInviteList();
+        if (!inviteChk) reQueryInviteList();
     };
 
     return (
@@ -43,7 +41,7 @@ const InviteChkBtnContainer = () => {
                 notProcInvite={notProcInvite?.data?.result[0].count}
                 onClick={onClickInviteChkBtn}
             />
-            {inviteChkModal && <InviteChkModalContainer />}
+            {inviteChk && <InviteChkModalContainer />}
         </Wrapper>
     );
 };

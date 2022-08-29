@@ -7,6 +7,7 @@ import useInput from 'lib/hooks/useInput';
 import { toast } from 'react-toastify';
 import { AxiosError, AxiosResponse } from 'axios';
 import { AxiosData } from 'lib/api/apiClient';
+import * as queryKeys from 'constants/queryKeys';
 
 const InviteMembModalContainer = ({ closeInviteMemb }) => {
     const [selectedGroupId, setSelectedGroupId] = useState<number>();
@@ -16,7 +17,7 @@ const InviteMembModalContainer = ({ closeInviteMemb }) => {
         AxiosResponse,
         AxiosError,
         AxiosResponse
-    >('groupList', getGroupList);
+    >(queryKeys.GROUP_LIST, getGroupList);
 
     const { mutate } = useMutation(() => inviteGroup(selectedGroupId, userId), {
         onSuccess: () => {

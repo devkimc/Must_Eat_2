@@ -8,6 +8,7 @@ import { createGroup, getGroupList } from 'lib/api/group';
 import { addFavRest } from 'lib/api/rest';
 import useInput from 'lib/hooks/useInput';
 import { AxiosData } from 'lib/api/apiClient';
+import * as queryKes from 'constants/queryKeys';
 
 const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
     const [addClicked, setAddClicked] = useState<boolean>(false);
@@ -19,7 +20,7 @@ const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
         AxiosResponse,
         AxiosError,
         AxiosResponse
-    >('groupList', getGroupList);
+    >(queryKes.GROUP_LIST, getGroupList);
 
     const onClickGroupAdd = () => {
         setAddClicked(true);
@@ -36,7 +37,7 @@ const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
 
     const { mutate } = useMutation(() => createGroup(groupNm), {
         onSuccess: () => {
-            queryClient.invalidateQueries('groupList');
+            queryClient.invalidateQueries(queryKes.GROUP_LIST);
         },
         onError: (res: AxiosData) => {
             toast.error(res.response.data.msg);
