@@ -1,20 +1,22 @@
 import React from 'react';
 import { InviteChkModal } from 'components';
 import { toast } from 'react-toastify';
-import { acceptInvite, getInviteList, rejectInvite } from 'lib/api/group';
-import { AxiosResponse, AxiosError } from 'axios';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { acceptInvite, rejectInvite } from 'lib/api/group';
+import { useMutation, useQueryClient } from 'react-query';
 import { AxiosData } from 'lib/api/apiClient';
 import * as queryKeys from 'constants/queryKeys';
+import useInviteData from './hooks/useInviteData';
 
 const InviteChkModalContainer = () => {
     const queryClient = useQueryClient();
 
-    const { data: inviteList } = useQuery<
-        AxiosResponse,
-        AxiosError,
-        AxiosResponse
-    >(queryKeys.INVITE_LIST, getInviteList);
+    const { data: inviteList } = useInviteData();
+
+    // const { data: inviteList } = useQuery<
+    //     AxiosResponse,
+    //     AxiosError,
+    //     AxiosResponse
+    // >(queryKeys.INVITE_LIST, getInviteList);
 
     const onAccept = useMutation((inviteId: number) => acceptInvite(inviteId), {
         onSuccess: () => {
