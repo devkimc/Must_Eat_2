@@ -1,15 +1,43 @@
 import { GroupList } from 'components';
 import { AxiosData } from 'lib/api/apiClient';
-import React from 'react';
-import { useMutation, useQueryClient } from 'react-query';
+import React, { useEffect, useRef } from 'react';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import * as queryKes from 'constants/queryKeys';
-import { deleteGroup } from 'lib/api/group';
+import { deleteGroup, InviteType } from 'lib/api/group';
+import getFavRest, { FavRest } from 'lib/api/rest';
+import { AxiosResponse, AxiosError } from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    addSearchRes,
+    changeSearchRes,
+    resetSearchRes,
+} from 'store/searchSlice';
+import { RootState } from 'store/store';
 import useGroupData from './hooks/useGroupData';
 
 const GroupListContainer = () => {
+    let mounted = true;
+    const dispatch = useDispatch();
     const queryClient = useQueryClient();
     const { data: groupList } = useGroupData();
+    const { data: favRest } = useQuery<AxiosResponse, AxiosError, FavRest[]>(
+        'favRest',
+        () => getFavRest(3),
+        {
+            staleTime: 0,
+            refetchOnWindowFocus: true,
+            refetchOnMount: true,
+
+            select: data => data?.data?.result,
+        },
+    );
+    const searchRes = useSelector((state: RootState) => state.search.searchRes);
+    console.log(searchRes);
+
+    useEffect(() => {
+        if (mounted) mounted = false;
+    }, []);
 
     const onDeleteGroup = useMutation(
         (groupId: number) => deleteGroup(groupId),
@@ -25,7 +53,8 @@ const GroupListContainer = () => {
     );
 
     const onClickDeleteGroup = (groupId: number) => {
-        onDeleteGroup.mutate(groupId);
+        dispatch(addSearchRes(favRest));
+        // onDeleteGroup.mutate(groupId);
     };
 
     return (
