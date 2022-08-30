@@ -38,7 +38,7 @@ const searchSlice = createSlice({
             state.tab = !state.tab;
         },
         addSearchRes: (state, action) => {
-            state.searchRes = state.searchRes.concat(action.payload);
+            state.searchRes = [...state.searchRes, ...action.payload];
         },
         resetSearchRes: state => {
             state.searchRes = [];

@@ -4,8 +4,8 @@ import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from 'react-query';
 import { AxiosData } from 'lib/api/apiClient';
 import * as queryKeys from 'constants/queryKeys';
-import useInviteData from './hooks/useInviteData';
 import { acceptInvite, rejectInvite } from 'lib/api/group';
+import useInviteData from './hooks/useInviteData';
 
 const InviteChkModalContainer = () => {
     const queryClient = useQueryClient();

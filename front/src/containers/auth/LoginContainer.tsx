@@ -5,6 +5,8 @@ import useInput from 'lib/hooks/useInput';
 import LoginComponents from 'components/auth/LoginComponent';
 import { toast } from 'react-toastify';
 import { AxiosData } from 'lib/api/apiClient';
+import { login } from 'lib/api/auth';
+import { useMutation } from 'react-query';
 
 const LoginContainer = () => {
     const [inputId, onChangeId] = useInput('');
@@ -41,13 +43,3 @@ const LoginContainer = () => {
 };
 
 export default LoginContainer;
-function useMutation(
-    arg0: () => any,
-    arg1: { onSuccess: () => void; onError: (res: AxiosData) => void },
-): { mutate: any } {
-    throw new Error('Function not implemented.');
-}
-
-function login(inputId: string, inputPw: string) {
-    throw new Error('Function not implemented.');
-}

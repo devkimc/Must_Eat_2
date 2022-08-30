@@ -6,6 +6,7 @@ import SignUpComponents from 'components/auth/SignUpComponent';
 import { toast } from 'react-toastify';
 import { AxiosData } from 'lib/api/apiClient';
 import { useMutation } from 'react-query';
+import { signup } from 'lib/api/auth';
 
 const SignUpContainer = () => {
     const [inputId, onChangeId] = useInput('');
@@ -54,11 +55,3 @@ const SignUpContainer = () => {
 };
 
 export default SignUpContainer;
-function signup(
-    inputId: string,
-    inputPw: string,
-    inputEmail: string,
-    inputMobNo: string,
-): Promise<unknown> {
-    throw new Error('Function not implemented.');
-}

@@ -4,8 +4,8 @@ import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import * as queryKes from 'constants/queryKeys';
-import useGroupData from './hooks/useGroupData';
 import { deleteGroup } from 'lib/api/group';
+import useGroupData from './hooks/useGroupData';
 
 const GroupListContainer = () => {
     const queryClient = useQueryClient();
