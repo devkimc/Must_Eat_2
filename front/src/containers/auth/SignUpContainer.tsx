@@ -5,7 +5,7 @@ import useInput from 'lib/hooks/useInput';
 import SignUpComponents from 'components/auth/SignUpComponent';
 import { toast } from 'react-toastify';
 import { AxiosData } from 'lib/api/apiClient';
-import useSignUp from './hooks/useSignUp';
+import { useMutation } from 'react-query';
 
 const SignUpContainer = () => {
     const [inputId, onChangeId] = useInput('');
@@ -15,12 +15,9 @@ const SignUpContainer = () => {
     const [inputMobNo, onChangeMobNo] = useInput('');
     const navigate = useNavigate();
 
-    const { mutate } = useSignUp({
-        inputId,
-        inputPw,
-        inputEmail,
-        inputMobNo,
-        options: {
+    const { mutate } = useMutation(
+        () => signup(inputId, inputPw, inputEmail, inputMobNo),
+        {
             onSuccess: () => {
                 navigate('/login');
                 toast.success('회원가입을 축하해요!');
@@ -29,7 +26,7 @@ const SignUpContainer = () => {
                 toast.error(res.response.data.msg);
             },
         },
-    });
+    );
 
     const onClickSignup = async () => {
         try {
@@ -57,3 +54,11 @@ const SignUpContainer = () => {
 };
 
 export default SignUpContainer;
+function signup(
+    inputId: string,
+    inputPw: string,
+    inputEmail: string,
+    inputMobNo: string,
+): Promise<unknown> {
+    throw new Error('Function not implemented.');
+}
