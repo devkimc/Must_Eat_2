@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import useInput from 'lib/hooks/useInput';
 import SignUpComponents from 'components/auth/SignUpComponent';
 import { toast } from 'react-toastify';
-import { signup } from 'lib/api/auth';
-import { useMutation } from 'react-query';
 import { AxiosData } from 'lib/api/apiClient';
+import { useMutation } from 'react-query';
+import { signup } from 'lib/api/auth';
 
 const SignUpContainer = () => {
     const [inputId, onChangeId] = useInput('');

@@ -18,9 +18,7 @@ const MapContainer = () => {
     const [mapObj, setMapObj] = useState<Map>();
     const [markers, setMarkers] = useState<Marker[]>([]);
 
-    const singleSearchRes = useSelector(
-        (state: RootState) => state.search.searchRes,
-    );
+    const searchRes = useSelector((state: RootState) => state.search.searchRes);
 
     /* 마커 출력 관리 */
     const showMarker = (place: SearchState['place']) => {
@@ -38,11 +36,11 @@ const MapContainer = () => {
 
     /* 중심 좌표 설정 */
     const setCenter = (index: number) => {
-        if (singleSearchRes[index] !== undefined) {
+        if (searchRes[index] !== undefined) {
             mapObj.setCenter(
                 new window.kakao.maps.LatLng(
-                    singleSearchRes[index].y,
-                    singleSearchRes[index].x,
+                    searchRes[index].y,
+                    searchRes[index].x,
                 ),
             );
         }
@@ -78,13 +76,15 @@ const MapContainer = () => {
 
     /* 식당 검색 */
     useEffect(() => {
-        if (singleSearchRes?.length) {
+        console.log(1);
+        if (searchRes?.length) {
+            console.log(2);
             removeMarker();
             setMarkers([]);
             setCenter(0);
-            singleSearchRes.forEach(res => showMarker(res));
+            searchRes.forEach(res => showMarker(res));
         }
-    }, [singleSearchRes]);
+    }, [searchRes]);
 
     return <MapComponent />;
 };

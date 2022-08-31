@@ -20,5 +20,3 @@ export const signup = (
         MOB_NO: mobNo,
     });
 };
-
-export default login;

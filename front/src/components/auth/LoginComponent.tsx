@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { FiUser } from 'react-icons/fi';
-import { AiOutlineUnlock } from 'react-icons/ai';
+import AuthInput from './AuthInput';
 
 const Container = styled.div`
     width: 20rem;
@@ -27,36 +26,6 @@ const InputBox = styled.div`
     margin-bottom: 1.5rem;
 `;
 
-const Input = styled.div`
-    margin-bottom: 1rem;
-    width: 100%;
-`;
-const InputNm = styled.div`
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    margin-left: 0.3rem;
-`;
-
-const InputLine = styled.div`
-    padding: 0.25rem 0.5rem 0.25rem 0.5rem;
-    border-radius: 0.5rem;
-    display: flex;
-    border: 1px solid silver;
-    height: 1.5rem;
-`;
-const Icon = styled.div`
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-`;
-const InputField = styled.input`
-    width: 95%;
-    border: none;
-    margin-left: 0.5rem;
-    :focus {
-        outline: none;
-    }
-`;
 const SubmitBtn = styled.button`
     margin-top: 2rem;
     width: 100%;
@@ -118,33 +87,22 @@ const LoginComponents = ({
                     <TitleTxt>Must Eat</TitleTxt>
                 </Title>
                 <InputBox>
-                    <Input>
-                        <InputNm>Your ID</InputNm>
-                        <InputLine>
-                            <Icon>
-                                <FiUser color="#12B886" />
-                            </Icon>
-                            <InputField
-                                value={inputId}
-                                onChange={onChangeId}
-                                maxLength={16}
-                            />
-                        </InputLine>
-                    </Input>
-                    <Input>
-                        <InputNm>Password</InputNm>
-                        <InputLine>
-                            <Icon>
-                                <AiOutlineUnlock color="#12B886" />
-                            </Icon>
-                            <InputField
-                                type="password"
-                                value={inputPw}
-                                onChange={onChangePw}
-                                maxLength={12}
-                            />
-                        </InputLine>
-                    </Input>
+                    <AuthInput
+                        inputNm="Your ID"
+                        value={inputId}
+                        onChange={onChangeId}
+                        maxLength={16}
+                        type={null}
+                        autoComplete={null}
+                    />
+                    <AuthInput
+                        inputNm="Password"
+                        value={inputPw}
+                        onChange={onChangePw}
+                        maxLength={12}
+                        type="password"
+                        autoComplete={null}
+                    />
 
                     <SubmitBtn
                         onClick={onClick}

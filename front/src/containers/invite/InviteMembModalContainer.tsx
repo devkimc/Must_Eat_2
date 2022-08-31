@@ -1,22 +1,17 @@
 import React, { useState } from 'react';
 import { InviteMembModal } from 'components';
-import { useMutation, useQuery } from 'react-query';
-
-import { getGroupList, inviteGroup } from 'lib/api/group';
 import useInput from 'lib/hooks/useInput';
 import { toast } from 'react-toastify';
-import { AxiosError, AxiosResponse } from 'axios';
 import { AxiosData } from 'lib/api/apiClient';
+import useGroupData from 'containers/group/hooks/useGroupData';
+import { useMutation } from 'react-query';
+import { inviteGroup } from 'lib/api/group';
 
 const InviteMembModalContainer = ({ closeInviteMemb }) => {
     const [selectedGroupId, setSelectedGroupId] = useState<number>();
     const [userId, onChangeUserId, onResetUserId] = useInput('');
 
-    const { data: groupList } = useQuery<
-        AxiosResponse,
-        AxiosError,
-        AxiosResponse
-    >('groupList', getGroupList);
+    const { data: groupList } = useGroupData();
 
     const { mutate } = useMutation(() => inviteGroup(selectedGroupId, userId), {
         onSuccess: () => {
@@ -51,7 +46,7 @@ const InviteMembModalContainer = ({ closeInviteMemb }) => {
 
     return (
         <InviteMembModal
-            groupList={groupList?.data?.result}
+            groupList={groupList}
             userId={userId}
             selectedGroupId={selectedGroupId}
             onChange={onChangeUserId}
