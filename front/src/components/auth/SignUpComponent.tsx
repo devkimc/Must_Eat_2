@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { FiUser } from 'react-icons/fi';
-import { AiOutlineLock, AiOutlineUnlock, AiOutlineMail } from 'react-icons/ai';
-import { MdOutlinePhoneIphone } from 'react-icons/md';
+import AuthInput from './AuthInput';
 
 const Container = styled.div`
     width: 20rem;
@@ -27,36 +25,6 @@ const InputBox = styled.div`
     margin-bottom: 1.5rem;
 `;
 
-const Input = styled.div`
-    margin-bottom: 1rem;
-    width: 100%;
-`;
-const InputNm = styled.div`
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    margin-left: 0.3rem;
-`;
-
-const InputLine = styled.div`
-    padding: 0.25rem 0.5rem 0.25rem 0.5rem;
-    border-radius: 0.5rem;
-    display: flex;
-    border: 1px solid silver;
-    height: 1.5rem;
-`;
-const Icon = styled.div`
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-`;
-const InputField = styled.input`
-    width: 95%;
-    border: none;
-    margin-left: 0.5rem;
-    :focus {
-        outline: none;
-    }
-`;
 const SubmitBtn = styled.div`
     margin-top: 2rem;
     width: 100%;
@@ -128,67 +96,46 @@ const SignUpComponents = ({
                     <TitleTxt>Must Eat</TitleTxt>
                 </Title>
                 <InputBox>
-                    <Input>
-                        <InputNm>Your ID</InputNm>
-                        <InputLine>
-                            <Icon>
-                                <FiUser color="#12B886" />
-                            </Icon>
-                            <InputField onChange={onChangeId} value={inputId} />
-                        </InputLine>
-                    </Input>
-                    <Input>
-                        <InputNm>Password</InputNm>
-                        <InputLine>
-                            <Icon>
-                                <AiOutlineUnlock color="#12B886" />
-                            </Icon>
-                            <InputField
-                                autoComplete="new-password"
-                                type="password"
-                                onChange={onChangePw}
-                                value={inputPw}
-                            />
-                        </InputLine>
-                    </Input>
-                    <Input>
-                        <InputNm>Password Confirm</InputNm>
-                        <InputLine>
-                            <Icon>
-                                <AiOutlineLock color="#12B886" />
-                            </Icon>
-                            <InputField
-                                autoComplete="new-password"
-                                type="password"
-                                onChange={onChangePwConf}
-                                value={inputPwConf}
-                            />
-                        </InputLine>
-                    </Input>
-                    <Input>
-                        <InputNm>Email</InputNm>
-                        <InputLine>
-                            <Icon>
-                                <AiOutlineMail color="#12B886" />
-                            </Icon>
-                            <InputField
-                                onChange={onChangeEmail}
-                                value={inputEmail}
-                            />
-                        </InputLine>
-                    </Input>
-                    <Input>
-                        <InputNm>Cell phone number</InputNm>
-                        <InputLine>
-                            <Icon>
-                                <MdOutlinePhoneIphone color="#12B886" />
-                            </Icon>
-                            <InputField
-                                onChange={onChangeMobNo}
-                                value={inputMobNo}
-                            />
-                        </InputLine>
-                    </Input>
+                    <AuthInput
+                        inputNm="Your ID"
+                        value={inputId}
+                        onChange={onChangeId}
+                        maxLength={null}
+                        type={null}
+                        autoComplete={null}
+                    />
+                    <AuthInput
+                        inputNm="Password"
+                        value={inputPw}
+                        onChange={onChangePw}
+                        maxLength={null}
+                        type="password"
+                        autoComplete="new-password"
+                    />
+                    <AuthInput
+                        inputNm="Password Confirm"
+                        value={inputPwConf}
+                        onChange={onChangePwConf}
+                        maxLength={null}
+                        type="password"
+                        autoComplete="new-password"
+                    />
+                    <AuthInput
+                        inputNm="Email"
+                        value={inputEmail}
+                        onChange={onChangeEmail}
+                        maxLength={null}
+                        type={null}
+                        autoComplete={null}
+                    />
+                    <AuthInput
+                        inputNm="Cell phone number"
+                        value={inputMobNo}
+                        onChange={onChangeMobNo}
+                        maxLength={null}
+                        type={null}
+                        autoComplete={null}
+                    />
                     <SubmitBtn onClick={onClick}>
                         <FlexCol>
                             <SubmitTxt>Sign up</SubmitTxt>
