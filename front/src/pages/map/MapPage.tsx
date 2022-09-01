@@ -27,8 +27,8 @@ const MapPage = () => {
                 <SearchResultContainer />
             </SearchBlock>
             <MapContainer />
-            {/* <InviteChkBtnContainer />
-            <InviteMembBtnContainer /> */}
+            <InviteChkBtnContainer />
+            <InviteMembBtnContainer />
         </Container>
     );
 };

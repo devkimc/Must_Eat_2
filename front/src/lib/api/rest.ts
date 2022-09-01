@@ -37,5 +37,3 @@ export const addFavRest = ({
 type FavRestIp = FavRest & {
     groupId: number;
 };
-
-export default getFavRest;
