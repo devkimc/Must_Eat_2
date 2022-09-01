@@ -3,7 +3,7 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import createError from 'http-errors';
-import { createPool } from 'mysql';
+import { createPool } from 'mysql2';
 import session from 'express-session';
 import config from './config/db-config.json';
 import api from './routes';
