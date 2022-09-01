@@ -1,19 +1,19 @@
 import apiClient from './apiClient';
 
 export const getFavRest = (groupId: number) => {
-    return apiClient.get<FavRest[]>('/api/fav-rest', {
+    return apiClient.get<RestType[]>('/api/fav-rest', {
         params: {
             GROUP_ID: groupId,
         },
     });
 };
 
-export type FavRest = {
-    id: number;
-    place_name: string;
-    category_name: string;
-    y: number;
-    x: number;
+export type RestType = {
+    id: number | null;
+    place_name: string | null;
+    category_name: string | null;
+    y: number | null;
+    x: number | null;
 };
 
 export const addFavRest = ({
@@ -34,6 +34,6 @@ export const addFavRest = ({
     });
 };
 
-type FavRestIp = FavRest & {
+type FavRestIp = RestType & {
     groupId: number;
 };

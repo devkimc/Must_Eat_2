@@ -5,7 +5,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import * as queryKes from 'constants/queryKeys';
 import { deleteGroup } from 'lib/api/group';
-import { getFavRest, FavRest } from 'lib/api/rest';
+import { getFavRest, RestType } from 'lib/api/rest';
 import { AxiosResponse, AxiosError } from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeSearchRes } from 'store/searchSlice';
@@ -17,7 +17,7 @@ const GroupListContainer = () => {
     const dispatch = useDispatch();
     const queryClient = useQueryClient();
     const { data: groupList } = useGroupData();
-    const { data: favRest } = useQuery<AxiosResponse, AxiosError, FavRest[]>(
+    const { data: favRest } = useQuery<AxiosResponse, AxiosError, RestType[]>(
         'favRest',
         () => getFavRest(1),
         {
@@ -29,7 +29,6 @@ const GroupListContainer = () => {
         },
     );
     const searchRes = useSelector((state: RootState) => state.search.searchRes);
-    console.log(searchRes);
 
     useEffect(() => {
         if (mounted) mounted = false;
