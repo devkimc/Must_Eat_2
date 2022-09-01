@@ -19,16 +19,13 @@ const LoginContainer = () => {
             toast.success('로그인에 성공하셨습니다!');
         },
         onError: (res: AxiosData) => {
+            onResetPw();
             toast.error(res.response.data.msg);
         },
     });
 
     const onClickLogin = async () => {
-        try {
-            mutate();
-        } catch (error) {
-            onResetPw();
-        }
+        mutate();
     };
 
     return (

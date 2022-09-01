@@ -24,17 +24,14 @@ const SignUpContainer = () => {
                 toast.success('회원가입을 축하해요!');
             },
             onError: (res: AxiosData) => {
+                onResetPwConf();
                 toast.error(res.response.data.msg);
             },
         },
     );
 
     const onClickSignup = async () => {
-        try {
-            mutate();
-        } catch (error) {
-            onResetPwConf();
-        }
+        mutate();
     };
 
     return (

@@ -68,4 +68,4 @@ const SearchInputContainer = () => {
     );
 };
 
-export default SearchInputContainer;
+export default React.memo(SearchInputContainer);
