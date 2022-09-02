@@ -77,14 +77,16 @@ const SearchResultContainer = () => {
     return (
         <SearchResultBlock>
             <OptionTab tab={tab} onClickTab={onclickTab} />
-            {tab && searchRes[0]?.address_name && (
+            {tab && searchRes[0]?.address_name && searchRes.length && (
                 <SearchResult
                     searchRes={searchRes}
                     onClickFolderAdd={onClickFolderAdd}
                     splitCateNm={splitCateNm}
                 />
             )}
-            {tab && !searchRes[0]?.address_name && <FavRestListContainer />}
+            {tab && !searchRes[0]?.address_name && searchRes.length && (
+                <FavRestListContainer />
+            )}
 
             {!tab && <GroupListContainer />}
 

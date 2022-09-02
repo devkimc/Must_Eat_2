@@ -5,34 +5,34 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import * as queryKes from 'constants/queryKeys';
 import { deleteGroup } from 'lib/api/group';
-import { getFavRest, RestType } from 'lib/api/rest';
 import { AxiosResponse, AxiosError } from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeSearchRes } from 'store/searchSlice';
 import { RootState } from 'store/store';
+import { changeGroupId } from 'store/groupSlice';
+import { getFavRest, RestType } from 'lib/api/rest';
 import useGroupData from './hooks/useGroupData';
 
 const GroupListContainer = () => {
-    let mounted = true;
     const dispatch = useDispatch();
+
     const queryClient = useQueryClient();
     const { data: groupList } = useGroupData();
-    const { data: favRest } = useQuery<AxiosResponse, AxiosError, RestType[]>(
-        'favRest',
-        () => getFavRest(1),
-        {
-            staleTime: 0,
-            refetchOnWindowFocus: true,
-            refetchOnMount: true,
+    const onSuccess = () => {
+        console.log('perform side effect after data fetching');
+    };
+    const selectedGroupId = useSelector(
+        (state: RootState) => state.group.groupId,
+    );
+    console.log(`groupId: ${selectedGroupId}`);
 
+    const { refetch } = useQuery<AxiosResponse, AxiosError, RestType[]>(
+        ['favRest', selectedGroupId],
+        () => getFavRest(selectedGroupId),
+        {
+            onSuccess: () => onSuccess(),
             select: data => data?.data?.result,
         },
     );
-    const searchRes = useSelector((state: RootState) => state.search.searchRes);
-
-    useEffect(() => {
-        if (mounted) mounted = false;
-    }, []);
 
     const onDeleteGroup = useMutation(
         (groupId: number) => deleteGroup(groupId),
@@ -48,12 +48,20 @@ const GroupListContainer = () => {
     );
 
     const onClickDeleteGroup = (groupId: number) => {
-        dispatch(changeSearchRes(favRest));
-        // onDeleteGroup.mutate(groupId);
+        onDeleteGroup.mutate(groupId);
+    };
+
+    const onClickGroup = (groupId: number) => {
+        dispatch(changeGroupId(groupId));
+        refetch();
     };
 
     return (
-        <GroupList groupList={groupList} onClickDelete={onClickDeleteGroup} />
+        <GroupList
+            groupList={groupList}
+            onClickGroup={onClickGroup}
+            onClickDelete={onClickDeleteGroup}
+        />
     );
 };
 
