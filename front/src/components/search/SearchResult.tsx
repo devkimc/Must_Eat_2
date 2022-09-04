@@ -5,7 +5,7 @@ import { BiMap } from 'react-icons/bi';
 import { IoIosCall } from 'react-icons/io';
 import { FiShare, FiFolderPlus } from 'react-icons/fi';
 import { SearchState } from 'store/searchSlice';
-import { Rest } from 'containers/search/SearchResultContainer';
+import { FavRestType, RestType } from 'lib/api/rest';
 
 const Wrapper = styled.div`
     height: 87%;
@@ -156,7 +156,13 @@ const FlexCol = styled.div`
 
 type Props = {
     searchRes: SearchState['searchRes'];
-    onClickFolderAdd: ({ id, place_name, category_name, y, x }: Rest) => void;
+    onClickFolderAdd: ({
+        id,
+        place_name,
+        category_name,
+        y,
+        x,
+    }: FavRestType) => void;
     splitCateNm: (cateNm: string) => string[];
 };
 
@@ -224,7 +230,13 @@ const SearchResult = ({ searchRes, onClickFolderAdd, splitCateNm }: Props) => {
                                             (cateNm, z) => (
                                                 <Badge
                                                     key={cateNm}
-                                                    randomColor={colorArr[z]}
+                                                    randomColor={
+                                                        colorArr[
+                                                            cateNm[0].charCodeAt(
+                                                                0,
+                                                            ) % 10
+                                                        ]
+                                                    }
                                                 >
                                                     <CateNmTxt>
                                                         {cateNm}

@@ -1,43 +1,36 @@
 import { GroupList } from 'components';
 import { AxiosData } from 'lib/api/apiClient';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
 import * as queryKes from 'constants/queryKeys';
-import { deleteGroup, InviteType } from 'lib/api/group';
-import getFavRest, { FavRest } from 'lib/api/rest';
+import { deleteGroup } from 'lib/api/group';
 import { AxiosResponse, AxiosError } from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    addSearchRes,
-    changeSearchRes,
-    resetSearchRes,
-} from 'store/searchSlice';
 import { RootState } from 'store/store';
+import { changeGroupId } from 'store/groupSlice';
+import { getFavRest, RestType } from 'lib/api/rest';
+import { changeSearchRes, changeTab } from 'store/searchSlice';
 import useGroupData from './hooks/useGroupData';
 
 const GroupListContainer = () => {
-    let mounted = true;
     const dispatch = useDispatch();
+
     const queryClient = useQueryClient();
     const { data: groupList } = useGroupData();
-    const { data: favRest } = useQuery<AxiosResponse, AxiosError, FavRest[]>(
-        'favRest',
-        () => getFavRest(3),
+
+    const selectedGroupId = useSelector(
+        (state: RootState) => state.group.groupId,
+    );
+
+    const { data: favRest } = useQuery<AxiosResponse, AxiosError, RestType[]>(
+        [queryKes.FAV_REST_LIST, selectedGroupId],
+        () => getFavRest(selectedGroupId),
         {
             staleTime: 0,
-            refetchOnWindowFocus: true,
-            refetchOnMount: true,
-
             select: data => data?.data?.result,
         },
     );
-    const searchRes = useSelector((state: RootState) => state.search.searchRes);
-    console.log(searchRes);
-
-    useEffect(() => {
-        if (mounted) mounted = false;
-    }, []);
 
     const onDeleteGroup = useMutation(
         (groupId: number) => deleteGroup(groupId),
@@ -53,12 +46,20 @@ const GroupListContainer = () => {
     );
 
     const onClickDeleteGroup = (groupId: number) => {
-        dispatch(addSearchRes(favRest));
-        // onDeleteGroup.mutate(groupId);
+        onDeleteGroup.mutate(groupId);
+    };
+
+    const onClickGroup = (groupId: number) => {
+        dispatch(changeGroupId(groupId));
+        dispatch(changeSearchRes(favRest));
     };
 
     return (
-        <GroupList groupList={groupList} onClickDelete={onClickDeleteGroup} />
+        <GroupList
+            groupList={groupList}
+            onClickGroup={onClickGroup}
+            onClickDelete={onClickDeleteGroup}
+        />
     );
 };
 

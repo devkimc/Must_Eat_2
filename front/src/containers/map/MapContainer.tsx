@@ -52,7 +52,7 @@ const MapContainer = () => {
                 Constants.POSITION_LAT_CDNT,
                 Constants.POSITION_LNG_CDNT,
             ),
-            level: 8,
+            level: 4,
         };
         const container = document.getElementById('map');
         const initMapObj = new window.kakao.maps.Map(container, mapOptions);
@@ -76,9 +76,8 @@ const MapContainer = () => {
 
     /* 식당 검색 */
     useEffect(() => {
-        console.log(1);
         if (searchRes?.length) {
-            console.log(2);
+            console.log(`searchRes useEffect`);
             removeMarker();
             setMarkers([]);
             setCenter(0);

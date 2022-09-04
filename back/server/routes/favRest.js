@@ -16,15 +16,15 @@ router.get('/', (req, res) => {
         }
 
         conn.query(
-            ' SELECT T02.REST_ID               ' +
-                '      , T02.REST_NM               ' +
-                '      , T02.FOOD_CATE             ' +
-                '      , T02.LAT_CDNT              ' +
-                '      , T02.LNG_CDNT              ' +
-                '   FROM GROUP_REST T01            ' +
-                '      ,       REST T02            ' +
-                '  WHERE T01.GROUP_ID = ?          ' +
-                '    AND T01.REST_ID = T02.REST_ID ',
+            ' SELECT T02.REST_ID        as id            ' +
+                '      , T02.REST_NM    as place_name    ' +
+                '      , T02.FOOD_CATE  as category_name ' +
+                '      , T02.LAT_CDNT   as y             ' +
+                '      , T02.LNG_CDNT   as x             ' +
+                '   FROM GROUP_REST T01                  ' +
+                '      ,       REST T02                  ' +
+                '  WHERE T01.GROUP_ID = ?                ' +
+                '    AND T01.REST_ID = T02.REST_ID       ',
             [req.query.GROUP_ID],
             (err, result) => {
                 if (err) throw err;

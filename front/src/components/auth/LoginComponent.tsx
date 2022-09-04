@@ -88,15 +88,15 @@ const LoginComponents = ({
                 </Title>
                 <InputBox>
                     <AuthInput
-                        inputNm="Your ID"
+                        input="id"
                         value={inputId}
                         onChange={onChangeId}
                         maxLength={16}
-                        type={null}
+                        type="text"
                         autoComplete={null}
                     />
                     <AuthInput
-                        inputNm="Password"
+                        input="pw"
                         value={inputPw}
                         onChange={onChangePw}
                         maxLength={12}

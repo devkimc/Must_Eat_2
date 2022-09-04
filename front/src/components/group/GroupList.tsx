@@ -76,10 +76,11 @@ const GroupExit = styled.div`
 
 type Props = {
     groupList: GroupType[];
+    onClickGroup: (groupId: number) => void;
     onClickDelete: (groupId: number) => void;
 };
 
-const GroupList = ({ groupList, onClickDelete }: Props) => {
+const GroupList = ({ groupList, onClickGroup, onClickDelete }: Props) => {
     const colorArr = [
         '#f5e6ab',
         '#f0c33c',
@@ -96,7 +97,10 @@ const GroupList = ({ groupList, onClickDelete }: Props) => {
     return (
         <GroupListBlock>
             {groupList?.map((el, i) => (
-                <Group key={el.GROUP_ID}>
+                <Group
+                    key={el.GROUP_ID}
+                    onClick={() => onClickGroup(el.GROUP_ID)}
+                >
                     <GroupBox>
                         <GroupImg imgColor={colorArr[i % 10]} />
                         <GroupInfo>

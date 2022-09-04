@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import {
-    addSearchRes,
+    changeSearchRes,
     changeSearchIp,
     changeTab,
     resetSearchRes,
@@ -28,7 +28,7 @@ const SearchInputContainer = () => {
     const onSearchCB = (result: SearchState['searchRes'], status: string) => {
         const resStatus = window.kakao.maps.services.Status;
         if (status === resStatus.OK) {
-            dispatch(addSearchRes(result));
+            dispatch(changeSearchRes(result));
         } else if (status === resStatus.ZERO_RESULT) {
             toast.warning('검색 결과가 없습니다!');
         } else {
@@ -68,4 +68,4 @@ const SearchInputContainer = () => {
     );
 };
 
-export default SearchInputContainer;
+export default React.memo(SearchInputContainer);

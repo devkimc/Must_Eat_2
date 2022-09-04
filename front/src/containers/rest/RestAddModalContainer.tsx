@@ -61,9 +61,11 @@ const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
             x: targetRestInfo.x,
         })
             .then(() => {
+                onClickCloseBtn();
                 toast.success(
                     `${targetRestInfo.place_name} 식당이 내 그룹에 담겼습니다.`,
                 );
+                queryClient.invalidateQueries(queryKes.GROUP_LIST);
             })
             .catch((res: AxiosData) => {
                 toast.error(res.response.data.msg);

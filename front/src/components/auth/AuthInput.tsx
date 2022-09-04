@@ -37,7 +37,7 @@ const Icon = styled.div`
 `;
 
 type Props = {
-    inputNm: string;
+    input: string;
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     maxLength: number;
@@ -46,37 +46,42 @@ type Props = {
 };
 
 const AuthInput = ({
-    inputNm,
+    input,
     value,
     onChange,
     maxLength,
     type,
     autoComplete,
 }: Props) => {
+    let inputNm: string;
+    let icon: JSX.Element;
     const iconColor = '#12B886';
-    const filter = () => {
-        switch (inputNm) {
-            case 'Your ID':
-                return <FiUser color={iconColor} />;
-            case 'Password':
-                return <AiOutlineUnlock color={iconColor} />;
-            case 'Password Confirm':
-                return <AiOutlineLock color={iconColor} />;
-            case 'Email':
-                return <AiOutlineMail color={iconColor} />;
-            case 'Cell phone number':
-                return <MdOutlinePhoneIphone color={iconColor} />;
-            default:
-                console.log('Not allow input name!');
-        }
-        return inputNm;
-    };
+
+    // Filter
+    if (input === 'id') {
+        inputNm = 'Your ID';
+        icon = <FiUser color={iconColor} />;
+    } else if (input === 'pw') {
+        inputNm = 'Password';
+        icon = <AiOutlineUnlock color={iconColor} />;
+    } else if (input === 'pwConf') {
+        inputNm = 'Password Confirm';
+        icon = <AiOutlineLock color={iconColor} />;
+    } else if (input === 'email') {
+        inputNm = 'Email';
+        icon = <AiOutlineMail color={iconColor} />;
+    } else if (input === 'mobNo') {
+        inputNm = 'Cell phone number';
+        icon = <MdOutlinePhoneIphone color={iconColor} />;
+    } else {
+        console.log(`Not allow input! ${input}`);
+    }
 
     return (
         <Input>
             <InputNm>{inputNm}</InputNm>
             <InputLine>
-                <Icon>{filter()}</Icon>
+                <Icon>{icon}</Icon>
                 <InputField
                     value={value}
                     onChange={onChange}

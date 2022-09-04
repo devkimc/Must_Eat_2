@@ -97,15 +97,15 @@ const SignUpComponents = ({
                 </Title>
                 <InputBox>
                     <AuthInput
-                        inputNm="Your ID"
+                        input="id"
                         value={inputId}
                         onChange={onChangeId}
                         maxLength={null}
-                        type={null}
+                        type="text"
                         autoComplete={null}
                     />
                     <AuthInput
-                        inputNm="Password"
+                        input="pw"
                         value={inputPw}
                         onChange={onChangePw}
                         maxLength={null}
@@ -113,7 +113,7 @@ const SignUpComponents = ({
                         autoComplete="new-password"
                     />
                     <AuthInput
-                        inputNm="Password Confirm"
+                        input="pwConf"
                         value={inputPwConf}
                         onChange={onChangePwConf}
                         maxLength={null}
@@ -121,19 +121,19 @@ const SignUpComponents = ({
                         autoComplete="new-password"
                     />
                     <AuthInput
-                        inputNm="Email"
+                        input="email"
                         value={inputEmail}
                         onChange={onChangeEmail}
                         maxLength={null}
-                        type={null}
+                        type="email"
                         autoComplete={null}
                     />
                     <AuthInput
-                        inputNm="Cell phone number"
+                        input="mobNo"
                         value={inputMobNo}
                         onChange={onChangeMobNo}
                         maxLength={null}
-                        type={null}
+                        type="text"
                         autoComplete={null}
                     />
                     <SubmitBtn onClick={onClick}>
