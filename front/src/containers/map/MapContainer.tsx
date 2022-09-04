@@ -52,7 +52,7 @@ const MapContainer = () => {
                 Constants.POSITION_LAT_CDNT,
                 Constants.POSITION_LNG_CDNT,
             ),
-            level: 8,
+            level: 4,
         };
         const container = document.getElementById('map');
         const initMapObj = new window.kakao.maps.Map(container, mapOptions);

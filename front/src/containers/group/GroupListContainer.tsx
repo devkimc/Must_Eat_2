@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store/store';
 import { changeGroupId } from 'store/groupSlice';
 import { getFavRest, RestType } from 'lib/api/rest';
+import { changeSearchRes, changeTab } from 'store/searchSlice';
 import useGroupData from './hooks/useGroupData';
 
 const GroupListContainer = () => {
@@ -17,19 +18,16 @@ const GroupListContainer = () => {
 
     const queryClient = useQueryClient();
     const { data: groupList } = useGroupData();
-    const onSuccess = () => {
-        console.log('perform side effect after data fetching');
-    };
+
     const selectedGroupId = useSelector(
         (state: RootState) => state.group.groupId,
     );
-    console.log(`groupId: ${selectedGroupId}`);
 
-    const { refetch } = useQuery<AxiosResponse, AxiosError, RestType[]>(
-        ['favRest', selectedGroupId],
+    const { data: favRest } = useQuery<AxiosResponse, AxiosError, RestType[]>(
+        [queryKes.FAV_REST_LIST, selectedGroupId],
         () => getFavRest(selectedGroupId),
         {
-            onSuccess: () => onSuccess(),
+            staleTime: 0,
             select: data => data?.data?.result,
         },
     );
@@ -53,7 +51,7 @@ const GroupListContainer = () => {
 
     const onClickGroup = (groupId: number) => {
         dispatch(changeGroupId(groupId));
-        refetch();
+        dispatch(changeSearchRes(favRest));
     };
 
     return (

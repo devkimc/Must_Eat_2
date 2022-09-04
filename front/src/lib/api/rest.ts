@@ -14,6 +14,16 @@ export type RestType = {
     category_name: string | null;
     y: number | null;
     x: number | null;
+    address_name: string | null;
+    phone: string | null;
+};
+
+export type FavRestType = {
+    id: number | null;
+    place_name: string | null;
+    category_name: string | null;
+    y: number | null;
+    x: number | null;
 };
 
 export const addFavRest = ({
@@ -34,6 +44,6 @@ export const addFavRest = ({
     });
 };
 
-type FavRestIp = RestType & {
+type FavRestIp = FavRestType & {
     groupId: number;
 };

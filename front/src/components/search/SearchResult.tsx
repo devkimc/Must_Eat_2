@@ -5,7 +5,7 @@ import { BiMap } from 'react-icons/bi';
 import { IoIosCall } from 'react-icons/io';
 import { FiShare, FiFolderPlus } from 'react-icons/fi';
 import { SearchState } from 'store/searchSlice';
-import { RestType } from 'lib/api/rest';
+import { FavRestType, RestType } from 'lib/api/rest';
 
 const Wrapper = styled.div`
     height: 87%;
@@ -162,7 +162,7 @@ type Props = {
         category_name,
         y,
         x,
-    }: RestType) => void;
+    }: FavRestType) => void;
     splitCateNm: (cateNm: string) => string[];
 };
 

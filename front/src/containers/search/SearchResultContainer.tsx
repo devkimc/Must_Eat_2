@@ -5,7 +5,7 @@ import { RootState } from 'store/store';
 import { useDispatch, useSelector } from 'react-redux';
 import RestAddModalContainer from 'containers/rest/RestAddModalContainer';
 import { changeTab } from 'store/searchSlice';
-import { RestType } from 'lib/api/rest';
+import { FavRestType } from 'lib/api/rest';
 import FavRestListContainer from 'containers/rest/FavRestListContainer';
 import GroupListContainer from '../group/GroupListContainer';
 
@@ -13,7 +13,7 @@ const SearchResultBlock = styled.div``;
 
 const SearchResultContainer = () => {
     const [restAddModal, setRestAddModal] = useState<boolean>(false);
-    const [targetRestInfo, setTargetRestInfo] = useState<RestType>();
+    const [targetRestInfo, setTargetRestInfo] = useState<FavRestType>();
 
     const searchRes = useSelector((state: RootState) => state.search.searchRes);
     const tab = useSelector((state: RootState) => state.search.tab);
@@ -35,7 +35,7 @@ const SearchResultContainer = () => {
         category_name,
         y,
         x,
-    }: RestType) => {
+    }: FavRestType) => {
         setRestAddModal(true);
         setTargetRestInfo({
             id,
@@ -77,16 +77,16 @@ const SearchResultContainer = () => {
     return (
         <SearchResultBlock>
             <OptionTab tab={tab} onClickTab={onclickTab} />
-            {tab && searchRes[0]?.address_name && searchRes.length && (
+            {tab && (
                 <SearchResult
                     searchRes={searchRes}
                     onClickFolderAdd={onClickFolderAdd}
                     splitCateNm={splitCateNm}
                 />
             )}
-            {tab && !searchRes[0]?.address_name && searchRes.length && (
+            {/* {tab && !searchRes[0]?.address_name && searchRes.length && (
                 <FavRestListContainer />
-            )}
+            )} */}
 
             {!tab && <GroupListContainer />}
 
