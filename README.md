@@ -42,7 +42,8 @@
 
 > **Client**
 > + React
-> + Recoil
+> + Redux-toolkit
+> + React-query
 > + Styled-components
 >
 >
