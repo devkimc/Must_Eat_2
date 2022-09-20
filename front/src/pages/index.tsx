@@ -1,4 +1,6 @@
-export { default as Home } from './home/HomePage';
-export { default as Map } from './map/MapPage';
-export { default as Login } from './auth/LoginPage';
-export { default as SignUp } from './auth/SignUpPage';
+import React from 'react';
+import type { AppProps } from 'next/app';
+
+export default function Home({ Component, pageProps }: AppProps) {
+    return <Component {...pageProps} />;
+}

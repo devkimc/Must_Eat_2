@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 import useInput from 'lib/hooks/useInput';
 import LoginComponents from 'components/auth/LoginComponent';
@@ -11,11 +11,11 @@ import { useMutation } from 'react-query';
 const LoginContainer = () => {
     const [inputId, onChangeId] = useInput('');
     const [inputPw, onChangePw, onResetPw] = useInput('');
-    const navigate = useNavigate();
+    const router = useRouter();
 
     const { mutate } = useMutation(() => login(inputId, inputPw), {
         onSuccess: () => {
-            navigate('/map');
+            router.push('/map');
             toast.success('로그인에 성공하셨습니다!');
         },
         onError: (res: AxiosData) => {

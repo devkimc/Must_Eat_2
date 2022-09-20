@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import styled from 'styled-components';
 
 import AuthInput from './AuthInput';
@@ -115,7 +115,7 @@ const LoginComponents = ({
                     </SubmitBtn>
                 </InputBox>
                 <SignUpBtn>
-                    <Link to="/signup">
+                    <Link href="/signup">
                         <SignUpTxt>SignUp</SignUpTxt>
                     </Link>
                 </SignUpBtn>

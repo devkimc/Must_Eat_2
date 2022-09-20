@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import styled from 'styled-components';
 import AuthInput from './AuthInput';
 
@@ -143,7 +143,7 @@ const SignUpComponents = ({
                     </SubmitBtn>
                 </InputBox>
                 <LoginBtn>
-                    <Link to="/login">
+                    <Link href="/login">
                         <LoginTxt>Login</LoginTxt>
                     </Link>
                 </LoginBtn>

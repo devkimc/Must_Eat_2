@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 import useInput from 'lib/hooks/useInput';
 import SignUpComponents from 'components/auth/SignUpComponent';
@@ -14,13 +14,13 @@ const SignUpContainer = () => {
     const [inputPwConf, onChangePwConf, onResetPwConf] = useInput('');
     const [inputEmail, onChangeEmail] = useInput('');
     const [inputMobNo, onChangeMobNo] = useInput('');
-    const navigate = useNavigate();
+    const router = useRouter();
 
     const { mutate } = useMutation(
         () => signup(inputId, inputPw, inputEmail, inputMobNo),
         {
             onSuccess: () => {
-                navigate('/login');
+                router.push('/login');
                 toast.success('회원가입을 축하해요!');
             },
             onError: (res: AxiosData) => {
