@@ -1,8 +1,8 @@
 import React from 'react';
 import { SignUpContainer } from 'containers';
 
-const SignUpPage = () => {
+const SignUp = () => {
     return <SignUpContainer />;
 };
 
-export default SignUpPage;
+export default SignUp;

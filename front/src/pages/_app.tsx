@@ -1,19 +1,38 @@
 import React from 'react';
-import Head from 'next/head';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { Provider } from 'react-redux';
+import { ToastContainer, Flip } from 'react-toastify';
+import type { AppProps } from 'next/app';
 
-function MyApp() {
+import GlobalStyle from 'style/GlobalStyle';
+import store from 'store/store';
+import 'react-toastify/dist/ReactToastify.css';
+
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            useErrorBoundary: true,
+            staleTime: Infinity,
+        },
+    },
+});
+
+export default function MyApp({ Component, pageProps }: AppProps) {
     return (
         <>
-            <Head>
-                <title>Porject title</title>
-                <link rel="shortcut icon" href="/favicon.png" />
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-                />
-            </Head>
+            <QueryClientProvider client={queryClient}>
+                <Provider store={store}>
+                    <Component {...pageProps} />;
+                    <GlobalStyle />
+                    <ToastContainer
+                        transition={Flip}
+                        position="top-center"
+                        autoClose={2000}
+                        closeOnClick
+                        pauseOnHover
+                    />
+                </Provider>
+            </QueryClientProvider>
         </>
     );
 }
-
-export default MyApp;

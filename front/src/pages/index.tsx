@@ -1,6 +1,16 @@
-import React from 'react';
-import type { AppProps } from 'next/app';
+import Head from 'next/head';
 
-export default function Home({ Component, pageProps }: AppProps) {
-    return <Component {...pageProps} />;
+export default function Home() {
+    return (
+        <>
+            <Head>
+                <title>Porject title</title>
+                <link rel="shortcut icon" href="/favicon.png" />
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+                />
+            </Head>
+        </>
+    );
 }
