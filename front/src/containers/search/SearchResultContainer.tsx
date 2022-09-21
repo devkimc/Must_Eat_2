@@ -54,22 +54,22 @@ const SearchResultContainer = () => {
         if (searchRes?.length >= 1 && searchRes[0]?.address_name) {
             /* 카카오톡 공유하기 */
             searchRes.forEach((el, i) => {
-                window.Kakao.Share.createDefaultButton({
-                    container: `#create-kakaotalk-sharing-btn${i}`,
-                    objectType: 'location',
-                    address: el.address_name,
-                    addressTitle: el.place_name,
-                    content: {
-                        title: el.place_name,
-                        description: el.category_name,
-                        imageUrl:
-                            'http://k.kakaocdn.net/dn/bSbH9w/btqgegaEDfW/vD9KKV0hEintg6bZT4v4WK/kakaolink40_original.png',
-                        link: {
-                            mobileWebUrl: `https://place.map.kakao.com/${el.id}`,
-                            webUrl: `https://place.map.kakao.com/${el.id}`,
-                        },
-                    },
-                });
+                // window.Kakao.Share.createDefaultButton({
+                //     container: `#create-kakaotalk-sharing-btn${i}`,
+                //     objectType: 'location',
+                //     address: el.address_name,
+                //     addressTitle: el.place_name,
+                //     content: {
+                //         title: el.place_name,
+                //         description: el.category_name,
+                //         imageUrl:
+                //             'http://k.kakaocdn.net/dn/bSbH9w/btqgegaEDfW/vD9KKV0hEintg6bZT4v4WK/kakaolink40_original.png',
+                //         link: {
+                //             mobileWebUrl: `https://place.map.kakao.com/${el.id}`,
+                //             webUrl: `https://place.map.kakao.com/${el.id}`,
+                //         },
+                //     },
+                // });
             });
         }
     }, [searchRes]);

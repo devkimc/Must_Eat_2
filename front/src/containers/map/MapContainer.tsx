@@ -60,7 +60,7 @@ const MapContainer = () => {
     };
 
     useEffect(() => {
-        window.Kakao.init(process.env.NEXT_PUBLIC_API_KEY_KAKAO_MAP);
+        // window.Kakao.init(process.env.NEXT_PUBLIC_API_KEY_KAKAO_MAP);
     }, []);
 
     useEffect(() => {
