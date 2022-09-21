@@ -60,7 +60,7 @@ const MapContainer = () => {
     };
 
     useEffect(() => {
-        window.Kakao.init(process.env.REACT_APP_API_KEY_KAKAO_MAP);
+        window.Kakao.init(process.env.NEXT_PUBLIC_API_KEY_KAKAO_MAP);
     }, []);
 
     useEffect(() => {
@@ -69,7 +69,7 @@ const MapContainer = () => {
         script.onload = () => window.kakao.maps.load(initMap);
         script.src =
             Constants.KAKAO_MAP_API_URL +
-            process.env.REACT_APP_API_KEY_KAKAO_MAP +
+            process.env.NEXT_PUBLIC_API_KEY_KAKAO_MAP +
             Constants.KAKAO_MAP_API_SERVICES;
         document.head.appendChild(script);
     }, []);
