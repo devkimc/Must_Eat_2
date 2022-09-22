@@ -1,158 +1,34 @@
 import React from 'react';
-import styled from 'styled-components';
-
 import { BiMap } from 'react-icons/bi';
 import { IoIosCall } from 'react-icons/io';
 import { FiShare, FiFolderPlus } from 'react-icons/fi';
 import { SearchState } from 'store/searchSlice';
 import { FavRestType, RestType } from 'lib/api/rest';
-
-const Wrapper = styled.div`
-    height: 87%;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-`;
-
-/* 검색 결과 */
-const Result = styled.ul`
-    overflow: hidden;
-    overflow-y: scroll;
-    height: 44rem;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-    &::-webkit-scrollbar {
-        width: 0.44rem;
-        height: 3rem;
-    }
-    &::-webkit-scrollbar-thumb {
-        background-color: rgba(175, 175, 175, 0.72);
-        border-radius: 10px;
-        height: 1rem;
-    }
-    &::-webkit-scrollbar-track {
-        background-color: #e4e4e4;
-        border-radius: 100px;
-    }
-`;
-
-const ResultList = styled.li`
-    padding: 1rem 1.5rem 1.2rem;
-    border-top: 1px solid #eee;
-`;
-
-const RadiusBox = styled.div`
-    width: 19rem;
-    box-shadow: 0 0.1rem 0.2rem rgb(0 0 0 / 20%), 0 -0.1rem 0 rgb(0 0 0 / 2%);
-    border-radius: 0.6rem;
-
-    padding: 1rem 0.6rem 1rem 0.6rem;
-`;
-
-const Title = styled.div`
-    display: flex;
-    justify-content: space-between;
-`;
-
-const PlaceBtn = styled.div`
-    display: flex;
-`;
-
-const BorderLine = styled.div`
-    border-bottom: 1px solid silver;
-    border-style: dashed;
-    margin-bottom: 0.75rem;
-    margin-top: 0.6rem;
-`;
-
-const Info = styled.div``;
-
-const PlaceNmTxt = styled.span`
-    font-size: 1rem;
-`;
-
-const PhoneNum = styled.div`
-    display: flex;
-`;
-
-const PhoneNumTxt = styled.span`
-    font-size: 0.75rem;
-`;
-
-const PhoneNumIcon = styled.div`
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-`;
-
-const AddrNm = styled.div`
-    display: flex;
-    margin-bottom: 0.4rem;
-`;
-
-const AddrNmIcon = styled.div`
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-`;
-
-const AddrNmTxt = styled.span`
-    font-size: 0.75rem;
-`;
-
-const CateNmTxt = styled.span`
-    font-size: 0.6rem;
-    font-weight: 700;
-`;
-
-const Badges = styled.div`
-    display: flex;
-    padding-top: 0.6rem;
-`;
-
-const Badge = styled.div`
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-
-    background-color: ${props => props.randomColor};
-    padding: 0.3rem 0.35rem;
-    border-radius: 0.3rem;
-    margin-right: 0.35rem;
-`;
-
-/* 카카오톡 공유하기 */
-const KakaoShareBtn = styled.button`
-    border: none;
-    background-color: #fff;
-    cursor: pointer;
-`;
-
-const FolderAddBtn = styled.button`
-    border: none;
-    background: none;
-    cursor: pointer;
-`;
-
-/* 검색 결과 없을 시 */
-const RequestSearch = styled.div`
-    display: flex;
-    justify-content: center;
-    height: 90vh;
-`;
-
-/* flex */
-const FlexRow = styled.div`
-    display: flex;
-    justify-content: center;
-`;
-
-const FlexCol = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-`;
+import {
+    AddrNm,
+    AddrNmIcon,
+    AddrNmTxt,
+    Badge,
+    Badges,
+    BorderLine,
+    CateNmTxt,
+    FlexCol,
+    FlexRow,
+    FolderAddBtn,
+    Info,
+    KakaoShareBtn,
+    PhoneNum,
+    PhoneNumIcon,
+    PhoneNumTxt,
+    PlaceBtn,
+    PlaceNmTxt,
+    RadiusBox,
+    RequestSearch,
+    Result,
+    ResultList,
+    Title,
+    Wrapper,
+} from './SearchResult.styled';
 
 type Props = {
     searchRes: SearchState['searchRes'];
