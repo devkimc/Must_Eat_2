@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 
 import useInput from 'lib/hooks/useInput';
-import LoginComponents from 'components/auth/LoginComponent';
+import LoginComponents from 'components/auth/Login';
 import { toast } from 'react-toastify';
 import { AxiosData } from 'lib/api/apiClient';
 import { login } from 'lib/api/auth';

@@ -1,66 +1,18 @@
 import React from 'react';
 import Link from 'next/link';
-import styled from 'styled-components';
 import AuthInput from './AuthInput';
-
-const Container = styled.div`
-    width: 20rem;
-`;
-
-const Title = styled.div`
-    display: flex;
-    justify-content: center;
-    margin: 5rem 0 3rem 0;
-`;
-const TitleTxt = styled.h1`
-    font-size: 2rem;
-`;
-
-/* input */
-const InputBox = styled.div`
-    padding: 2rem 3rem;
-    border-radius: 1rem;
-    box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.2),
-        0 0.375rem 1.25rem 0 rgba(0, 0, 0, 0.19);
-    margin-bottom: 1.5rem;
-`;
-
-const SubmitBtn = styled.div`
-    margin-top: 2rem;
-    width: 100%;
-    height: 2.2rem;
-    background-color: #12b886;
-    border-radius: 1rem;
-    display: flex;
-    justify-content: center;
-    cursor: pointer;
-`;
-const SubmitTxt = styled.span`
-    color: #fff;
-    font-weight: 300;
-    font-size: 1rem;
-`;
-
-const LoginBtn = styled.div`
-    display: flex;
-    justify-content: center;
-`;
-
-const LoginTxt = styled.span`
-    color: #12b886;
-`;
-
-/* Flex */
-const FlexRow = styled.div`
-    display: flex;
-    justify-content: center;
-`;
-
-const FlexCol = styled.div`
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-`;
+import {
+    FlexRow,
+    Container,
+    Title,
+    TitleTxt,
+    InputBox,
+    SubmitBtn,
+    FlexCol,
+    SubmitTxt,
+    LoginBtn,
+    LoginTxt,
+} from './SignUp.styled';
 
 type Props = {
     inputId: string;
@@ -76,7 +28,7 @@ type Props = {
     onClick: () => void;
 };
 
-const SignUpComponents = ({
+const SignUp = ({
     inputId,
     inputPw,
     inputPwConf,
@@ -143,7 +95,7 @@ const SignUpComponents = ({
                     </SubmitBtn>
                 </InputBox>
                 <LoginBtn>
-                    <Link href="/login">
+                    <Link href="/auth/login">
                         <LoginTxt>Login</LoginTxt>
                     </Link>
                 </LoginBtn>
@@ -152,4 +104,4 @@ const SignUpComponents = ({
     );
 };
 
-export default SignUpComponents;
+export default SignUp;
