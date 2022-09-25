@@ -42,7 +42,6 @@
 
 > **Client**
 > + React
-> + Next
 > + Redux-toolkit
 > + React-query
 > + Styled-components
