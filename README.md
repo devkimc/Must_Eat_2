@@ -42,9 +42,10 @@
 
 > **Client**
 > + React
-> + Recoil
+> + Typescript
+> + Redux-toolkit
+> + React-query
 > + Styled-components
->
 >
 > **Server**
 > + Node.js
