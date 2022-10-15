@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { BiMap } from 'react-icons/bi';
 import { IoIosCall } from 'react-icons/io';
 import { FiShare, FiFolderPlus } from 'react-icons/fi';
-import { SearchState } from 'store/searchSlice';
-import { FavRestType, RestType } from 'lib/api/rest';
+import { SearchState } from '@/store/searchSlice';
+import { FavRestType, RestType } from '@/lib/api/rest';
 
 const Wrapper = styled.div`
     height: 87%;

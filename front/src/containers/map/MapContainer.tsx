@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { MapComponent } from 'components';
-import * as Constants from 'constants/mapConstants';
-import { RootState } from 'store/store';
-import { SearchState } from 'store/searchSlice';
+import { MapComponent } from '@/components';
+import * as Constants from '@/constants/mapConstants';
+import { RootState } from '@/store/store';
+import { SearchState } from '@/store/searchSlice';
 
 type Map = {
     setCenter: (latlng: object) => void;

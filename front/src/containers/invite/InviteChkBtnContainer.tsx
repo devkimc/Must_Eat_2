@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { InviteChkBtn } from 'components';
+import { InviteChkBtn } from '@/components';
 import { useQueryClient } from 'react-query';
-import * as queryKes from 'constants/queryKeys';
-import useToggle from 'lib/hooks/useToggle';
+import * as queryKes from '@/constants/queryKeys';
+import useToggle from '@/lib/hooks/useToggle';
 import InviteChkModalContainer from './InviteChkModalContainer';
 import useNotProcData from './hooks/useNotProcData';
 

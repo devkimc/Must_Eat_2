@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { OptionTab, SearchResult } from 'components';
-import { RootState } from 'store/store';
+import { OptionTab, SearchResult } from '@/components';
+import { RootState } from '@/store/store';
 import { useDispatch, useSelector } from 'react-redux';
-import RestAddModalContainer from 'containers/rest/RestAddModalContainer';
-import { changeTab } from 'store/searchSlice';
-import { FavRestType } from 'lib/api/rest';
-import FavRestListContainer from 'containers/rest/FavRestListContainer';
+import RestAddModalContainer from '@/containers/rest/RestAddModalContainer';
+import { changeTab } from '@/store/searchSlice';
+import { FavRestType } from '@/lib/api/rest';
+import FavRestListContainer from '@/containers/rest/FavRestListContainer';
 import GroupListContainer from '../group/GroupListContainer';
 
 const SearchResultBlock = styled.div``;

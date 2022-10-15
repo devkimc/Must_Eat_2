@@ -1,10 +1,10 @@
 import React from 'react';
-import { InviteChkModal } from 'components';
+import { InviteChkModal } from '@/components';
 import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from 'react-query';
-import { AxiosData } from 'lib/api/apiClient';
-import * as queryKeys from 'constants/queryKeys';
-import { acceptInvite, rejectInvite } from 'lib/api/group';
+import { AxiosData } from '@/lib/api/apiClient';
+import * as queryKeys from '@/constants/queryKeys';
+import { acceptInvite, rejectInvite } from '@/lib/api/group';
 import useInviteData from './hooks/useInviteData';
 
 const InviteChkModalContainer = () => {

@@ -1,14 +1,17 @@
 {
-  "compilerOptions": {
-    "jsx": "react",
-    "baseUrl": "src",
-    "allowJs": true,
-    "target": "ES5",
-    "outDir": "./dist",
-    "esModuleInterop": true,
-    "moduleResolution": "Node",
-    "lib": ["ES2015", "DOM", "DOM.Iterable"]
-  },
-  "include": ["./src/**/*"],
-  "exclude": ["node_modules", "dist"]
+    "compilerOptions": {
+        "jsx": "react",
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"]
+        },
+        "allowJs": true,
+        "target": "ES5",
+        "outDir": "./dist",
+        "esModuleInterop": true,
+        "moduleResolution": "Node",
+        "lib": ["ES2015", "DOM", "DOM.Iterable"]
+    },
+    "include": ["./src/**/*"],
+    "exclude": ["node_modules", "dist"]
 }

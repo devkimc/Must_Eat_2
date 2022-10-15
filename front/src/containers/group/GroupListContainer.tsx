@@ -1,16 +1,16 @@
-import { GroupList } from 'components';
-import { AxiosData } from 'lib/api/apiClient';
+import { GroupList } from '@/components';
+import { AxiosData } from '@/lib/api/apiClient';
 import React, { useEffect } from 'react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { toast } from 'react-toastify';
-import * as queryKes from 'constants/queryKeys';
-import { deleteGroup } from 'lib/api/group';
+import * as queryKes from '@/constants/queryKeys';
+import { deleteGroup } from '@/lib/api/group';
 import { AxiosResponse, AxiosError } from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'store/store';
-import { changeGroupId } from 'store/groupSlice';
-import { getFavRest, RestType } from 'lib/api/rest';
-import { changeSearchRes, changeTab } from 'store/searchSlice';
+import { RootState } from '@/store/store';
+import { changeGroupId } from '@/store/groupSlice';
+import { getFavRest, RestType } from '@/lib/api/rest';
+import { changeSearchRes, changeTab } from '@/store/searchSlice';
 import useGroupData from './hooks/useGroupData';
 
 const GroupListContainer = () => {

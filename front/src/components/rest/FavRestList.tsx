@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { SearchState } from 'store/searchSlice';
+import { SearchState } from '@/store/searchSlice';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 
 const Wrapper = styled.div`

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai';
-import { GroupType } from 'lib/api/group';
+import { GroupType } from '@/lib/api/group';
 
 const Container = styled.div`
     z-index: 501;

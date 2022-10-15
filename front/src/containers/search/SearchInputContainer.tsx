@@ -1,7 +1,7 @@
 import React from 'react';
-import { SearchInput } from 'components';
-import { RootState } from 'store/store';
-import * as Constants from 'constants/mapConstants';
+import { SearchInput } from '@/components';
+import { RootState } from '@/store/store';
+import * as Constants from '@/constants/mapConstants';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -11,7 +11,7 @@ import {
     changeTab,
     resetSearchRes,
     SearchState,
-} from 'store/searchSlice';
+} from '@/store/searchSlice';
 
 const SearchInputContainer = () => {
     const searchIp = useSelector((state: RootState) => state.search.input);

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { InviteMembModal } from 'components';
-import useInput from 'lib/hooks/useInput';
+import { InviteMembModal } from '@/components';
+import useInput from '@/lib/hooks/useInput';
 import { toast } from 'react-toastify';
-import { AxiosData } from 'lib/api/apiClient';
-import useGroupData from 'containers/group/hooks/useGroupData';
+import { AxiosData } from '@/lib/api/apiClient';
+import useGroupData from '@/containers/group/hooks/useGroupData';
 import { useMutation } from 'react-query';
-import { inviteGroup } from 'lib/api/group';
+import { inviteGroup } from '@/lib/api/group';
 
 const InviteMembModalContainer = ({ closeInviteMemb }) => {
     const [selectedGroupId, setSelectedGroupId] = useState<number>();
