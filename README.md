@@ -41,8 +41,8 @@
 # 4. 기술 스택
 
 > **Client**
-> + React
 > + Typescript
+> + React
 > + Redux-toolkit
 > + React-query
 > + Styled-components
