@@ -1,21 +1,21 @@
 import React from 'react';
-import { useRouter } from 'next/router';
+import { useNavigate } from 'react-router-dom';
 
-import useInput from 'lib/hooks/useInput';
-import LoginComponents from 'components/auth/Login';
+import useInput from '@/lib/hooks/useInput';
+import LoginComponents from '@/components/auth/LoginComponent';
 import { toast } from 'react-toastify';
-import { AxiosData } from 'lib/api/apiClient';
-import { login } from 'lib/api/auth';
+import { AxiosData } from '@/lib/api/apiClient';
+import { login } from '@/lib/api/auth';
 import { useMutation } from 'react-query';
 
 const LoginContainer = () => {
     const [inputId, onChangeId] = useInput('');
     const [inputPw, onChangePw, onResetPw] = useInput('');
-    const router = useRouter();
+    const navigate = useNavigate();
 
     const { mutate } = useMutation(() => login(inputId, inputPw), {
         onSuccess: () => {
-            router.push('/map');
+            navigate('/map');
             toast.success('로그인에 성공하셨습니다!');
         },
         onError: (res: AxiosData) => {

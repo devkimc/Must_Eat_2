@@ -4,8 +4,8 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { ToastContainer, Flip } from 'react-toastify';
 
-import GlobalStyle from 'style/GlobalStyle';
-import store from 'store/store';
+import GlobalStyle from '@/style/GlobalStyle';
+import store from '@/store/store';
 import App from './App';
 import 'react-toastify/dist/ReactToastify.css';
 

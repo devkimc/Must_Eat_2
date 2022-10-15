@@ -5,7 +5,7 @@ import {
     MapContainer,
     SearchInputContainer,
     SearchResultContainer,
-} from 'containers';
+} from '@/containers';
 import styled from 'styled-components';
 
 const Container = styled.div``;

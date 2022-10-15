@@ -41,11 +41,11 @@
 # 4. 기술 스택
 
 > **Client**
+> + Typescript
 > + React
 > + Redux-toolkit
 > + React-query
 > + Styled-components
->
 >
 > **Server**
 > + Node.js

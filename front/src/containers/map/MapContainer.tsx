@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { MapComponent } from 'components';
-import * as Constants from 'constants/mapConstants';
-import { RootState } from 'store/store';
-import { SearchState } from 'store/searchSlice';
+import { MapComponent } from '@/components';
+import * as Constants from '@/constants/mapConstants';
+import { RootState } from '@/store/store';
+import { SearchState } from '@/store/searchSlice';
 
 type Map = {
     setCenter: (latlng: object) => void;
@@ -60,7 +60,7 @@ const MapContainer = () => {
     };
 
     useEffect(() => {
-        // window.Kakao.init(process.env.NEXT_PUBLIC_API_KEY_KAKAO_MAP);
+        window.Kakao.init(process.env.REACT_APP_API_KEY_KAKAO_MAP);
     }, []);
 
     useEffect(() => {
@@ -69,7 +69,7 @@ const MapContainer = () => {
         script.onload = () => window.kakao.maps.load(initMap);
         script.src =
             Constants.KAKAO_MAP_API_URL +
-            process.env.NEXT_PUBLIC_API_KEY_KAKAO_MAP +
+            process.env.REACT_APP_API_KEY_KAKAO_MAP +
             Constants.KAKAO_MAP_API_SERVICES;
         document.head.appendChild(script);
     }, []);

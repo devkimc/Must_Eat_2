@@ -1,5 +1,5 @@
-export { default as LoginComponent } from './auth/Login';
-export { default as SignUpComponent } from './auth/SignUp';
+export { default as LoginComponent } from './auth/LoginComponent';
+export { default as SignUpComponent } from './auth/SignUpComponent';
 
 export { default as GroupList } from './group/GroupList';
 

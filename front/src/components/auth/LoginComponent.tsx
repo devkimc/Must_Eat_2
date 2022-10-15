@@ -1,19 +1,69 @@
 import React from 'react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 import AuthInput from './AuthInput';
-import {
-    FlexRow,
-    Container,
-    Title,
-    TitleTxt,
-    InputBox,
-    SubmitBtn,
-    FlexCol,
-    SignUpBtn,
-    SignUpTxt,
-    SubmitTxt,
-} from './Login.styled';
+
+const Container = styled.div`
+    width: 20rem;
+`;
+
+const Title = styled.div`
+    display: flex;
+    justify-content: center;
+    margin: 5rem 0 3rem 0;
+`;
+const TitleTxt = styled.h1`
+    font-size: 2rem;
+`;
+
+/* input */
+const InputBox = styled.div`
+    padding: 2rem 3rem;
+    border-radius: 1rem;
+    box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.2),
+        0 0.375rem 1.25rem 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 1.5rem;
+`;
+
+const SubmitBtn = styled.button`
+    margin-top: 2rem;
+    width: 100%;
+    height: 2.2rem;
+    background-color: ${props => (props.disable ? '#b8b8b8' : '#12B886')};
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+`;
+const SubmitTxt = styled.span`
+    color: #fff;
+    font-weight: 300;
+    font-size: 1rem;
+`;
+
+const SignUpBtn = styled.div`
+    display: flex;
+    justify-content: center;
+`;
+
+const SignUpTxt = styled.span`
+    color: #12b886;
+`;
+
+/* Flex */
+const FlexRow = styled.div`
+    display: flex;
+    justify-content: center;
+`;
+
+const FlexCol = styled.div`
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+`;
 
 type Props = {
     inputId: string;
@@ -23,7 +73,7 @@ type Props = {
     onClick: () => void;
 };
 
-const Login = ({
+const LoginComponents = ({
     inputId,
     inputPw,
     onChangeId,
@@ -65,7 +115,7 @@ const Login = ({
                     </SubmitBtn>
                 </InputBox>
                 <SignUpBtn>
-                    <Link href="/auth/signup">
+                    <Link to="/signup">
                         <SignUpTxt>SignUp</SignUpTxt>
                     </Link>
                 </SignUpBtn>
@@ -74,4 +124,4 @@ const Login = ({
     );
 };
 
-export default Login;
+export default LoginComponents;

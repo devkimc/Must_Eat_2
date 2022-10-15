@@ -1,12 +1,12 @@
 import React from 'react';
-import { useRouter } from 'next/router';
+import { useNavigate } from 'react-router-dom';
 
-import useInput from 'lib/hooks/useInput';
-import SignUpComponents from 'components/auth/SignUp';
+import useInput from '@/lib/hooks/useInput';
+import SignUpComponents from '@/components/auth/SignUpComponent';
 import { toast } from 'react-toastify';
-import { AxiosData } from 'lib/api/apiClient';
+import { AxiosData } from '@/lib/api/apiClient';
 import { useMutation } from 'react-query';
-import { signup } from 'lib/api/auth';
+import { signup } from '@/lib/api/auth';
 
 const SignUpContainer = () => {
     const [inputId, onChangeId] = useInput('');
@@ -14,13 +14,13 @@ const SignUpContainer = () => {
     const [inputPwConf, onChangePwConf, onResetPwConf] = useInput('');
     const [inputEmail, onChangeEmail] = useInput('');
     const [inputMobNo, onChangeMobNo] = useInput('');
-    const router = useRouter();
+    const navigate = useNavigate();
 
     const { mutate } = useMutation(
         () => signup(inputId, inputPw, inputEmail, inputMobNo),
         {
             onSuccess: () => {
-                router.push('/login');
+                navigate('/login');
                 toast.success('회원가입을 축하해요!');
             },
             onError: (res: AxiosData) => {

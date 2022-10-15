@@ -7,7 +7,7 @@ const errProc = (errData: Error) => {
     const errCode = String(errData.code);
 
     if (errCode === '20001') {
-        window.location.href = '/auth/login';
+        window.location.href = '/login';
     }
 
     // for (let i = 0; i < errCodeMsg.length; i += 1) {

@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from 'react-query';
 
-import { RestAddModal } from 'components';
-import { addFavRest } from 'lib/api/rest';
-import useInput from 'lib/hooks/useInput';
-import { AxiosData } from 'lib/api/apiClient';
-import * as queryKes from 'constants/queryKeys';
-import useGroupData from 'containers/group/hooks/useGroupData';
-import createGroup from 'lib/api/group';
+import { RestAddModal } from '@/components';
+import { addFavRest } from '@/lib/api/rest';
+import useInput from '@/lib/hooks/useInput';
+import { AxiosData } from '@/lib/api/apiClient';
+import * as queryKes from '@/constants/queryKeys';
+import useGroupData from '@/containers/group/hooks/useGroupData';
+import createGroup from '@/lib/api/group';
 
 const RestAddModalContainer = ({ targetRestInfo, onClickCloseBtn }) => {
     const [addClicked, setAddClicked] = useState<boolean>(false);
