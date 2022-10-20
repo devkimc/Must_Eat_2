@@ -6,7 +6,6 @@ axios.defaults.withCredentials = true;
 axios.defaults.timeout = 1000;
 
 const baseURL = '';
-// const baseURL = process.env.REACT_APP_API_URL_DEV;
 
 const apiClient = axios.create({
     baseURL,
